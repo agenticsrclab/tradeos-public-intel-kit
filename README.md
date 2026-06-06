@@ -12,6 +12,73 @@ workflow, charge for the packaging around it, and upgrade to paid TradeOS when
 the workflow needs scale, automation, premium data, exports, alerts, or x402
 machine access.
 
+## Domain Space
+
+TradeOS sits in the public market-intelligence layer for crypto and on-chain
+markets. The kit is for builders who need current, source-backed market context
+inside products, bots, dashboards, agent workflows, research tools, and
+validation systems.
+
+This is not an exchange connector or an execution framework. It is an evidence
+and feedback layer:
+
+- public digest inputs, candidates, watchlists, thesis records, proof lookups,
+  caveats, freshness, source refs, and invalidation notes;
+- SDK, CLI, and MCP surfaces that agent hosts and apps can consume;
+- structured feedback writes with provenance so TradeOS can learn which public
+  intelligence was useful, early, late, thin, or confusing;
+- a free-to-paid path where successful builder workflows can graduate to paid
+  TradeOS data, exports, alerts, validation APIs, x402 machine access, or
+  enterprise integrations.
+
+## Motivation And Background
+
+Most market tools force builders into one of two weak choices: ship generic LLM
+summaries with no durable evidence, or spend months building data pipelines
+before they can test whether users care. TradeOS public intelligence is meant to
+sit between those extremes.
+
+The motivation for this kit is to let developers build useful products first:
+
+- get live public market evidence without operating the TradeOS core stack;
+- ground LLM and agent answers in bounded source-backed context;
+- keep model inference BYOK so builders and users control their own provider
+  cost;
+- collect structured feedback from humans, agents, and automation;
+- give TradeOS a credit/reputation loop while giving builders product ideas
+  they can monetize.
+
+The commercial loop is intentional: builders use public intelligence to create
+products that make money, users send feedback that improves the intelligence
+surface, and TradeOS earns when those products need production-grade depth,
+scale, or paid machine access.
+
+## Venice AI Ecosystem Fit
+
+This kit is designed to be useful in a Venice AI or any OpenAI-compatible BYOK
+ecosystem because it gives agents something concrete to reason over. The model
+provider handles inference; TradeOS provides public market evidence, stable
+target IDs, caveats, and feedback endpoints.
+
+For a Venice-powered app, this enables:
+
+- **grounded market answers**: the CLI and bot examples fetch TradeOS evidence
+  first, then ask a Venice-compatible model to summarize it;
+- **user-paid inference**: builders do not need TradeOS to subsidize LLM calls;
+  users or app operators bring their own Venice key;
+- **agent-native distribution**: MCP tools let local agent hosts read market
+  context and submit structured feedback;
+- **ecosystem feedback**: apps can report whether an answer, digest, thesis, or
+  evidence packet was useful, creating a loop that improves TradeOS public
+  intelligence over time;
+- **clear safety boundaries**: the kit avoids custody, exchange credentials,
+  order placement, and personalized financial advice, which makes it suitable
+  for research, monitoring, education, validation, and workflow products.
+
+The ecosystem value is that Venice-compatible agents get a live public market
+memory and feedback loop, while TradeOS gains distribution, labels, and demand
+signals for paid data products.
+
 ## What You Can Build
 
 - Paid crypto research products that use TradeOS evidence as the intelligence
