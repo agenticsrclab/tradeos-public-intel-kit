@@ -1,6 +1,6 @@
 # TradeOS Public Intelligence Kit
 
-Build market intelligence products on top of TradeOS public evidence.
+Build market intelligence products on top of [TradeOS public evidence](https://tradeos.tech/market).
 
 This kit gives builders source-backed public market context, MCP tools, SDKs,
 and bring-your-own-key agent examples. TradeOS hosts the intelligence API. Users
@@ -11,6 +11,21 @@ The practical idea is simple: use the free public kit to prove a customer
 workflow, charge for the packaging around it, and upgrade to paid TradeOS when
 the workflow needs scale, automation, premium data, exports, alerts, or x402
 machine access.
+
+## Explore TradeOS
+
+- [TradeOS app](https://tradeos.tech): product entry point.
+- [Live market intelligence](https://tradeos.tech/market): public market pulse,
+  digest context, evidence cards, and feedback entry points.
+- [Ask TradeOS](https://tradeos.tech/ask): public-intelligence questions grounded
+  in TradeOS evidence.
+- [Developer Keys](https://tradeos.tech/developer/api-keys): create app keys for
+  attribution and feedback provenance.
+- [Review Lab](https://tradeos.tech/review): label public evidence and see how
+  feedback fits into the credit loop.
+- [How TradeOS Works](https://tradeos.tech/how-it-works): product background and
+  safety boundaries.
+- [Public docs](https://tradeos.tech/docs/): deeper TradeOS documentation.
 
 ## Domain Space
 
@@ -547,9 +562,10 @@ Before making the repository public, run the publish gate in
 
 ## TradeOS Links
 
-```text
-Homepage: https://tradeos.tech
-Public machine-readable docs: https://tradeos.tech/llms.txt
-x402 discovery: https://tradeos.tech/.well-known/x402.json
-x402 listings: https://tradeos.tech/x402/v1/listings
-```
+- [Homepage](https://tradeos.tech)
+- [Market dashboard](https://tradeos.tech/market)
+- [Ask TradeOS](https://tradeos.tech/ask)
+- [Developer Keys](https://tradeos.tech/developer/api-keys)
+- [Public machine-readable docs](https://tradeos.tech/llms.txt)
+- [x402 discovery](https://tradeos.tech/.well-known/x402.json)
+- [x402 listings](https://tradeos.tech/x402/v1/listings)
