@@ -523,7 +523,7 @@ x402 payment, or enterprise entitlement.
 - `docs`: architecture, use cases, monetization, builder revenue playbook, API,
   API keys and feedback provenance, MCP tools, feedback loop, access and
   payments, paid boundaries, safety boundaries, production readiness, and
-  consumer e2e notes.
+  consumer e2e notes. Start with the [docs index](docs/README.md).
 
 ## Product Boundary
 
