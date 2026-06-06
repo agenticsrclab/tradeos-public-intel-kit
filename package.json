@@ -1,0 +1,27 @@
+{
+  "name": "tradeos-public-intel-kit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Open-source clients, MCP tools, and BYOK examples for TradeOS public intelligence.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "workspaces": [
+    "packages/sdk-js",
+    "packages/mcp-server",
+    "apps/tradeos-agent-cli",
+    "apps/market-briefing-bot"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "mcp": "npm --workspace @tradeos/public-intel-mcp-server run dev",
+    "cli": "npm --workspace @tradeos/public-intel-agent-cli run dev --",
+    "briefing-bot": "npm --workspace @tradeos/market-briefing-bot run dev --"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.8"
+  }
+}

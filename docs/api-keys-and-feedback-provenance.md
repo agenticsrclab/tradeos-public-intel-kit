@@ -1,0 +1,230 @@
+# API Keys And Feedback Provenance
+
+This kit supports optional API-key usage and feedback attribution. TradeOS
+issues public-intel app keys for signed-in builder accounts. The normal path is
+the TradeOS Developer Keys dashboard. The SDKs and CLI can also call the issuer
+for trusted automation when you provide `TRADEOS_ACCOUNT_TOKEN`; they do not
+perform TradeOS login/device auth yet.
+
+## API Key Issuance
+
+Current state:
+
+```text
+Public reads: keyless by default
+SDK/CLI/MCP: can send TRADEOS_PUBLIC_INTEL_KEY if one is issued
+Dashboard key management: create/list/rotate/revoke from Developer Keys
+SDK/CLI key management: available with TRADEOS_ACCOUNT_TOKEN
+Public-intel key issuer: available from the TradeOS API for signed-in builders
+x402: available for paid machine resources through explicit payment flows
+```
+
+Recommended dashboard flow:
+
+```text
+1. Sign up or sign in to TradeOS.
+2. Verify your email.
+3. Open Developer Keys.
+4. Create a public-intel app key for the builder app.
+5. Copy the returned secret once into the app server environment.
+```
+
+The CLI exposes `tradeos-intel auth` to show whether a key is configured and to
+call the live app-attribution endpoint when the API is reachable. It also
+supports key management when `TRADEOS_ACCOUNT_TOKEN` is set:
+
+```bash
+tradeos-intel keys create --app-name my-public-intel-app
+tradeos-intel keys list
+tradeos-intel keys revoke --key-id pubkey_...
+```
+
+TradeOS app-key management lives under the public-intel API:
+
+```text
+POST   /v1/public-intel/api-keys        create key for a builder app/account
+GET    /v1/public-intel/api-keys        list non-secret key metadata
+POST   /v1/public-intel/api-keys/{id}/rotate rotate secret and return it once
+DELETE /v1/public-intel/api-keys/{id}   revoke key
+GET    /v1/public-intel/app-attribution validate optional bearer app key
+```
+
+Key creation and revocation require a signed-in TradeOS account bearer token.
+The app-key secret is returned once at creation or rotation and should be kept
+server-side. Existing secrets are not retrievable from TradeOS. Public examples
+continue to work without it.
+
+## Getting TRADEOS_ACCOUNT_TOKEN
+
+`TRADEOS_ACCOUNT_TOKEN` is the TradeOS account JWT returned by production auth
+after login. It is not a static project secret and should not be committed.
+
+Production hosts:
+
+```text
+Auth/login: https://tradeos.tech/api/alpha
+Public intel: https://api.tradeos.tech/v1/public-intel
+```
+
+Dashboard path:
+
+```text
+1. Sign up or sign in at https://tradeos.tech/signup or https://tradeos.tech/signin.
+2. Verify the email from the inbox.
+3. Open Developer Keys and create a public-intel app key.
+4. Store the returned TRADEOS_PUBLIC_INTEL_KEY in your server environment.
+```
+
+Direct API path for scripts:
+
+```bash
+export TRADEOS_EMAIL=your-email@example.com
+read -s TRADEOS_PASSWORD
+
+curl -sS https://tradeos.tech/api/alpha/signup \
+  -H "content-type: application/json" \
+  -d "{\"email\":\"$TRADEOS_EMAIL\",\"password\":\"$TRADEOS_PASSWORD\"}"
+
+# After opening the email verification link:
+export TRADEOS_ACCOUNT_TOKEN="$(
+  curl -sS https://tradeos.tech/api/alpha/login \
+    -H "content-type: application/json" \
+    -d "{\"email\":\"$TRADEOS_EMAIL\",\"password\":\"$TRADEOS_PASSWORD\"}" \
+  | jq -r .access_token
+)"
+```
+
+Minimal direct API shape:
+
+```bash
+export TRADEOS_API_BASE=https://api.tradeos.tech/v1/public-intel
+curl -X POST "$TRADEOS_API_BASE/api-keys" \
+  -H "authorization: Bearer $TRADEOS_ACCOUNT_TOKEN" \
+  -H "content-type: application/json" \
+  -d '{"app_name":"my-public-intel-app"}'
+```
+
+The response contains `secret` once. Configure that value as
+`TRADEOS_PUBLIC_INTEL_KEY` in server-side SDK, MCP, or CLI environments.
+
+## Abuse Controls
+
+TradeOS protects public-intel key creation and write paths. Builders should
+expect these guardrails:
+
+```text
+email verification required for app-key creation
+maximum active app keys per account
+per-account and per-network key creation velocity limits
+per-key feedback/write velocity limits
+anonymous/keyless write velocity limits
+revoked, suspended, and expired app keys rejected on writes
+```
+
+Common responses:
+
+| Status | Meaning | Builder Action |
+| --- | --- | --- |
+| 401 | invalid public-intel app key | rotate or remove the key |
+| 403 | email verification required, key revoked, key suspended, or key expired | verify account or contact TradeOS |
+| 409 | active key limit reached | revoke an unused key |
+| 429 | key creation or write rate limit reached | respect `Retry-After` and back off |
+
+More detail: [Distribution Setup Guide](distribution-setup-guide.md)
+
+## Attribution Without A Key
+
+Even without an API key, feedback writes carry attribution fields:
+
+```text
+client_app
+client_version
+anonymous_session_id_or_user_id
+source_snapshot_refs
+idempotency_key
+feedback_source
+automation_level
+agent_id
+agent_run_id
+agent_model
+agent_confidence
+provenance_note
+```
+
+These fields help TradeOS understand whether a label came from a person, an
+agent, or a fully automated process.
+
+## Feedback Source Classes
+
+| Source | Meaning | Credit Treatment | Value To TradeOS |
+| --- | --- | --- | --- |
+| `human` | a person reviewed and labeled the intelligence | eligible for normal user credit when linked | high-quality judgment, UX signal |
+| `human_assisted` | an agent suggested or summarized, but a person confirmed | eligible, usually lower or equal weight depending trust | strong signal with provenance |
+| `agent` | an LLM/agent generated the label without direct human confirmation | usually no user credit; possible app reputation after validation | scale, disagreement detection, model-quality signal |
+| `automation` | deterministic bot/job/rule emitted feedback | no user credit by default; app-level trust only after calibration | monitoring, regression detection, outcome telemetry |
+| `hybrid` | mixed workflow with unclear boundary | conservative credit until clarified | useful but should be sampled/audited |
+
+Clients can report provenance, but they cannot choose their own credit class.
+TradeOS should compute credit weight server-side.
+
+## Recommended Credit And Access Policy
+
+Use differentiated credit because agentic feedback can be high-volume, copied,
+or self-referential.
+
+| Feedback Class | Suggested User Credit | Suggested Access Window | Notes |
+| --- | --- | --- | --- |
+| linked human | full eligible credit | 30 days dashboard depth | current default pattern |
+| linked human-assisted | partial to full credit | 14-30 days | depends on app reputation and agreement with later outcomes |
+| unlinked human/anonymous | quality signal only until linked | none or later reconciliation | can backfill if identity is linked later |
+| verified agent | app reputation or quota, not personal credit | 7-14 day app preview after calibration | useful for builders and QA |
+| raw automation | no personal credit | none by default | store as telemetry until trust is established |
+| spam/looped automation | no credit | none | rate-limit or ignore |
+
+Agent and automation feedback is still valuable. It can identify stale evidence,
+find confusing explanations, measure model disagreement, and produce product
+analytics. It should be weighted separately from human judgment and should not
+unlock paid API calls, x402 resources, execution, exports, or private forecasts.
+
+## CLI Examples
+
+Check attribution status:
+
+```bash
+tradeos-intel auth
+```
+
+Human feedback:
+
+```bash
+tradeos-intel feedback \
+  --target-id digest_123 \
+  --label useful \
+  --feedback-source human \
+  --anonymous-session-id user_abc
+```
+
+Agent feedback:
+
+```bash
+tradeos-intel feedback \
+  --target-id digest_123 \
+  --label evidence_too_thin \
+  --feedback-source agent \
+  --automation-level autonomous \
+  --agent-id market-review-agent \
+  --agent-run-id run_2026_06_06_001 \
+  --agent-model z-ai-glm-5-turbo
+```
+
+Automation feedback:
+
+```bash
+tradeos-intel feedback \
+  --target-id thesis_456 \
+  --target-type thesis \
+  --label too_late \
+  --feedback-source automation \
+  --automation-level automated \
+  --provenance-note "Scheduled outcome check after 24h move window"
+```

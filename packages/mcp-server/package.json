@@ -1,0 +1,31 @@
+{
+  "name": "@tradeos/public-intel-mcp-server",
+  "version": "0.1.0",
+  "description": "MCP server for TradeOS public intelligence.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "bin": {
+    "tradeos-public-intel-mcp": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/index.ts",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@tradeos/public-intel-sdk": "0.1.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "tsx": "^4.22.4",
+    "vitest": "^4.1.8"
+  }
+}

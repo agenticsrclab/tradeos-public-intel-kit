@@ -1,0 +1,30 @@
+{
+  "name": "@tradeos/market-briefing-bot",
+  "version": "0.1.0",
+  "description": "Discord and Telegram ready market briefing bot powered by TradeOS public intelligence.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "bin": {
+    "tradeos-market-briefing-bot": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/index.ts",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@tradeos/public-intel-sdk": "0.1.0",
+    "openai": "^6.42.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.22.4",
+    "vitest": "^4.1.8"
+  }
+}

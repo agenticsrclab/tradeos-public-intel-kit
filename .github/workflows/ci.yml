@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  node:
+    name: Node workspaces
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build --workspaces
+
+      - name: Typecheck
+        run: npm run typecheck --workspaces --if-present
+
+      - name: Test
+        run: npm run test --workspaces --if-present
+
+  python:
+    name: Python SDK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install test runner
+        run: python -m pip install --upgrade pip pytest
+
+      - name: Test Python SDK
+        run: PYTHONPATH=packages/sdk-python/src python -m pytest packages/sdk-python/tests -q
+
+  public-scrub:
+    name: Public doc scrub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check for local paths and secrets
+        run: |
+          ! grep -RInE '(/Users/|gmail\.com|TRADEOS_PUBLIC_INTEL_KEY=tos_pub_|VENICE_API_KEY=sk-|OPENAI_API_KEY=sk-)' \
+            README.md docs apps packages examples .env.example SECURITY.md CONTRIBUTING.md
