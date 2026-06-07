@@ -368,7 +368,7 @@ Free public kit: bounded reads and feedback writes
 Anonymous starter ask: 3 public-intelligence questions
 Signed-in starter ask: 10 public-intelligence questions for 7 days
 DTI question pack: 5 extra public-intelligence questions
-Data Intel Credits: dashboard-only depth, 7-day unlock by default
+Human DTI: public dashboard depth, public Ask packs, or read-only Review Lab where enabled
 Paid TradeOS: automation, exports, alerts, premium data, validation APIs
 x402: machine payment for paid API resources
 ```
@@ -403,9 +403,9 @@ historical or replayable datasets
 team API access
 ```
 
-Keep x402 separate from user Data Intel Credits. DTI credits create dashboard
-depth and quality loops; x402 creates explicit paid entitlement for machine
-access.
+Keep x402 separate from user Data Intel Credits. Human DTI creates public
+dashboard depth, public Ask packs, Review Lab access, and quality loops; x402
+creates explicit paid entitlement for machine access.
 
 ## Copy Builders Can Use
 

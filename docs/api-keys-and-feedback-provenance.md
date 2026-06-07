@@ -234,18 +234,18 @@ agent, or a fully automated process.
 Clients can report provenance, but they cannot choose their own credit class.
 TradeOS should compute credit weight server-side.
 
-## Recommended Credit And Access Policy
+## Credit And Access Policy
 
-Use differentiated credit because agentic feedback can be high-volume, copied,
-or self-referential.
+TradeOS uses scoped credit treatment because agentic feedback can be
+high-volume, copied, or self-referential.
 
-| Feedback Class | Suggested User Credit | Suggested Access Window | Notes |
+| Feedback Class | Credit treatment | Access effect | Notes |
 | --- | --- | --- | --- |
-| linked human | full eligible credit | 7 days dashboard depth | current default pattern |
-| linked human-assisted | partial to full credit | 7 days | depends on app reputation and agreement with later outcomes |
+| linked human | eligible for human DTI after quality checks | temporary public dashboard depth, public Ask packs, or read-only Review Lab where enabled | current default pattern |
+| linked human-assisted | partial to full human DTI after validation | same scoped human DTI surfaces when approved | depends on app reputation and agreement with later outcomes |
 | unlinked human/anonymous | quality signal only until linked | none or later reconciliation | can backfill if identity is linked later |
-| verified agent | app reputation or quota, not personal credit | 7-14 day app preview after calibration | useful for builders and QA |
-| raw automation | no personal credit | none by default | store as telemetry until trust is established |
+| verified agent | app reputation or quota confidence, not personal credit | may support earned public app quota after calibration | useful for builders and QA |
+| raw automation | no personal credit by default | none by default | store as telemetry until trust is established |
 | spam/looped automation | no credit | none | rate-limit or ignore |
 
 Agent and automation feedback is still valuable. It can identify stale evidence,

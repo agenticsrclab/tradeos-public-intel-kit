@@ -54,10 +54,10 @@ Optional LLM path:
 TradeOS public evidence -> user-owned model key -> grounded answer
 ```
 
-The default CLI provider is [Venice AI](https://venice.ai/pricing) through an
-OpenAI-compatible endpoint. Users can replace it with another OpenAI-compatible
-provider by configuring `OPENAI_BASE_URL`, `OPENAI_API_KEY`, and
-`TRADEOS_AGENT_MODEL`.
+The recommended CLI provider is [Venice AI](https://venice.ai/pricing) through
+an OpenAI-compatible endpoint because it fits the self-hosted, BYOK privacy
+posture. Users can replace it with another OpenAI-compatible provider by
+configuring `OPENAI_BASE_URL`, `OPENAI_API_KEY`, and `TRADEOS_AGENT_MODEL`.
 
 ## Flagship Runtime: Symbol Cockpit
 
@@ -190,14 +190,14 @@ TradeOS services.
 ```text
 Local package capability: SDK methods, MCP tools, CLI commands
 Service capability: public API, paid API, x402 resources, enterprise endpoints
-User/account state: starter quota, DTI credits, paid entitlement
+User/account state: starter quota, scoped DTI credits, paid entitlement
 ```
 
 More features arrive through one of these paths:
 
 - package updates add new public helpers or tools;
 - public API responses expose new public-safe fields;
-- Data Intel Credits unlock dashboard-only depth where TradeOS has enabled it;
+- human DTI unlocks public dashboard depth, public Ask packs, or read-only Review Lab where TradeOS has enabled it;
 - x402 or paid API entitlement unlocks premium machine resources;
 - enterprise contracts unlock custom universe, exports, replay data, or support.
 
@@ -286,8 +286,10 @@ confusing_explanation
 evidence_too_thin
 ```
 
-Feedback can later become quality signal and DTI credit. It must not
-unlock raw exports, automation, private forecasts, or execution behavior.
+Feedback can later become quality signal, app reputation, quota confidence, or
+scoped human DTI credit. Human DTI is not API-convertible and must not unlock
+raw exports, automation, private forecasts, paid API scale, or execution
+behavior.
 
 ## Data Boundaries
 

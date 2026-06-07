@@ -156,9 +156,9 @@ Public reads and feedback writes
 Users create feedback against stable target IDs
         |
         v
-TradeOS reconciles quality signal, DTI credits, and account/session state
+TradeOS reconciles quality signal, scoped DTI credits, and account/session state
         |
-        +--> dashboard-only credit depth for eligible users
+        +--> public depth, public Ask packs, or Review Lab access for eligible users
         |
         +--> paid/x402/enterprise upgrade when the app needs premium features
                 |
@@ -173,7 +173,7 @@ Feature unlock paths:
 | Public API | bounded public intelligence | SDK/MCP/CLI call public endpoints |
 | Package update | new public helper, MCP tool, or CLI command | builder upgrades the package version |
 | Earned app quota | starter-level public API depth | feedback writes include stable target IDs, app attribution, and honest provenance |
-| Data Intel Credits | temporary dashboard-only depth | feedback writes include stable target IDs and optional user/session IDs |
+| Data Intel Credits | temporary public dashboard depth, public Ask packs, or read-only Review Lab where enabled | feedback writes include stable target IDs and optional user/session IDs |
 | x402 payment | paid machine resource for bots/agents/backends | paid resource returns explicit payment/entitlement behavior |
 | Paid API key / contract | premium data, scale, exports, alerts, support | builder configures credentials and paid endpoint access |
 
@@ -206,8 +206,17 @@ starter quota above.
 ## Data Intel Credits
 
 Data Intel Credits reward users for improving intelligence quality. They are
-account-based app credits, not transferable assets, and they are separate from
-starter question quota.
+scoped account-based TradeOS credits, and they are separate from starter
+question quota.
+
+DTI uses one common unit with different spend scopes:
+
+| Credit class | Use |
+| --- | --- |
+| Human DTI | public dashboard depth, public Ask packs, read-only Review Lab |
+| App reputation DTI | app reputation and quota confidence for attributed builder feedback |
+| Reviewed project grant | operator-approved public quota for a real project |
+| Paid capacity | x402, paid API, contract, or entitlement for scale and paid surfaces |
 
 Current TradeOS pattern:
 
@@ -215,7 +224,7 @@ Current TradeOS pattern:
 New signed-in account: 6 welcome DTI credits
 Eligible unique feedback: 3 DTI credits after quality checks
 Light dashboard unlocks: 3 DTI credits for 7 days
-Deeper review/preview unlocks: 6 DTI credits for 7 days
+Read-only Review Lab unlocks: 6 DTI credits for 7 days
 Ask question pack: 6 DTI credits for 5 extra public-intelligence questions
 Feedback-earned depth unlock: 7 days by default
 Expired unlock: fall back to free public limits
@@ -227,14 +236,17 @@ and may be rate-limited, changed, paused, degraded, or revoked to protect
 TradeOS infrastructure. Paid/x402/contract access is reserved for reliable
 production scale.
 
-DTI credits may unlock dashboard-only depth:
+DTI credits may unlock public app depth:
 
 ```text
 longer public history windows
 deeper public evidence cards
-more saved symbols
+more public symbols
 more public dashboard refreshes
-limited paid-preview cards
+Token Discovery detail
+Fusion Lite detail
+read-only Review Lab task families
+public Ask question packs
 ```
 
 DTI credits must not unlock:

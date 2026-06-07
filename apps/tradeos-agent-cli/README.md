@@ -58,8 +58,8 @@ tradeos-intel quota request \
   --paid-intent "Will use x402 for alerts and higher scale."
 ```
 
-Ask with the default Venice AI provider. Get a key from the
-[Venice AI subscription page](https://venice.ai/pricing):
+Ask with the recommended privacy-aligned Venice AI BYOK provider. Get a key
+from the [Venice AI subscription page](https://venice.ai/pricing):
 
 ```bash
 VENICE_API_KEY=your_venice_key \
@@ -98,7 +98,7 @@ Access model:
 Free public kit: bounded reads and feedback writes
 Builder app quota: 7-day starter, useful feedback refresh, or reviewed quota request
 Starter ask products: 3 anonymous questions or 10 signed-in questions for 7 days
-Data Intel Credits: dashboard-only depth, 7-day unlock by default
+Human DTI: public dashboard depth, public Ask packs, or read-only Review Lab where enabled
 Paid TradeOS/x402: automation, exports, alerts, premium data, validation APIs
 ```
 

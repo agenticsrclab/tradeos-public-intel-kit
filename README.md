@@ -57,8 +57,9 @@ support.
 | Public reads | no TradeOS account required, server-side limits apply |
 | Saved watchlists | require a signed-in TradeOS account token |
 | Builder attribution | optional `TRADEOS_PUBLIC_INTEL_KEY` |
-| LLM inference | BYOK, [Venice AI](https://venice.ai/pricing) or any OpenAI-compatible provider |
+| LLM inference | recommended BYOK default: [Venice AI](https://venice.ai/pricing) for privacy-aligned self-hosted inference; other OpenAI-compatible providers are supported |
 | Paid machine access | x402 payment or TradeOS entitlement |
+| Commercial distribution | field guides for [Virtuals ACP, AntSeed, x402, and Agentic.Market-style discovery](docs/commercial-distribution/README.md) |
 | Flagship model | individual private-use, self-hosted Symbol Cockpit over TradeOS intelligence |
 | Cockpit trading-intelligence universe | 21 symbols today; see [Symbol Intelligence Coverage](docs/symbol-intelligence-coverage.md) |
 | Safety boundary | actionable recommendations are allowed; TradeOS does not custody keys, manage accounts, place orders, or support third-party account management |
@@ -114,11 +115,16 @@ Local modules -> feasibility, EA/risk, execution adapters, ops dashboard
   market data pipeline first.
 - **Ground agents**: give LLMs current evidence, caveats, stable IDs, and source
   references before they answer.
-- **Control inference cost**: use [Venice AI](https://venice.ai/pricing) or
-  another provider with your own key instead of asking TradeOS to sponsor model
-  calls.
+- **Use privacy-aligned BYOK inference**: use [Venice AI](https://venice.ai/pricing)
+  as the recommended default because its public docs emphasize private
+  inference and no prompt/response storage on Venice servers; builders can
+  still swap in another OpenAI-compatible provider.
 - **Build for money**: package the intelligence into products customers already
   understand, such as briefings, monitoring, validation, or research workflows.
+- **Distribute commercially**: use the commercial field guides to package
+  TradeOS-backed intelligence on Virtuals ACP, AntSeed, x402 directories, and
+  Agentic.Market-style discovery without publishing private keys or live
+  provider secrets.
 - **Sell privacy as the feature**: ship a cockpit that customers can run on
   their own box, with their own model key, exchange keys, approval policy,
   portfolio context, and audit logs.
@@ -157,6 +163,7 @@ More product detail:
 - [Data Intelligence Product Model](docs/marketplace-model.md)
 - [Use Cases](docs/use-cases.md)
 - [Monetization Guide](docs/monetization.md)
+- [Commercial Distribution Field Guides](docs/commercial-distribution/README.md)
 - [Builder Revenue Playbook](docs/builder-revenue-playbook.md)
 
 ## Flagship: Symbol Cockpit
@@ -268,7 +275,8 @@ npm run briefing-bot -- brief
 That works without a TradeOS account and without an LLM key. It prints a
 deterministic briefing from live public evidence.
 
-Use Venice AI for a stronger natural-language brief. Get a key from the
+Use Venice AI as the recommended privacy-aligned BYOK path for a stronger
+natural-language brief. Get a key from the
 [Venice AI subscription page](https://venice.ai/pricing):
 
 ```bash
@@ -302,7 +310,8 @@ npm run cli -- digest --limit 5
 npm run cli -- watchlist --limit 5
 ```
 
-Ask a Venice-backed question. Get a key from the
+Ask a Venice-backed question. Venice is the recommended privacy-aligned BYOK
+default for self-hosted workflows. Get a key from the
 [Venice AI subscription page](https://venice.ai/pricing):
 
 ```bash
@@ -488,9 +497,11 @@ Public API quota is earned, not unlimited:
 
 Feedback writes are bounded too: app-key writes default to 10/minute and 100/day;
 anonymous writes default to 5/minute per IP. App keys provide attribution and
-reputation, not paid entitlement. Data Intel Credits unlock dashboard-only
-depth; paid/x402 access is required for private intelligence products, scale,
-alerts, exports, replay, automation, or data rights.
+reputation, not paid entitlement. Data Intel Credits use one common unit with
+scoped spend rules: human DTI unlocks dashboard depth, public Ask packs, and
+read-only Review Lab access; builder feedback affects app reputation and quota
+confidence. Paid/x402 access is required for private intelligence products,
+scale, alerts, exports, replay, automation, or data rights.
 
 At launch, each free public read counts as one read unit. Batch, history,
 export, alert, private-intelligence, and machine-scale surfaces are paid/x402
@@ -531,8 +542,8 @@ the SDK, MCP server, CLI, or bot examples.
 1. Builder installs the free kit.
 2. Builder ships public features using digest, candidates, watchlists, proofs, and feedback writes.
 3. End users interact with the builder product and submit structured feedback.
-4. TradeOS reconciles stable target IDs into quality signals and credits.
-5. Credits can unlock temporary dashboard-only depth for the user.
+4. TradeOS reconciles stable target IDs into quality signals, app reputation, and scoped credits.
+5. Human DTI can unlock temporary public dashboard depth, public Ask packs, or Review Lab passes for the user.
 6. When the workflow needs production features, the builder calls paid TradeOS/x402 surfaces.
 7. TradeOS checks entitlement or payment and returns premium data.
 8. The builder product exposes the paid feature to its customer.
@@ -543,7 +554,7 @@ the SDK, MCP server, CLI, or bot examples.
 | Free public features | included in this kit against `api.tradeos.tech/v1/public-intel` | digest, candidates, token snapshots, watchlist state, proofs, feedback writes |
 | Package improvements | upgrade npm/PyPI packages when TradeOS ships public tools | SDK helper, MCP tool, CLI command |
 | Earned public quota | useful app-attributed feedback or approved quota request | public read depth for real builder products |
-| Data Intel Credit depth | TradeOS account/session DTI credit reconciliation | dashboard-only history, evidence depth, and review capacity |
+| Data Intel Credit depth | TradeOS account/session human DTI reconciliation | dashboard history, evidence depth, public Ask packs, and Review Lab capacity |
 | Paid machine features | x402 payment or paid API entitlement | premium market pulse, validation API, automation-safe reads |
 | Enterprise features | contract, API key, or private deployment | custom universe, bulk exports, replay datasets, support |
 
@@ -566,7 +577,7 @@ TradeOS Data Intel Credit loop
 
 Optional BYOK LLM path:
 
-Your app / CLI -> Venice AI or another OpenAI-compatible provider
+Your app / CLI -> recommended Venice AI BYOK path or another OpenAI-compatible provider
               -> answer grounded in TradeOS public evidence
 ```
 

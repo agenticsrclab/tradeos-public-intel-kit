@@ -14,7 +14,7 @@ attributed feedback loop without paying for every builder's inference.
 | Works in existing platforms | Discord and Telegram can use it immediately |
 | Easy to monetize | community bot, paid channel, analyst brief, DAO monitor |
 | Evidence-backed | uses TradeOS public digest and thesis watchlist surfaces |
-| BYOK inference | [Venice AI](https://venice.ai/pricing) default; builders pay their own model provider |
+| BYOK inference | recommended [Venice AI](https://venice.ai/pricing) default for privacy-aligned self-hosted inference; builders pay their own model provider |
 | Feedback loop | can submit publication/provenance events back to TradeOS |
 | Safe boundary | no exchange keys, no TradeOS-hosted execution, no private data |
 
@@ -37,7 +37,7 @@ npm run briefing-bot -- brief
 
 Without an LLM key, the bot renders a deterministic source-backed template.
 
-With Venice AI. Get a key from the
+With Venice AI, the recommended privacy-aligned BYOK path. Get a key from the
 [Venice AI subscription page](https://venice.ai/pricing):
 
 ```bash
@@ -89,8 +89,8 @@ export TRADEOS_PUBLIC_INTEL_KEY=<tradeos-public-intel-key>
 ```
 
 Without an app key, TradeOS can still accept automation feedback as shadow
-telemetry, but it is telemetry-only: no user credit, no app credit, and no paid
-access unlock.
+telemetry, but it is telemetry-only: no personal user credit, no app reputation
+or quota confidence, and no paid access unlock.
 
 To submit a publication feedback/provenance event:
 
@@ -108,7 +108,8 @@ agent_id=tradeos-market-briefing-bot
 ```
 
 TradeOS decides credit class server-side. This event is app-quality and
-distribution telemetry, not personal user credit.
+distribution telemetry that can inform app reputation after validation; it is
+not personal user credit.
 
 ## Safe Customization
 

@@ -1,8 +1,8 @@
 # Data Intel Credit Loop
 
 TradeOS Data Intel Credits connect public intelligence, human review, and
-builder applications without turning feedback into trading authority,
-transferable assets, or paid infrastructure access.
+builder applications without turning feedback into trading authority or paid
+infrastructure access.
 
 The loop:
 
@@ -14,7 +14,8 @@ Read evidence -> label a stable target -> preserve provenance -> quality review 
 
 In the TradeOS app, people use the loop this way:
 
-1. Open the public market dashboard.
+1. Open public intelligence: Market Pulse, Token Radar, Signal Radar, public
+   token dossier previews, watchlist preview, and starter Ask TradeOS.
 2. Create an account for starter Ask TradeOS access and welcome DTI credits.
 3. Verify email ownership so future feedback has stronger human provenance.
 4. Review specific evidence such as market cards, VPIN incidents, forecast
@@ -22,7 +23,9 @@ In the TradeOS app, people use the loop this way:
    items, token-risk notes, or thesis tasks.
 5. Submit a contextual label and optional note.
 6. Wait for duplicate, abuse, and quality checks.
-7. Redeem approved DTI credits for temporary dashboard depth.
+7. Redeem approved DTI credits for temporary dashboard depth such as history,
+   evidence, Token Discovery detail, Fusion Lite detail, review passes, or
+   public Ask question packs.
 
 Free public market intelligence remains available when a credit unlock expires.
 
@@ -32,17 +35,40 @@ The user-facing TradeOS Data Intel Credit model is:
 
 | Step | User action | Credit or access effect | Expiry |
 | --- | --- | --- | --- |
-| Start anonymous | Open the public dashboard | Read public market state and ask 3 public-intelligence questions | Session or anonymous quota boundary |
+| Start anonymous | Open public intelligence | Read public market state, sector breadth, VPIN summary, Token Radar lite, Signal Radar lite, watchlist preview, token dossier previews, and ask 3 public-intelligence questions | Session or anonymous quota boundary |
 | Create account | Sign in to TradeOS | 6 welcome DTI credits and 10 signed-in starter Ask questions | Ask starter lasts 7 days |
 | Give useful feedback | Label a unique evidence target with honest provenance | 3 DTI credits after quality checks | DTI credits remain in the ledger until spent or revoked |
-| Redeem 3 DTI credits | Choose a light dashboard unlock | Faster refresh, more public symbols, longer history, deeper evidence, Token Discovery detail, Fusion Lite detail, or more saved views | 7 days by default |
-| Redeem 6 DTI credits | Choose a deeper review or preview unlock | Limited paid-preview cards, Forecast Lab, Bias/Fusion Review, EA Entry Quality, Symbol Story, Token Cycle, Digest/Thesis Review, or +5 Ask questions | 7 days by default |
+| Redeem 3 DTI credits | Choose a light dashboard unlock | Faster refresh, more public symbols, longer history, deeper Market Pulse/sector/VPIN evidence, Token Discovery detail, or Fusion Lite detail | 7 days by default |
+| Redeem 6 DTI credits | Choose a review or Ask unlock | Forecast Lab, Bias/Fusion Review, EA Entry Quality, Symbol Story, Token Cycle, Digest/Thesis Review, or +5 public Ask questions | 7 days by default |
 | Unlock expires | Stop contributing or let the grant lapse | Fall back to free public limits | Immediate after expiry |
 
 The point is simple: users start with enough DTI credits to try depth, earn
 more by helping validate specific evidence, and spend DTI credits only on
-dashboard-style depth. DTI credits are account-based app credits, not paid API
-entitlement or transferable assets.
+public-dashboard depth, public Ask question packs, or read-only Review Lab task
+families. DTI credits are account-based TradeOS credits, not paid API entitlement,
+private workspace access, or general-purpose platform balance.
+
+## Scoped DTI Model
+
+DTI is the common credit unit. Spend scope controls where it applies.
+
+| Credit class | Earned by | Spend scope | What it does not do |
+| --- | --- | --- | --- |
+| `human_dti` | Welcome credits and quality-reviewed human feedback | Public dashboard depth, public Ask packs, read-only Review Lab | Does not convert to API scale or paid data rights |
+| `app_reputation_dti` | Attributed builder, agent, or automation feedback with stable target IDs | App reputation and quota confidence | Does not become a personal user balance |
+| `grant_dti` | Operator-approved quota request | Reviewed public API quota | Does not open paid/private resources |
+| `paid_capacity` | x402 payment, paid API key, contract, or entitlement | Scale, alerts, automation, exports, private context, data rights | Separate from feedback-earned credits |
+
+## What Unlocks Where Today
+
+| Feature family | DTI unlock | Where users see it | Feedback capture |
+| --- | --- | --- | --- |
+| Market Pulse, VPIN, and evidence depth | 3 DTI public-depth unlocks | `/market` via dashboard-access limits | Market, VPIN, and evidence-card feedback prompts |
+| Token Discovery detail | Token Discovery detail (3 DTI) | `/discover` via token discovery limit, depth, and history fields | Token-cycle review opens through Review Lab |
+| Fusion Signal detail | 3 DTI Fusion Signal Lite detail | `/fusion` via fusion signal limit, depth, and history fields | Bias/fusion review opens through Review Lab |
+| Forecast, EA, Symbol Story, Token Cycle, Digest/Thesis | 6 DTI Review Lab passes | `/review` tasks with matching `requires_unlock_type` | Open tasks render artifact feedback prompts |
+| Ask TradeOS public questions | 6 DTI Ask question pack | `/ask` public quota | Completed answers render answer-quality feedback |
+| Private workspace, private Ask, paid delivery, exports, alerts, automation, x402/API scale, custody, execution | Not DTI | Paid/private entitlement paths | DTI cannot open these surfaces |
 
 Free, starter, and feedback-earned access is best-effort promotional access:
 no SLA, no guaranteed availability, no cash value, and it may be rate-limited,
@@ -134,7 +160,8 @@ DTI credit as linked human feedback unless TradeOS validates the source and poli
 
 ## Builder App Quota
 
-Builder app quota uses app reputation, not personal user credit.
+Builder app quota uses app reputation and quota confidence, not personal user
+credit.
 
 | App state | API behavior |
 | --- | --- |
@@ -168,12 +195,12 @@ Feedback-earned depth unlock: 7 days by default
 Expired unlock: fall back to free public limits
 ```
 
-DTI credits may unlock dashboard-only capacity:
+DTI credits may unlock public app capacity:
 
 | Cost | Unlock family | Examples |
 | ---: | --- | --- |
-| 3 DTI credits | Light dashboard depth | Faster public refresh, more symbols, 30-day public history, deeper evidence cards, Token Discovery detail, Fusion Lite detail, saved-view slots |
-| 6 DTI credits | Review and preview depth | Limited paid-preview cards, Forecast Lab, Bias/Fusion Review, EA Entry Quality, Symbol Story Deep Dive, Token Cycle Review, Digest/Thesis Review |
+| 3 DTI credits | Light dashboard depth | Faster public refresh, more symbols, 30-day public history, deeper evidence cards, Token Discovery detail, Fusion Lite detail |
+| 6 DTI credits | Read-only review depth | Forecast Lab, Bias/Fusion Review, EA Entry Quality, Symbol Story Deep Dive, Token Cycle Review, Digest/Thesis Review |
 | 6 DTI credits | Ask extension | 5 extra read-only public-intelligence questions |
 
 DTI credits must not unlock:

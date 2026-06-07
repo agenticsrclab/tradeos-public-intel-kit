@@ -15,7 +15,7 @@ and reviewed quota or paid scale requests, start with
 | TradeOS public API base URL | Built into this kit | `TRADEOS_API_BASE` | SDK, CLI, MCP, cockpit, bots |
 | TradeOS public-intel app key | TradeOS Developer Keys page | `TRADEOS_PUBLIC_INTEL_KEY` | App attribution, support, feedback provenance |
 | TradeOS account token | TradeOS signed-in account session or trusted backend flow | `TRADEOS_ACCOUNT_TOKEN` | Saved watchlists and app-key management automation |
-| Venice API key | Venice account/API settings | `VENICE_API_KEY` | BYOK action-agent and model-backed briefings |
+| Venice API key | Venice account/API settings | `VENICE_API_KEY` | Recommended privacy-aligned BYOK action-agent and model-backed briefings |
 | OpenAI-compatible model URL | Provider docs | `OPENAI_BASE_URL` | Non-default model provider routing |
 | SMTP credentials | Your mail provider or workspace admin | `SMTP_*` or `COCKPIT_SMTP_*` | Email alerts from local notification router |
 | Discord webhook | Discord channel integration settings | `DISCORD_WEBHOOK_URL` | Market briefing bot posts |
@@ -64,8 +64,11 @@ public reads.
 
 ## Venice API Key
 
-Venice is the default OpenAI-compatible model provider used by the CLI, market
-briefing bot, and Symbol Cockpit action agent.
+Venice is the recommended default OpenAI-compatible model provider used by the
+CLI, market briefing bot, and Symbol Cockpit action agent. It aligns with the
+self-hosted privacy story because builders keep their own model key and Venice's
+public docs emphasize private inference and no prompt/response storage on
+Venice servers.
 
 Typical setup:
 
@@ -90,6 +93,8 @@ Useful Venice links:
 | --- | --- |
 | Venice pricing and account entry | `https://venice.ai/pricing` |
 | Venice API docs | `https://docs.venice.ai` |
+| Venice privacy architecture | `https://docs.venice.ai/welcome/privacy` |
+| Venice privacy modes | `https://venice.ai/privacy` |
 | Venice OpenAI-compatible API base used by this kit | `https://api.venice.ai/api/v1` |
 
 If you use another OpenAI-compatible provider:

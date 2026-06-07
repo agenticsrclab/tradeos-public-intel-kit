@@ -25,7 +25,7 @@ For concrete key, URL, Venice, SMTP, and local runtime values, see
 | App-key management | TradeOS Developer Keys page | create, list, rotate, revoke public-intel app keys |
 | App-key automation | `TRADEOS_ACCOUNT_TOKEN` | trusted scripts that manage app keys server-side |
 | User-owned watchlists | `TRADEOS_ACCOUNT_TOKEN` | saved lists, state, events, notification targets, feedback |
-| Model inference | `VENICE_API_KEY` or compatible provider key | BYOK agent answers |
+| Model inference | `VENICE_API_KEY` or compatible provider key | recommended Venice BYOK path for privacy-aligned agent answers |
 | Paid TradeOS resources | x402/payment or paid entitlement | premium data, exports, alerts, automation |
 
 Keep `TRADEOS_ACCOUNT_TOKEN`, `TRADEOS_PUBLIC_INTEL_KEY`, and model-provider
@@ -145,8 +145,9 @@ shape, privacy modes, and recommendation examples.
 
 ## 3. Ask With Venice AI
 
-Venice is the default OpenAI-compatible provider for the CLI agent. Get a key
-from the [Venice AI subscription page](https://venice.ai/pricing).
+Venice is the recommended privacy-aligned OpenAI-compatible provider for the
+CLI agent and self-hosted workflows. Get a key from the
+[Venice AI subscription page](https://venice.ai/pricing).
 
 ```bash
 export VENICE_API_KEY=...
@@ -171,7 +172,8 @@ TradeOS account and no LLM key:
 npm run briefing-bot -- brief
 ```
 
-Use Venice AI for a stronger natural-language brief. Get a key from the
+Use Venice AI as the recommended privacy-aligned BYOK path for a stronger
+natural-language brief. Get a key from the
 [Venice AI subscription page](https://venice.ai/pricing):
 
 ```bash

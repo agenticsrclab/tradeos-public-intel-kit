@@ -54,7 +54,7 @@ User feedback
         |
         v
 TradeOS account/session reconciliation
-  can grant temporary dashboard-only depth
+  can grant temporary public depth, public Ask packs, or Review Lab access
         |
         v
 Paid builder product tier

@@ -59,15 +59,17 @@ Each free public API read counts as one launch read unit. Weighted public read
 accounting is not enabled yet; heavier batch, history, export, alert, and
 machine-scale surfaces are paid/x402 or entitlement-gated.
 
-Data Intel Credits are separate from starter ask quota. Current DTI credit
-pattern:
+Data Intel Credits are separate from starter ask quota. Human DTI is scoped to
+public dashboard depth, public Ask packs, and read-only Review Lab access.
+Builder feedback affects app reputation and quota confidence instead of
+creating personal user credit by default. Current DTI credit pattern:
 
 | Credit Type | Unlock | Expiry |
 | --- | --- | --- |
-| Welcome DTI credits | dashboard-only depth for new signed-in users | 6 credits at account start |
+| Welcome DTI credits | public dashboard depth, public Ask packs, or read-only Review Lab where enabled | 6 credits at account start |
 | Useful unique feedback | earns 3 DTI credits after quality checks | ledger balance until spent or revoked |
-| 3-DTI unlocks | faster refresh, more symbols, longer history, deeper evidence, saved views | 7 days by default |
-| 6-DTI unlocks | limited previews, review passes, Symbol Story, token/digest/thesis review, Ask pack | 7 days by default |
+| 3-DTI unlocks | faster refresh, more symbols, longer history, deeper evidence, Token Discovery detail, Fusion Lite detail | 7 days by default |
+| 6-DTI unlocks | read-only Review Lab passes for Forecast, Bias/Fusion, EA Entry Quality, Symbol Story, Token Cycle, Digest/Thesis, or Ask pack | 7 days by default |
 
 Expired credit unlocks fall back to free public limits.
 

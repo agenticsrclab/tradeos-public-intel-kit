@@ -16,7 +16,7 @@ quota, or paid machine access.
 | Attribute a builder app | `TRADEOS_PUBLIC_INTEL_KEY` | Optional | App identity, abuse controls, support, feedback provenance, and potential higher public limits. |
 | Manage app keys by script | `TRADEOS_ACCOUNT_TOKEN` | Optional | Trusted server-side create/list/rotate/revoke automation. |
 | Saved watchlists | `TRADEOS_ACCOUNT_TOKEN` | Yes | Account-owned watchlists, events, notification channels, delivery audit, and watchlist feedback. |
-| Action-agent summaries | `VENICE_API_KEY` or `OPENAI_API_KEY` | Optional | Bring-your-own-key model inference over TradeOS evidence. |
+| Action-agent summaries | `VENICE_API_KEY` or `OPENAI_API_KEY` | Optional | Recommended Venice BYOK model inference, or another OpenAI-compatible provider, over TradeOS evidence. |
 | Email alerts | `SMTP_*` or `COCKPIT_SMTP_*` | Optional | Local Symbol Cockpit operator alerts. |
 | Discord or Telegram posts | webhook or bot token | Optional | Market briefing bot distribution. |
 | Production scale or premium data | x402 payment, paid API key, or contract entitlement | When needed | Scale, alerts, automation, exports, premium data, private intelligence products, validation APIs, and explicit data rights. |
@@ -44,7 +44,7 @@ export TRADEOS_PUBLIC_INTEL_KEY=<tradeos-public-intel-app-key>
 ```
 
 The app key identifies the builder app. It is not a paid API entitlement, not a
-user's paid access, and not a tokenized asset.
+user's paid access, and not a personal DTI balance.
 
 ## Validate The Key
 
@@ -100,8 +100,10 @@ rotate it in Developer Keys and update the server environment.
 ## Add A Model Provider Key
 
 The CLI, market briefing bot, and Symbol Cockpit action agent can use a
-bring-your-own-key model provider. Venice is the default OpenAI-compatible
-provider used in examples.
+bring-your-own-key model provider. Venice is the recommended privacy-aligned
+OpenAI-compatible default used in examples. Builders keep the model key in their
+own environment, and Venice's public docs emphasize private inference and no
+prompt/response storage on Venice servers.
 
 ```bash
 export LLM_PROVIDER=venice

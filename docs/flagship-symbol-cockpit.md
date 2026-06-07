@@ -140,8 +140,9 @@ evidence too thin
 ```
 
 Feedback can improve TradeOS intelligence quality, app reputation, and eligible
-Data Intel Credit flows. DTI credits remain account-based credits inside
-TradeOS dashboards and apps; they do not unlock paid APIs, x402, exports,
+Data Intel Credit flows. Human DTI remains scoped to TradeOS dashboard depth,
+public Ask packs, and read-only Review Lab access; app feedback affects app
+reputation and quota confidence. Neither path unlocks paid APIs, x402, exports,
 automation, execution, or private data rights.
 
 ## How To Bring It Online

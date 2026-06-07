@@ -151,6 +151,10 @@ Public reads return quota information under `access_control`:
     "quota_policy": {
       "refresh_reason": "recent useful feedback refreshed public quota",
       "review_request_endpoint": "/v1/public-intel/quota-requests",
+      "dti_policy": {
+        "human_dti_api_convertible": false,
+        "api_feedback_reward_type": "app_reputation_and_quota_confidence"
+      },
       "paid_upgrade_note": "Production scale requires x402 payment or a TradeOS entitlement."
     }
   }
@@ -166,9 +170,12 @@ Default profiles:
 | Builder starter/earned | 10 | 100 | 250 | 20 |
 | Reviewed project | 20 | 200 | 500 | 40 |
 
-Data Intel Credits and app keys do not unlock paid resources. Use x402, paid API
-entitlement, or a TradeOS contract for machine-scale reads, alerts, exports,
-historical replay, private intelligence products, premium automation, or data rights.
+Data Intel Credits and app keys do not unlock paid resources. Public read
+responses include `access_control.quota_policy.dti_policy`: human DTI is not
+API-convertible, while attributed builder feedback affects app reputation and
+quota confidence. Use x402, paid API entitlement, or a TradeOS contract for
+machine-scale reads, alerts, exports, historical replay, private intelligence
+products, premium automation, or data rights.
 
 At launch, free public reads are counted as one read unit per request. The API
 returns the current policy in `access_control.quota_policy.read_unit_policy`.

@@ -12,7 +12,7 @@ already need a short source-backed market brief they can post on a schedule.
 ```text
 1. Pulls TradeOS public digest and thesis watchlist evidence.
 2. Builds a concise market briefing.
-3. Uses [Venice AI](https://venice.ai/pricing) by default when a BYOK model key is configured.
+3. Uses [Venice AI](https://venice.ai/pricing) as the recommended privacy-aligned BYOK default when a model key is configured.
 4. Falls back to a deterministic template when no LLM key is present.
 5. Posts to stdout, Discord webhook, or Telegram chat.
 6. Optionally submits a publication feedback/provenance event to TradeOS.
@@ -43,8 +43,8 @@ npm run briefing-bot -- brief
 This works without a TradeOS account and without an LLM key. It prints a
 deterministic briefing from live TradeOS public evidence.
 
-Use Venice AI for the default BYOK model path. Get a key from the
-[Venice AI subscription page](https://venice.ai/pricing):
+Use Venice AI for the recommended privacy-aligned BYOK model path. Get a key
+from the [Venice AI subscription page](https://venice.ai/pricing):
 
 ```bash
 export VENICE_API_KEY=...
@@ -98,7 +98,8 @@ See [Getting API Keys And Requesting Scale](../../docs/getting-api-keys-and-scal
 for the TradeOS Developer Keys flow, optional provider keys, and quota requests.
 
 Without an app key, feedback writes may be accepted as shadow telemetry, but
-they do not earn app credit or unlock paid access.
+they do not earn app reputation or quota confidence, and they do not unlock paid
+access.
 
 Submit a publication feedback/provenance event:
 
@@ -115,8 +116,8 @@ automation_level=automated
 agent_id=tradeos-market-briefing-bot
 ```
 
-TradeOS decides credit class server-side. Automation feedback is quality and
-app-reputation signal, not personal user credit by default.
+TradeOS decides credit class server-side. Automation feedback is a quality and
+app-reputation signal after validation, not personal user credit by default.
 
 ## Environment
 
