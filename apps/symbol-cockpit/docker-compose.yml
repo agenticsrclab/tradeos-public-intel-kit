@@ -1,0 +1,68 @@
+name: tradeos-symbol-cockpit
+
+include:
+  - ../../infra/compose/postgres.yml
+
+services:
+  cockpit-api:
+    build:
+      context: ../..
+      dockerfile: apps/symbol-cockpit/Dockerfile
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      COCKPIT_BIND_HOST: 0.0.0.0
+      COCKPIT_API_PORT: 18100
+    ports:
+      - "127.0.0.1:18100:18100"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: ["node", "dist/api/server.js"]
+
+  cockpit-web:
+    build:
+      context: ../..
+      dockerfile: apps/symbol-cockpit/Dockerfile
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      COCKPIT_BIND_HOST: 0.0.0.0
+      COCKPIT_WEB_PORT: 18101
+    ports:
+      - "127.0.0.1:18101:18101"
+    command: ["node", "dist/api/static-server.js"]
+
+  cockpit-worker:
+    build:
+      context: ../..
+      dockerfile: apps/symbol-cockpit/Dockerfile
+    env_file:
+      - path: .env
+        required: false
+    depends_on:
+      cockpit-api:
+        condition: service_started
+    command: ["node", "dist/worker/index.js"]
+
+  feasibility:
+    profiles: ["risk"]
+    build:
+      context: ../..
+      dockerfile: modules/feasibility/Dockerfile
+
+  ea-risk:
+    profiles: ["risk"]
+    build:
+      context: ../..
+      dockerfile: modules/ea-risk/Dockerfile
+
+  execution-gateway:
+    profiles: ["execution"]
+    build:
+      context: ../..
+      dockerfile: modules/execution-gateway/Dockerfile
+    environment:
+      EXECUTION_MODE: paper

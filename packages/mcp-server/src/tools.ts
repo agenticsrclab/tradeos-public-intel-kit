@@ -7,6 +7,12 @@ import type {
   WatchlistDeliveryTrigger,
   WatchlistFeedback,
 } from "@tradeos/public-intel-sdk";
+import {
+  buildBotPreflightResponse,
+  buildEvidenceBundle,
+  buildRecommendationCard,
+  buildSymbolCockpitPacket,
+} from "@tradeos/cockpit-core";
 import { jsonText, safetyEnvelope } from "./format.js";
 
 export interface ToolHandlerContext {
@@ -112,6 +118,82 @@ export function createToolHandlers({ client }: ToolHandlerContext) {
       );
     },
 
+    async getSymbolCockpit(args: {
+      symbol: string;
+      chain?: string;
+      mode?: "investor" | "swing" | "trader";
+      contractAddress?: string;
+    }) {
+      const evidence = await client.getSymbolCockpitEvidence(args.symbol, {
+        chain: args.chain,
+        mode: args.mode,
+        contractAddress: args.contractAddress,
+      });
+      const packet = buildSymbolCockpitPacket(
+        {
+          symbol: args.symbol,
+          chain: args.chain,
+          mode: args.mode,
+          contractAddress: args.contractAddress,
+          recommendationType: "symbol_cockpit",
+        },
+        buildEvidenceBundle(
+          { symbol: args.symbol, chain: args.chain, mode: args.mode },
+          asJsonObjectRecord(evidence.sources),
+          asStringRecord(evidence.source_errors),
+        ),
+      );
+      return jsonText(
+        safetyEnvelope(({
+          schema_version: "tradeos.public_intel.mcp_symbol_cockpit.v1",
+          packet,
+          card: buildRecommendationCard(packet),
+          source_errors: asJsonObject(evidence.source_errors),
+        }) as unknown as JsonObject),
+      );
+    },
+
+    async botPreflight(args: {
+      symbol: string;
+      chain?: string;
+      proposedAction: "buy" | "sell" | "trim" | "hold" | "watch" | string;
+      proposedNotionalUsd?: number;
+    }) {
+      const evidence = await client.getSymbolCockpitEvidence(args.symbol, {
+        chain: args.chain,
+        mode: "trader",
+      });
+      const packet = buildSymbolCockpitPacket(
+        {
+          symbol: args.symbol,
+          chain: args.chain,
+          mode: "trader",
+          recommendationType: "trade_preflight",
+        },
+        buildEvidenceBundle(
+          { symbol: args.symbol, chain: args.chain, mode: "trader", recommendationType: "trade_preflight" },
+          asJsonObjectRecord(evidence.sources),
+          asStringRecord(evidence.source_errors),
+        ),
+      );
+      return jsonText(
+        safetyEnvelope(({
+          schema_version: "tradeos.public_intel.mcp_bot_preflight.v1",
+          preflight: buildBotPreflightResponse(
+            {
+              symbol: args.symbol,
+              chain: args.chain,
+              proposed_action: args.proposedAction,
+              proposed_notional_usd: args.proposedNotionalUsd,
+            },
+            packet,
+          ),
+          packet,
+          source_errors: asJsonObject(evidence.source_errors),
+        }) as unknown as JsonObject),
+      );
+    },
+
     async listWatchlists() {
       return jsonText(safetyEnvelope(await client.listWatchlists()));
     },
@@ -194,4 +276,24 @@ export function createToolHandlers({ client }: ToolHandlerContext) {
 
 function isRecord(value: unknown): value is JsonObject {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function asJsonObject(value: unknown): JsonObject {
+  return isRecord(value) ? value : {};
+}
+
+function asJsonObjectRecord(value: unknown): Record<string, JsonObject> {
+  if (!isRecord(value)) {
+    return {};
+  }
+  return Object.fromEntries(
+    Object.entries(value).filter((entry): entry is [string, JsonObject] => isRecord(entry[1])),
+  );
+}
+
+function asStringRecord(value: unknown): Record<string, string> {
+  if (!isRecord(value)) {
+    return {};
+  }
+  return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, String(item)]));
 }

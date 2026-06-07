@@ -1,39 +1,53 @@
 # TradeOS Public Intelligence Kit
 
-Build crypto intelligence marketplace products on top of
+Build source-grounded crypto market Data Intelligence products on top of
 [TradeOS public evidence](https://tradeos.tech/market).
 
-This repo gives builders SDKs, MCP tools, a BYOK agent CLI, and runnable bot
-examples for the TradeOS public-intel API. TradeOS hosts the intelligence API.
-Builders and users bring their own model provider key when they want LLM
-summaries, with [Venice AI](https://venice.ai/pricing) as the default
-OpenAI-compatible path.
+This repo gives builders SDKs, MCP tools, a BYOK agent CLI, runnable bots, and
+the blueprint for the flagship TradeOS app pattern: a **private self-hosted
+Symbol Cockpit**.
 
-Think of TradeOS as a crypto intelligence marketplace:
+TradeOS hosts the intelligence API. The cockpit is an individual private-use
+control plane: it runs on the self-hosted operator's own machine, server, quant
+workstation, or agent host. It can recommend buy, sell, trim, avoid, watch, or
+pass decisions from TradeOS evidence plus local rules, while keys, custody,
+portfolio context, approvals, and execution stay in that operator's environment.
+
+Builders can package or extend this pattern for users to self-host. They should
+not operate the cockpit as a managed account service, collect customer exchange
+credentials, custody customer assets, or place orders for customers.
+
+That private self-hosted model is the product advantage. Traders get an
+actionable agent. Builders get a product they can ship. TradeOS stays the
+source-grounded intelligence product layer instead of becoming a custodian,
+broker, or hosted order router.
+
+Think of TradeOS as a crypto market Data Intelligence OS:
 
 - TradeOS supplies the source-backed intelligence layer.
 - Builders package that intelligence into briefings, bots, watchlists,
   dashboards, validation packs, proof pages, and widgets.
-- Users and builder apps send structured feedback that improves marketplace
+- Users and builder apps send structured feedback that improves intelligence
   quality and provenance.
 - Paid TradeOS, x402, or enterprise access starts when a product needs scale,
-  alerts, automation, premium history, private context, validation APIs, or
-  explicit data rights.
+  alerts, automation, premium history, private intelligence products,
+  validation APIs, or explicit data rights.
 
 The practical loop is simple:
 
 ```text
 Use TradeOS free.
-Give useful feedback to unlock more public depth.
+Earn Data Intel Credits by improving intelligence quality.
 Build products on public intelligence.
-Pay when you need scale, alerts, automation, private context, or data rights.
+Pay when you need private intelligence products, scale, alerts, automation, or data rights.
 ```
 
 Use the free public kit to prove a workflow. Charge for the packaging around
 that workflow. Submit feedback with provenance so TradeOS can improve the
 intelligence layer. Upgrade to paid TradeOS when the product needs production
-volume, alerts, automation, premium history, private context, validation APIs,
-x402 machine access, explicit data rights, or enterprise support.
+volume, alerts, automation, premium history, private intelligence products,
+validation APIs, x402 machine access, explicit data rights, or enterprise
+support.
 
 ## At A Glance
 
@@ -45,12 +59,14 @@ x402 machine access, explicit data rights, or enterprise support.
 | Builder attribution | optional `TRADEOS_PUBLIC_INTEL_KEY` |
 | LLM inference | BYOK, [Venice AI](https://venice.ai/pricing) or any OpenAI-compatible provider |
 | Paid machine access | x402 payment or TradeOS entitlement |
-| Safety boundary | research context only, no execution or personalized financial advice |
+| Flagship model | individual private-use, self-hosted Symbol Cockpit over TradeOS intelligence |
+| Cockpit trading-intelligence universe | 21 symbols today; see [Symbol Intelligence Coverage](docs/symbol-intelligence-coverage.md) |
+| Safety boundary | actionable recommendations are allowed; TradeOS does not custody keys, manage accounts, place orders, or support third-party account management |
 
 ## What This Is
 
 TradeOS sits in the public market-intelligence layer for crypto and on-chain
-markets. This kit is the builder distribution surface for that marketplace: it
+markets. This kit is the builder distribution surface for that Data Intelligence OS: it
 helps products discover, consume, package, and send feedback on current,
 source-backed market context inside bots, dashboards, agent workflows, research
 products, validation systems, and paid communities.
@@ -59,6 +75,11 @@ It is an evidence and feedback layer:
 
 - public digest inputs, candidates, watchlists, thesis records, proof lookups,
   caveats, freshness, source refs, and invalidation notes;
+- symbol-cockpit and action-agent patterns for turning evidence into
+  good/bad/ugly verdicts, watchlist recommendations, and bot preflight checks;
+- non-executable action intents that carry evidence-backed action context into
+  local review, policy gates, paper execution, or independent executor
+  experiments without becoming orders;
 - TypeScript and Python SDKs for apps and services;
 - a stdio MCP server for local agent hosts such as Claude Desktop and Cursor;
 - a BYOK CLI that can ask Venice AI or another OpenAI-compatible model over
@@ -67,8 +88,25 @@ It is an evidence and feedback layer:
 - structured feedback writes with provenance so TradeOS can learn which public
   intelligence was useful, early, late, thin, or confusing.
 
-It is not an exchange connector, custody product, trading bot, or execution
-framework.
+It is not a TradeOS-hosted broker, custody product, managed account service, or
+order router. Builders can wire the open-source kit into local bot, preflight,
+or execution stacks, but exchange keys, approvals, sizing rules, and custody
+stay with the self-hosted operator using it for their own account context. If a
+builder collects customer credentials, controls customer accounts, or runs
+execution for other people, that builder has created a separate managed trading
+service outside this kit's supported boundary.
+
+Action intents are the bridge, not the executor. They are marked
+`non_executable`, require operator review, and deliberately omit venue, account,
+size, order type, route, calldata, transaction body, and execute URL fields.
+
+In practical terms:
+
+```text
+TradeOS Data Intelligence OS -> intelligence, evidence, data, feedback IDs
+Symbol Cockpit -> private local recommendation and decision runtime
+Local modules -> feasibility, EA/risk, execution adapters, ops dashboard
+```
 
 ## Why Builders Use It
 
@@ -81,16 +119,20 @@ framework.
   calls.
 - **Build for money**: package the intelligence into products customers already
   understand, such as briefings, monitoring, validation, or research workflows.
+- **Sell privacy as the feature**: ship a cockpit that customers can run on
+  their own box, with their own model key, exchange keys, approval policy,
+  portfolio context, and audit logs.
 - **Close the loop**: send human, agent, or automation feedback back to TradeOS
   with provenance.
 - **Scale cleanly**: graduate from public reads to paid TradeOS data, x402, or
   enterprise access when the workflow needs scale, alerts, automation, private
-  context, or data rights.
+  intelligence products, or data rights.
 
 ## What You Can Build
 
 | Product | Who Pays | What You Package | TradeOS Upgrade Trigger |
 | --- | --- | --- | --- |
+| Private symbol cockpit | active traders, research desks, token teams | good/bad/ugly verdicts, recommendation inbox, watchlist scanners | alerts, private intelligence context, larger universe, premium history |
 | Paid research digest | traders, funds, paid communities | edited briefings, archive, member access | more volume, custom universe, premium pulse |
 | Discord or Telegram market bot | token communities, DAOs, trading groups | server commands, scheduled summaries, feedback loop | high-volume reads, hosted bridge, team access |
 | Watchlist monitor | researchers, token teams, active traders | saved lists, risk changes, freshness, alerts, dashboard seats | alert delivery, webhooks, custom universes |
@@ -102,14 +144,73 @@ framework.
 
 The public kit is the integration and discovery surface. Paid TradeOS starts
 when customers ask for production-grade volume, automation, history, delivery,
-private context, or explicit paid entitlement.
+private intelligence products, or explicit paid entitlement.
 
 More product detail:
 
-- [Marketplace Model](docs/marketplace-model.md)
+- [Repository Layout](docs/repository-layout.md)
+- [Integration Keys And URLs](docs/integration-keys-and-urls.md)
+- [Symbol Cockpit And Action Agent](docs/symbol-cockpit-agent.md)
+- [Symbol Intelligence Coverage](docs/symbol-intelligence-coverage.md)
+- [Data Intelligence Product Model](docs/marketplace-model.md)
 - [Use Cases](docs/use-cases.md)
 - [Monetization Guide](docs/monetization.md)
 - [Builder Revenue Playbook](docs/builder-revenue-playbook.md)
+
+## Flagship: Symbol Cockpit
+
+The fastest consumer story is:
+
+```text
+Give TradeOS a symbol.
+TradeOS returns the good, bad, ugly, verdict, evidence, and an action
+recommendation.
+```
+
+Example cockpit language:
+
+```text
+VVV: avoid new long.
+Good: momentum improved and sector interest remains present.
+Bad: fusion agreement degraded and liquidity depth is thin.
+Ugly: flow stress is elevated during broader market risk.
+Recommendation: avoid a fresh long; if already exposed, consider trim or tighter
+risk controls until flow stress normalizes and fusion recovers.
+Feedback: useful / wrong / late / missing context.
+```
+
+This cockpit can run privately in the operator's self-hosted deployment. Local
+watchlists, strategy notes, wallet context, bot rules, and logs stay local
+unless the operator chooses to send feedback or authenticated context to
+TradeOS. TradeOS sees the public-intelligence queries and paid scopes the
+runtime sends.
+
+That is why the cockpit is useful: it is not only a market summary. It is a
+self-hosted decision layer that can recommend buy, sell, trim, avoid, watch, or
+pass based on TradeOS evidence plus the operator's local rules. The self-hosted
+operator owns what happens next.
+
+This is the flagship architecture TradeOS wants builders to copy:
+
+```text
+TradeOS public or paid intelligence
+        |
+        v
+Private self-hosted cockpit
+        |
+        v
+Non-executable action intent -> local feasibility gate -> local EA/risk gate
+        |
+        v
+Optional local execution adapter
+        |
+        v
+User-owned wallet, exchange, or broker account
+```
+
+Future open-source modules can add feasibility checks, expected-advantage
+checks, execution adapters, and a light operations dashboard. The control plane
+still belongs to the self-hosted operator, not TradeOS.
 
 ## Five-Minute Paths
 
@@ -120,6 +221,33 @@ git clone git@github.com:agenticsrclab/tradeos-public-intel-kit.git
 cd tradeos-public-intel-kit
 npm install
 npm run build
+```
+
+### Run The Symbol Cockpit
+
+The flagship self-hosted app now lives in `apps/symbol-cockpit` and exposes the
+web/API/worker runtime described in the cockpit ADR.
+
+```bash
+export TRADEOS_PUBLIC_INTEL_KEY=<optional-public-intel-app-key>
+npm run symbol-cockpit
+```
+
+Open `http://127.0.0.1:18100`, or run the app-level Compose stack:
+
+```bash
+cd apps/symbol-cockpit
+cp .env.example .env
+docker compose up
+docker compose --profile risk up
+docker compose --profile execution up
+```
+
+CLI and MCP consumers can use the same cockpit contracts:
+
+```bash
+npm run cli -- cockpit VVV --chain 8453 --mode trader
+npm run cli -- preflight VVV --action buy --chain 8453
 ```
 
 ### Run The Market Briefing Bot
@@ -321,7 +449,7 @@ Builders and users should not need a TradeOS account just to try the public kit.
 | Public trial | none | bounded public reads and feedback writes |
 | Builder attribution | optional `TRADEOS_PUBLIC_INTEL_KEY` | app identity, abuse controls, support, potential higher public limits |
 | User-owned watchlists | `TRADEOS_ACCOUNT_TOKEN` | saved lists, state, events, channels, delivery audit, watchlist feedback |
-| Feedback credit linking | TradeOS sign-in or linked session identity | starter quota and feedback-credit reconciliation |
+| Data Intel Credit linking | TradeOS sign-in or linked session identity | starter quota and DTI credit reconciliation |
 | Builder-paid product | paid API key, contract entitlement, or x402 wallet/payment | premium resources inside the builder product |
 | User-paid agent/tool | user TradeOS entitlement or x402 payment | user brings paid access to a third-party tool |
 
@@ -339,6 +467,34 @@ accounts. The normal path is the
 [Developer Keys](https://tradeos.tech/developer/api-keys) dashboard. The CLI can
 validate `TRADEOS_PUBLIC_INTEL_KEY` and can manage app keys when
 `TRADEOS_ACCOUNT_TOKEN` is set for trusted automation:
+
+Public API quota is earned, not unlimited:
+
+| Profile | Reads/min | Reads/hour | Reads/day | Symbols/day | Path |
+| --- | ---: | ---: | ---: | ---: | --- |
+| Anonymous preview | 2 | 10 | 20 | 3 | try the kit without an account |
+| Builder baseline | 5 | 50 | 100 | 10 | app key after starter expiry |
+| Builder starter/earned | 10 | 100 | 250 | 20 | 7-day starter key or recent useful feedback |
+| Reviewed project | 20 | 200 | 500 | 40 | submit `POST /quota-requests` and get operator approval |
+
+Feedback writes are bounded too: app-key writes default to 10/minute and 100/day;
+anonymous writes default to 5/minute per IP. App keys provide attribution and
+reputation, not paid entitlement. Data Intel Credits unlock dashboard-only
+depth; paid/x402 access is required for private intelligence products, scale,
+alerts, exports, replay, automation, or data rights.
+
+At launch, each free public read counts as one read unit. Batch, history,
+export, alert, private-intelligence, and machine-scale surfaces are paid/x402
+or entitlement-gated rather than stretched into the free public API.
+
+Free public access is best-effort promotional access: no SLA, no guaranteed
+availability, no cash value, and it may be rate-limited, changed, paused,
+degraded, or revoked to protect TradeOS infrastructure. The free public pool is
+capped separately so paid/x402/contract capacity can be preserved.
+
+GUI Ask TradeOS follows the same conservative loop: 3 anonymous questions, 10
+signed-in starter questions for 7 days, and 5-question feedback packs earned
+with DTI credits.
 
 ```bash
 npm run cli -- auth
@@ -377,7 +533,8 @@ the SDK, MCP server, CLI, or bot examples.
 | --- | --- | --- |
 | Free public features | included in this kit against `api.tradeos.tech/v1/public-intel` | digest, candidates, token snapshots, watchlist state, proofs, feedback writes |
 | Package improvements | upgrade npm/PyPI packages when TradeOS ships public tools | SDK helper, MCP tool, CLI command |
-| Feedback-credit depth | TradeOS account/session credit reconciliation | more dashboard history, deeper evidence, more public refreshes |
+| Earned public quota | useful app-attributed feedback or approved quota request | public read depth for real builder products |
+| Feedback-credit depth | TradeOS account/session credit reconciliation | dashboard-only history, evidence depth, and review capacity |
 | Paid machine features | x402 payment or paid API entitlement | premium market pulse, validation API, automation-safe reads |
 | Enterprise features | contract, API key, or private deployment | custom universe, bulk exports, replay datasets, support |
 
@@ -452,6 +609,13 @@ POST /thesis-outcomes   thesis feedback
 POST /watchlists/{watchlist_id}/feedback
 ```
 
+Builder access:
+
+```text
+POST /api-keys          create an attributed builder key
+POST /quota-requests    request reviewed public quota or paid evaluation
+```
+
 More detail: [Public API](docs/public-intel-api.md)
 
 ## Contribute Apps, Tools, And Services
@@ -479,10 +643,11 @@ Start here: [Contributing](CONTRIBUTING.md)
 
 ## Safety Boundary
 
-This kit does not place trades, provide personalized financial advice, accept
-exchange credentials, expose raw private telemetry, or guarantee that a token is
-safe. Public intelligence is descriptive evidence, not an instruction to buy,
-sell, or allocate capital.
+This kit can produce trade/action recommendation cards, but it does not place
+trades from TradeOS infrastructure, accept exchange credentials, custody assets,
+expose raw private telemetry, or guarantee that a token is safe. Execution,
+allocation, approvals, and exchange keys belong in the individual operator's
+private self-hosted environment.
 
 See [Safety Boundaries](docs/safety-boundaries.md).
 

@@ -65,6 +65,43 @@ describe("TradeOSPublicIntelClient", () => {
     expect(payload.secret).toBe("tos_pub_created");
   });
 
+  it("submits quota requests with account auth", async () => {
+    const fetchImpl = vi.fn(async (input: string | URL, init?: RequestInit) => {
+      const url = new URL(String(input));
+      expect(url.pathname).toBe("/v1/public-intel/quota-requests");
+      expect(init?.method).toBe("POST");
+      const headers = new Headers(init?.headers);
+      expect(headers.get("authorization")).toBe("Bearer acct_token");
+      const body = JSON.parse(String(init?.body));
+      expect(body.project_name).toBe("Community Bot");
+      expect(body.app_key_id).toBe("pubkey_1");
+      expect(body.requested_tier).toBe("reviewed_project");
+      expect(body.expected_daily_reads).toBe(1500);
+      expect(body.expected_symbols_per_day).toBe(80);
+      return jsonResponse({ status: "submitted" });
+    });
+    const client = new TradeOSPublicIntelClient({
+      baseUrl: "https://example.test/v1/public-intel",
+      fetchImpl,
+    });
+
+    const payload = await client.submitQuotaRequest(
+      {
+        projectName: "Community Bot",
+        appKeyId: "pubkey_1",
+        requestedTier: "reviewed_project",
+        useCase: "Discord bot with source-backed token summaries and feedback buttons.",
+        expectedDailyReads: 1500,
+        expectedSymbolsPerDay: 80,
+        monetizationModel: "paid community seats",
+        feedbackPlan: "Members can label useful, stale, late, or wrong answers.",
+      },
+      { accountToken: "acct_token" },
+    );
+
+    expect(payload.status).toBe("submitted");
+  });
+
   it("maps digest feedback to conversion writes", async () => {
     const fetchImpl = vi.fn(async (_input: string | URL, init?: RequestInit) => {
       expect(init?.method).toBe("POST");
@@ -113,6 +150,30 @@ describe("TradeOSPublicIntelClient", () => {
     const payload = await client.getTokenWatchlistSnapshot("VVV", { mode: "trader", chain: "8453" });
 
     expect(payload.schema_version).toBe("tradeos.public_intel.watchlist_snapshot.v1");
+  });
+
+  it("aggregates symbol cockpit evidence from public interfaces", async () => {
+    const seenPaths: string[] = [];
+    const fetchImpl = vi.fn(async (input: string | URL) => {
+      const url = new URL(String(input));
+      seenPaths.push(url.pathname);
+      if (url.pathname.endsWith("/candidates")) {
+        return jsonResponse({ detail: "temporarily unavailable" }, 503);
+      }
+      return jsonResponse({ schema_version: "ok", path: url.pathname });
+    });
+    const client = new TradeOSPublicIntelClient({
+      baseUrl: "https://example.test/v1/public-intel",
+      fetchImpl,
+    });
+
+    const payload = await client.getSymbolCockpitEvidence("vvv", { chain: "8453", mode: "trader" });
+
+    expect(payload.schema_version).toBe("tradeos.public_intel.symbol_cockpit_evidence.v1");
+    expect(payload.symbol).toBe("VVV");
+    expect(seenPaths).toContain("/v1/public-intel/tokens/vvv/watchlist-snapshot");
+    expect((payload.source_errors as Record<string, string>).candidates).toContain("503");
+    expect((payload.sources as Record<string, unknown>).digest).toBeTruthy();
   });
 
   it("creates watchlists with account auth and app attribution header", async () => {

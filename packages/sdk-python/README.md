@@ -1,6 +1,6 @@
 # tradeos-public-intel
 
-Python SDK for the TradeOS public intelligence marketplace.
+Python SDK for the TradeOS public Data Intelligence layer.
 
 Requires Python 3.11 or newer.
 
@@ -80,6 +80,23 @@ created = client.create_app_key(
 )
 ```
 
+Request reviewed public quota or a paid evaluation when a real project needs
+more than starter/baseline public usage:
+
+```python
+client.submit_quota_request(
+    project_name="community-market-bot",
+    app_key_id="pubkey_...",
+    use_case="Discord bot with source-backed token summaries and feedback buttons.",
+    expected_daily_reads=1500,
+    expected_symbols_per_day=80,
+    monetization_model="paid community seats",
+    feedback_plan="Members can label useful, stale, late, wrong, or missing-context answers.",
+    paid_intent="Will use x402 for alerts and higher scale.",
+    account_token=os.environ["TRADEOS_ACCOUNT_TOKEN"],
+)
+```
+
 Agentic feedback can be tagged separately:
 
 ```python
@@ -104,7 +121,8 @@ Access model:
 
 ```text
 Free public kit: bounded reads, token snapshots, and feedback writes
-Feedback credits: dashboard-only depth, 30-day unlock by default
+Builder app quota: 7-day starter, useful feedback refresh, or reviewed quota request
+Data Intel Credits: dashboard-only depth, 30-day unlock by default
 Account token: saved watchlists, events, channels, and user-owned feedback
 Paid TradeOS/x402: automation, exports, high-volume alerts, premium data, validation APIs
 ```

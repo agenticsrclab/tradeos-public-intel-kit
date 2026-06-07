@@ -1,6 +1,6 @@
 # @tradeos/public-intel-sdk
 
-TypeScript SDK for the TradeOS public intelligence marketplace.
+TypeScript SDK for the TradeOS public Data Intelligence layer.
 
 Use it to pull bounded public market evidence and submit structured feedback
 from Node.js apps, bots, workers, and agent services.
@@ -37,6 +37,25 @@ Create an app key for attribution when you have a TradeOS account bearer token:
 ```ts
 const created = await client.createAppKey(
   { appName: "my-public-intel-app" },
+  { accountToken: process.env.TRADEOS_ACCOUNT_TOKEN },
+);
+```
+
+Request reviewed public quota or a paid evaluation when a real project needs
+more than starter/baseline public usage:
+
+```ts
+await client.submitQuotaRequest(
+  {
+    projectName: "community-market-bot",
+    appKeyId: "pubkey_...",
+    useCase: "Discord bot with source-backed token summaries and feedback buttons.",
+    expectedDailyReads: 1500,
+    expectedSymbolsPerDay: 80,
+    monetizationModel: "paid community seats",
+    feedbackPlan: "Members can label useful, stale, late, wrong, or missing-context answers.",
+    paidIntent: "Will use x402 for alerts and higher scale.",
+  },
   { accountToken: process.env.TRADEOS_ACCOUNT_TOKEN },
 );
 ```
@@ -99,7 +118,8 @@ Access model:
 
 ```text
 Free public kit: bounded reads, token snapshots, and feedback writes
-Feedback credits: dashboard-only depth, 30-day unlock by default
+Builder app quota: 7-day starter, useful feedback refresh, or reviewed quota request
+Data Intel Credits: dashboard-only depth, 30-day unlock by default
 Account token: saved watchlists, events, channels, and user-owned feedback
 Paid TradeOS/x402: automation, exports, high-volume alerts, premium data, validation APIs
 ```

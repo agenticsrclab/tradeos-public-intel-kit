@@ -161,6 +161,36 @@ server.registerTool(
 );
 
 server.registerTool(
+  "tradeos.get_symbol_cockpit",
+  {
+    title: "Get Symbol Cockpit",
+    description: "Build a local good/bad/ugly verdict packet from TradeOS public intelligence evidence.",
+    inputSchema: {
+      symbol: z.string().min(1),
+      chain: z.string().optional(),
+      mode: z.enum(["investor", "swing", "trader"]).optional(),
+      contractAddress: z.string().optional(),
+    },
+  },
+  tools.getSymbolCockpit,
+);
+
+server.registerTool(
+  "tradeos.bot_preflight",
+  {
+    title: "Bot Preflight",
+    description: "Ask whether a proposed local bot action should approve, avoid, watch, or stop for insufficient evidence.",
+    inputSchema: {
+      symbol: z.string().min(1),
+      chain: z.string().optional(),
+      proposedAction: z.string().min(1),
+      proposedNotionalUsd: z.number().positive().optional(),
+    },
+  },
+  tools.botPreflight,
+);
+
+server.registerTool(
   "tradeos.list_watchlists",
   {
     title: "List User Watchlists",

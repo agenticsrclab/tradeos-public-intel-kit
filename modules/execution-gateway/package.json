@@ -1,0 +1,30 @@
+{
+  "name": "@tradeos/module-execution-gateway",
+  "version": "0.1.0",
+  "description": "Paper-only local execution gateway for TradeOS private cockpit runtimes.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@tradeos/policy-core": "0.1.0"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.8"
+  }
+}

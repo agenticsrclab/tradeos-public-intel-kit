@@ -1,13 +1,13 @@
-# Feedback Credit Loop
+# Data Intel Credit Loop
 
-TradeOS feedback credits connect public intelligence, human review, and builder
-applications without turning feedback into trading authority or paid
-infrastructure access.
+TradeOS Data Intel Credits connect public intelligence, human review, and
+builder applications without turning feedback into trading authority,
+transferable assets, or paid infrastructure access.
 
 The loop:
 
 ```text
-Read evidence -> label a stable target -> preserve provenance -> quality review -> credit or app reputation -> better dashboard and data quality
+Read evidence -> label a stable target -> preserve provenance -> quality review -> DTI credit or app reputation -> better dashboard and data quality
 ```
 
 ## Human App Model
@@ -15,17 +15,39 @@ Read evidence -> label a stable target -> preserve provenance -> quality review 
 In the TradeOS app, people use the loop this way:
 
 1. Open the public market dashboard.
-2. Create an account for starter Ask TradeOS access and welcome dashboard
-   credits.
+2. Create an account for starter Ask TradeOS access and welcome DTI credits.
 3. Verify email ownership so future feedback has stronger human provenance.
 4. Review specific evidence such as market cards, VPIN incidents, forecast
    panels, directional-bias views, fusion signals, EA-quality views, digest
    items, token-risk notes, or thesis tasks.
 5. Submit a contextual label and optional note.
 6. Wait for duplicate, abuse, and quality checks.
-7. Redeem approved credits for temporary dashboard depth.
+7. Redeem approved DTI credits for temporary dashboard depth.
 
 Free public market intelligence remains available when a credit unlock expires.
+
+## Credit Ladder
+
+The user-facing TradeOS Data Intel Credit model is:
+
+| Step | User action | Credit or access effect | Expiry |
+| --- | --- | --- | --- |
+| Start anonymous | Open the public dashboard | Read public market state and ask 3 public-intelligence questions | Session or anonymous quota boundary |
+| Create account | Sign in to TradeOS | 6 welcome DTI credits and 10 signed-in starter Ask questions | Ask starter lasts 7 days |
+| Give useful feedback | Label a unique evidence target with honest provenance | 3 DTI credits after quality checks | DTI credits remain in the ledger until spent or revoked |
+| Redeem 3 DTI credits | Choose a light dashboard unlock | Faster refresh, more public symbols, longer history, deeper evidence, Token Discovery detail, Fusion Lite detail, or more saved views | 7 days by default |
+| Redeem 6 DTI credits | Choose a deeper review or preview unlock | Limited paid-preview cards, Forecast Lab, Bias/Fusion Review, EA Entry Quality, Symbol Story, Token Cycle, Digest/Thesis Review, or +5 Ask questions | 7 days by default |
+| Unlock expires | Stop contributing or let the grant lapse | Fall back to free public limits | Immediate after expiry |
+
+The point is simple: users start with enough DTI credits to try depth, earn
+more by helping validate specific evidence, and spend DTI credits only on
+dashboard-style depth. DTI credits are account-based app credits, not paid API
+entitlement or transferable assets.
+
+Free, starter, and feedback-earned access is best-effort promotional access:
+no SLA, no guaranteed availability, no cash value, and it may be rate-limited,
+changed, paused, degraded, or revoked to protect TradeOS infrastructure. Paid,
+x402, or contract access is the path for reliable production scale.
 
 ## Builder Model
 
@@ -98,47 +120,63 @@ Recommended treatment:
 
 | Feedback Class | Credit Use | Access Window |
 | --- | --- | --- |
-| linked verified human | eligible for normal dashboard credit | 30 days by default |
+| linked verified human | eligible for normal DTI credit | 7 days by default |
 | linked unverified human | quality signal; not trusted validation until verified | none or conservative |
-| linked human-assisted | partial to full credit after validation | 14-30 days |
+| linked human-assisted | partial to full credit after validation | 7 days by default |
 | anonymous human | quality signal; reconcile later if linked | none until linked |
-| verified agent | app reputation or limited app preview | 7-14 days after calibration |
+| verified agent | app reputation or limited app preview | 7 days after calibration |
 | raw automation | telemetry only | none by default |
 
 Agentic and automated feedback is valuable, but it should be credited
 differently. It can improve QA, detect stale evidence, measure model
 disagreement, and build app reputation. It should not receive the same user
-credit as linked human feedback unless TradeOS validates the source and policy.
+DTI credit as linked human feedback unless TradeOS validates the source and policy.
+
+## Builder App Quota
+
+Builder app quota uses app reputation, not personal user credit.
+
+| App state | API behavior |
+| --- | --- |
+| Anonymous preview | tiny keyless public read/write limits |
+| Verified starter key | 7-day starter public quota |
+| Baseline key | conservative quota after starter expiry |
+| Earned key | starter-level quota refreshed by useful app-attributed feedback |
+| Reviewed project | higher quota after `POST /v1/public-intel/quota-requests` and operator approval |
+| Paid/entitled project | private intelligence products, scale, alerts, automation, exports, or data rights |
+
+Public read responses expose the active profile in
+`access_control.rate_limit_status.quota_profile`. Builders should use that value
+for product messaging instead of guessing which plan they are on.
 
 ## Credit Boundary
 
-Credits are separate from starter question quota. Starter ask access mirrors the
-current TradeOS pattern:
+DTI credits are separate from starter question quota. Starter ask access mirrors
+the current TradeOS pattern:
 
 | User State | Starter Access | Expiry |
 | --- | --- | --- |
 | Anonymous visitor | 3 public-intelligence questions | Session or anonymous quota boundary |
-| Signed-in starter user | 20 public-intelligence questions | 7 days from first quota activation |
+| Signed-in starter user | 10 public-intelligence questions | 7 days from first quota activation |
+| DTI question pack | 5 extra public-intelligence questions | Earned with Data Intel Credits |
 
-Current dashboard credit pattern:
+Current Data Intel Credit pattern:
 
 ```text
-New signed-in account: 6 dashboard welcome credits
-Feedback-earned depth unlock: 30 days by default
+New signed-in account: 6 welcome DTI credits
+Feedback-earned depth unlock: 7 days by default
 Expired unlock: fall back to free public limits
 ```
 
-Credits may unlock dashboard-only capacity:
+DTI credits may unlock dashboard-only capacity:
 
-- more refreshes;
-- more saved symbols;
-- longer history windows;
-- deeper public evidence cards;
-- additional public Ask TradeOS question packs;
-- limited preview depth for forecast, bias, fusion, EA-quality, digest, token,
-  thesis, and review-lab surfaces.
+| Cost | Unlock family | Examples |
+| ---: | --- | --- |
+| 3 DTI credits | Light dashboard depth | Faster public refresh, more symbols, 30-day public history, deeper evidence cards, Token Discovery detail, Fusion Lite detail, saved-view slots |
+| 6 DTI credits | Review and preview depth | Limited paid-preview cards, Forecast Lab, Bias/Fusion Review, EA Entry Quality, Symbol Story Deep Dive, Token Cycle Review, Digest/Thesis Review |
+| 6 DTI credits | Ask extension | 5 extra read-only public-intelligence questions |
 
-Credits must not unlock:
+DTI credits must not unlock:
 
 - raw exports;
 - bulk API access;
@@ -150,8 +188,8 @@ Credits must not unlock:
 - exchange connectivity;
 - enterprise data.
 
-Credits and starter quota do not unlock x402 calls. Paid machine access belongs
-to TradeOS x402 resources and paid entitlement flows.
+DTI credits and starter quota do not unlock x402 calls. Paid machine access
+belongs to TradeOS x402 resources and paid entitlement flows.
 
 ## Builder Examples
 

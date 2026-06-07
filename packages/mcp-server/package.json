@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
+    "@tradeos/cockpit-core": "0.1.0",
     "@tradeos/public-intel-sdk": "0.1.0",
     "zod": "^4.4.3"
   },

@@ -1,6 +1,6 @@
 # @tradeos/public-intel-mcp-server
 
-Read-mostly MCP server for the TradeOS public intelligence marketplace.
+Read-mostly MCP server for the TradeOS public Data Intelligence layer.
 
 ```bash
 TRADEOS_API_BASE=https://api.tradeos.tech/v1/public-intel \
@@ -52,7 +52,7 @@ Access model:
 
 ```text
 Free public kit: bounded reads, token snapshots, and feedback writes
-Feedback credits: dashboard-only depth, 30-day unlock by default
+Data Intel Credits: dashboard-only depth, 30-day unlock by default
 Account token: saved watchlists, events, channels, delivery audit, and user-owned feedback
 Paid TradeOS/x402: automation, exports, high-volume alerts, premium data, validation APIs
 ```

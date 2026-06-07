@@ -2,15 +2,20 @@
 
 This kit is for builders who want market intelligence as a product ingredient,
 not raw trading infrastructure. It is the builder-facing distribution layer of
-the TradeOS crypto intelligence marketplace.
+the TradeOS crypto market Data Intelligence OS.
+
+The flagship use case is a private self-hosted Symbol Cockpit. A trader or
+builder runs the cockpit on their own box, points it at TradeOS intelligence,
+and keeps model keys, exchange keys, strategy memory, portfolio state,
+approvals, and execution local.
 
 The public story is:
 
 ```text
 Use TradeOS free.
-Give useful feedback to unlock more public depth.
+Earn Data Intel Credits by improving intelligence quality.
 Build products on public intelligence.
-Pay when you need scale, alerts, automation, private context, or data rights.
+Pay when you need private intelligence products, scale, alerts, automation, or data rights.
 ```
 
 ## Monetizable Products
@@ -23,8 +28,8 @@ workflow, and distribution.
 The useful commercial framing is:
 
 ```text
-TradeOS supplies the intelligence marketplace layer.
-The builder sells the workflow around the evidence.
+TradeOS supplies the source-grounded intelligence product layer.
+The builder sells the private workflow around the evidence.
 The customer pays for saved time, monitoring, proof, validation, or integration.
 TradeOS gets paid when the workflow needs scale, automation, premium history, or x402.
 ```
@@ -35,6 +40,7 @@ Start with products where the customer already understands the budget.
 
 | Build This | Sell To | Charge For | Use Public Kit For | Upgrade To Paid TradeOS When |
 | --- | --- | --- | --- | --- |
+| Private self-hosted symbol cockpit | active traders, token teams, research desks | local buy/sell/trim/avoid/watch recommendations, watchlist scanners, recommendation inbox, local privacy | token snapshots, market pulse, fusion context, feedback targets | alerts, premium history, private intelligence context, larger universes |
 | Paid digest | traders, analysts, paid communities | cadence, curation, archive, member access | digest, candidates, source refs, caveats | custom universe, premium pulse, higher refresh |
 | Community bot | Discord/Telegram/Slack groups | install, premium commands, scheduled posts | MCP tools, digest, proof lookup, feedback | high-volume reads, remote bridge when available, alerts |
 | Watchlist dashboard | research teams, token teams, active traders | seats, saved lists, monitoring workflow | token snapshots, account watchlists, events, freshness, feedback | webhooks, larger lists, custom universes, alert delivery |
@@ -48,6 +54,75 @@ history, notifications, team workflow, or customer-specific interpretation.
 
 For offer-by-offer launch recipes, see
 [Builder Revenue Playbook](builder-revenue-playbook.md).
+
+### Private Self-Hosted Symbol Cockpit
+
+Build a private self-hosted app where a user enters a token or symbol and
+receives:
+
+```text
+verdict
+good drivers
+bad drivers
+ugly risks
+confidence and freshness
+evidence references
+next action
+feedback buttons
+local audit trail
+```
+
+Buyer:
+
+```text
+active traders
+token teams
+research desks
+paid communities
+bot builders who want a preflight screen
+traders who do not want to upload keys or strategy memory
+```
+
+TradeOS intelligence used:
+
+```text
+/tokens/{token_ref}/watchlist-snapshot
+market digest and market pulse context
+fusion signal quality when available
+VPIN/flow-stress context when available
+token-risk and token identity context
+feedback target IDs
+```
+
+Revenue model:
+
+```text
+private cockpit subscription
+team dashboard
+paid watchlist seats
+community install
+bot preflight plugin
+research-desk workflow
+local ops dashboard
+```
+
+Why it can make money: customers understand the value immediately. They do not
+need to understand TradeOS internals. They can type a symbol and see whether
+the setup looks good, bad, ugly, actionable, risky, stale, or too thin to
+trust. They can also keep custody, strategy, approvals, and execution in their
+own environment.
+
+Safety boundary: the cockpit can say "buy candidate," "avoid new long,"
+"watch," "trim exposure," "exit candidate," or "bot preflight failed." It must
+show evidence, assumptions, freshness, and invalidation. It must not claim
+guaranteed returns, place trades from TradeOS infrastructure, or hold keys.
+
+Future extension path:
+
+```text
+private cockpit -> local feasibility gate -> local EA/risk gate
+                -> optional local execution adapter -> local ops dashboard
+```
 
 ### Paid Research Digest
 
@@ -85,8 +160,9 @@ sponsored public digest with premium expansion
 Why it can make money: builders can publish timely, source-backed market context
 without building the evidence pipeline from scratch.
 
-Safety boundary: present it as research context, not personalized trade advice
-or a signal to buy/sell.
+Safety boundary: a public digest can include directional bias or watch/avoid
+language, but it should not pretend to know the subscriber's private sizing,
+portfolio, or execution constraints.
 
 ### Community Market Bot
 
@@ -223,10 +299,12 @@ explainability layer. For example, it can display why a setup may be weaker,
 whether evidence is stale, whether a thesis has degraded, or whether market
 state is unfavorable.
 
-Safety boundary: the public kit does not place trades and should not be marketed
-as an execution signal. If a developer connects TradeOS context to live
-automation, execution controls, high-volume feeds, and private forecasts belong
-in paid/private TradeOS surfaces.
+Safety boundary: the public kit can support pre-trade recommendations and bot
+preflight, but it does not place trades from TradeOS infrastructure. If a
+developer connects TradeOS context to live automation, exchange keys,
+execution controls, account state, and approval policy belong in the builder's
+own self-hosted stack. High-volume feeds and private forecasts belong in
+paid/private TradeOS surfaces.
 
 ### Quant Validation Dataset
 
@@ -499,8 +577,9 @@ backend SDK call -> public digest/watchlist card -> feedback button
 Safety copy should be clear:
 
 ```text
-Public intelligence is descriptive evidence, not personalized financial advice
-or a trade instruction.
+Public intelligence is evidence. A self-hosted cockpit may turn that evidence
+into a buy, sell, trim, avoid, watch, or pass recommendation using the
+operator's own rules. Execution and custody stay with the self-hosted operator.
 ```
 
 Why TradeOS helps: the widget gives users context without asking your product to
@@ -510,13 +589,13 @@ build a market intelligence pipeline from scratch.
 
 Do not use the public kit for:
 
-- trade execution;
-- bot automation;
+- TradeOS-hosted trade execution;
+- unattended bot automation without explicit user-owned controls;
 - private forecasts;
 - exchange connectivity;
 - raw data exports;
 - high-volume paid API replacement;
-- personalized financial advice.
+- guaranteed advice that hides assumptions, sizing, or execution ownership.
 
 Those belong in paid or private TradeOS surfaces with different authorization,
 contracts, and controls.

@@ -47,6 +47,7 @@ GET    /v1/public-intel/api-keys        list non-secret key metadata
 POST   /v1/public-intel/api-keys/{id}/rotate rotate secret and return it once
 DELETE /v1/public-intel/api-keys/{id}   revoke key
 GET    /v1/public-intel/app-attribution validate optional bearer app key
+POST   /v1/public-intel/quota-requests request reviewed quota or paid evaluation
 ```
 
 Key creation and revocation require a signed-in TradeOS account bearer token.
@@ -119,6 +120,8 @@ per-account and per-network key creation velocity limits
 per-key feedback/write velocity limits
 anonymous/keyless write velocity limits
 revoked, suspended, and expired app keys rejected on writes
+read quotas by anonymous, starter, baseline, earned, reviewed, and limited profile
+operator review for higher public quota
 ```
 
 Common responses:
@@ -131,6 +134,67 @@ Common responses:
 | 429 | key creation or write rate limit reached | respect `Retry-After` and back off |
 
 More detail: [Distribution Setup Guide](distribution-setup-guide.md)
+
+## App Quota Profiles
+
+An app key is an attribution and reputation key. It is not a paid API key.
+
+| Profile | Reads/min | Reads/hour | Reads/day | Symbols/day | Meaning |
+| --- | ---: | ---: | ---: | ---: | --- |
+| Anonymous preview | 2 | 10 | 20 | 3 | no app key |
+| Builder baseline | 5 | 50 | 100 | 10 | starter expired without useful feedback |
+| Builder starter | 10 | 100 | 250 | 20 | first 7 days of a verified app key |
+| Builder earned | 10 | 100 | 250 | 20 | useful feedback refreshed quota |
+| Reviewed project | 20 | 200 | 500 | 40 | manually approved app |
+| Limited app | 5 | 50 | 100 | 10 | reputation or operator-limited app |
+
+Every public read response includes the active profile:
+
+```text
+access_control.rate_limit_status.quota_profile
+access_control.quota_policy.refresh_reason
+access_control.quota_policy.review_request_endpoint
+```
+
+Earned quota requires useful recent app-attributed feedback. The default policy
+requires at least 5 feedback events in 7 days with a suppressed-feedback ratio
+below 25 percent.
+
+To request more before buying:
+
+```bash
+curl -X POST "$TRADEOS_API_BASE/quota-requests" \
+  -H "authorization: Bearer $TRADEOS_ACCOUNT_TOKEN" \
+  -H "content-type: application/json" \
+  -d '{
+    "project_name": "community-market-bot",
+    "app_key_id": "pubkey_...",
+    "requested_tier": "reviewed_project",
+    "use_case": "Discord bot with source-backed token summaries and feedback buttons.",
+    "expected_daily_reads": 1500,
+    "expected_symbols_per_day": 80,
+    "monetization_model": "paid community bot seats",
+    "feedback_plan": "Members can mark useful, stale, late, wrong, or missing-context answers.",
+    "paid_intent": "will use x402 for alerting and higher scale"
+  }'
+```
+
+The CLI wraps the same endpoint:
+
+```bash
+tradeos-intel quota request \
+  --project-name community-market-bot \
+  --app-key-id pubkey_... \
+  --use-case "Discord bot with source-backed token summaries and feedback buttons." \
+  --reads 1500 \
+  --symbols 80 \
+  --feedback-plan "Members can mark useful, stale, late, wrong, or missing context." \
+  --paid-intent "Will use x402 for alerts and higher scale."
+```
+
+Approval is manual. TradeOS can approve reviewed-project quota, keep the app at
+baseline, limit or suspend abusive usage, or move the builder to paid/x402 access
+for scale.
 
 ## Attribution Without A Key
 
@@ -174,8 +238,8 @@ or self-referential.
 
 | Feedback Class | Suggested User Credit | Suggested Access Window | Notes |
 | --- | --- | --- | --- |
-| linked human | full eligible credit | 30 days dashboard depth | current default pattern |
-| linked human-assisted | partial to full credit | 14-30 days | depends on app reputation and agreement with later outcomes |
+| linked human | full eligible credit | 7 days dashboard depth | current default pattern |
+| linked human-assisted | partial to full credit | 7 days | depends on app reputation and agreement with later outcomes |
 | unlinked human/anonymous | quality signal only until linked | none or later reconciliation | can backfill if identity is linked later |
 | verified agent | app reputation or quota, not personal credit | 7-14 day app preview after calibration | useful for builders and QA |
 | raw automation | no personal credit | none by default | store as telemetry until trust is established |

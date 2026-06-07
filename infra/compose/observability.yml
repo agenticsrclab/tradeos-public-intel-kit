@@ -1,0 +1,6 @@
+services:
+  cockpit-observability-placeholder:
+    image: alpine:3.20
+    command: ["sh", "-c", "echo observability profile placeholder; sleep infinity"]
+    profiles: ["observability"]
+

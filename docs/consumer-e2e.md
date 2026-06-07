@@ -13,6 +13,10 @@ LLM path, but the key was not printed or stored in the repository.
 @tradeos/public-intel-sdk
 @tradeos/public-intel-mcp-server
 @tradeos/public-intel-agent-cli
+@tradeos/cockpit-core
+@tradeos/policy-core
+@tradeos/tradeos-connectors
+@tradeos/symbol-cockpit
 tradeos-public-intel Python SDK
 ```
 
@@ -31,6 +35,12 @@ tradeos-public-intel Python SDK
 11. Call `tradeos.submit_digest_feedback`.
 12. Install Python SDK in a Python 3.11 virtual environment.
 13. Run Python SDK read and feedback write.
+14. Run JS SDK `getSymbolCockpitEvidence` against live TradeOS public-intel.
+15. Run CLI `cockpit VVV --chain 8453 --mode trader`.
+16. Call MCP handler `tradeos.get_symbol_cockpit`.
+17. Start `apps/symbol-cockpit` API and call `/api/cockpit`.
+18. Call `/api/preflight`, `/api/ops`, and paper-order approval/fill paths.
+19. Run `COCKPIT_WORKER_RUN_ONCE=true` scanner over a short watchlist.
 
 ## Expected Results
 
@@ -42,7 +52,17 @@ Feedback status: accepted_shadow
 MCP tool count: 21
 MCP feedback status: accepted_shadow
 Python feedback status: accepted_shadow
+Symbol cockpit evidence schema: tradeos.public_intel.symbol_cockpit_evidence.v1
+Cockpit API schema: tradeos.symbol_cockpit.review_result.v1
+Paper execution venue: paper
 ```
+
+On June 7, 2026, the cockpit validation was rerun from this workspace with a
+valid `TRADEOS_PUBLIC_INTEL_KEY`. SDK aggregation, CLI cockpit, MCP cockpit,
+local API review/preflight/ops, worker scanner, and paper execution all
+returned expected schemas with no TradeOS source errors. The Venice action
+agent route was validated up to its missing-key boundary because no
+`VENICE_API_KEY` was present in the shell or local env file.
 
 The later watchlist certification flow also verified account signup, token
 watchlist state, events, in-app delivery audit, unverified-email skip audit,

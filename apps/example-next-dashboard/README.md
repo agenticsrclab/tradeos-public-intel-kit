@@ -1,7 +1,7 @@
 # Example Dashboard
 
 This folder is reserved for the optional public dashboard example from the ADR.
-It should demonstrate how a builder turns TradeOS marketplace intelligence into
+It should demonstrate how a builder turns TradeOS public intelligence into
 a customer-facing workflow without exposing secrets or private data.
 The core end-to-end path in this repository is:
 

@@ -7,8 +7,10 @@ import type {
   JsonValue,
   ListQuery,
   PublicIntelAppKeyCreate,
+  PublicIntelQuotaRequest,
   PublicFeedback,
   RequestOptions,
+  SymbolCockpitEvidenceQuery,
   ThesisFeedback,
   ThesisFeedbackQuery,
   TradeOSApiErrorBody,
@@ -87,6 +89,25 @@ export class TradeOSPublicIntelClient {
     });
   }
 
+  async submitQuotaRequest(request: PublicIntelQuotaRequest, options: AccountRequestOptions = {}): Promise<JsonObject> {
+    const payload: JsonObject = {
+      project_name: request.projectName,
+      use_case: request.useCase,
+    };
+    setIfPresent(payload, "project_url", request.projectUrl);
+    setIfPresent(payload, "app_key_id", request.appKeyId);
+    setIfPresent(payload, "requested_tier", request.requestedTier);
+    setIfPresent(payload, "expected_daily_reads", request.expectedDailyReads);
+    setIfPresent(payload, "expected_symbols_per_day", request.expectedSymbolsPerDay);
+    setIfPresent(payload, "monetization_model", request.monetizationModel);
+    setIfPresent(payload, "feedback_plan", request.feedbackPlan);
+    setIfPresent(payload, "paid_intent", request.paidIntent);
+    return this.post("/quota-requests", payload, {
+      authToken: this.requireAccountToken(options.accountToken),
+      headers: options.headers,
+    });
+  }
+
   async getMarketDigest(query: ListQuery = {}): Promise<JsonObject> {
     return this.get("/digest-inputs", listQueryParams(query));
   }
@@ -160,6 +181,51 @@ export class TradeOSPublicIntelClient {
       contract_address: query.contractAddress,
       limit: query.limit,
     });
+  }
+
+  async getSymbolCockpitEvidence(
+    symbol: string,
+    query: SymbolCockpitEvidenceQuery = {},
+  ): Promise<JsonObject> {
+    const sources: JsonObject = {};
+    const sourceErrors: JsonObject = {};
+    await Promise.all([
+      captureSource(sourceErrors, "watchlist_snapshot", async () => {
+        sources.watchlist_snapshot = await this.getTokenWatchlistSnapshot(symbol, {
+          mode: query.mode,
+          chain: query.chain,
+          contractAddress: query.contractAddress,
+          limit: query.watchlistLimit,
+        });
+      }),
+      captureSource(sourceErrors, "digest", async () => {
+        sources.digest = await this.getMarketDigest({
+          chainId: query.chain,
+          limit: query.digestLimit ?? 10,
+        });
+      }),
+      captureSource(sourceErrors, "candidates", async () => {
+        sources.candidates = await this.getPublicCandidates({
+          chainId: query.chain,
+          limit: query.candidateLimit ?? 10,
+        });
+      }),
+      captureSource(sourceErrors, "thesis_watchlist", async () => {
+        sources.thesis_watchlist = await this.getThesisWatchlist({
+          chainId: query.chain,
+          limit: query.watchlistLimit ?? 100,
+        });
+      }),
+    ]);
+    return {
+      schema_version: "tradeos.public_intel.symbol_cockpit_evidence.v1",
+      symbol: symbol.trim().toUpperCase(),
+      chain: query.chain ?? "",
+      mode: query.mode ?? "investor",
+      sources,
+      source_errors: sourceErrors,
+      generated_at: nowIso(),
+    };
   }
 
   async createWatchlist(request: WatchlistCreate, options: AccountRequestOptions = {}): Promise<JsonObject> {
@@ -557,6 +623,14 @@ function accountAuthHeaders(accountToken: string, headers: Record<string, string
     ...headers,
     authorization: `Bearer ${accountToken}`,
   };
+}
+
+async function captureSource(errors: JsonObject, name: string, fn: () => Promise<void>): Promise<void> {
+  try {
+    await fn();
+  } catch (error: unknown) {
+    errors[name] = error instanceof Error ? error.message : String(error);
+  }
 }
 
 function parseJson(text: string): unknown {

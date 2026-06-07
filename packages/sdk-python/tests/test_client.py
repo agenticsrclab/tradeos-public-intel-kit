@@ -82,6 +82,39 @@ def test_create_app_key_uses_account_token_over_app_key(monkeypatch):
     assert seen["body"]["scopes"] == ["public_intel.feedback:write"]
 
 
+def test_submit_quota_request_uses_account_token(monkeypatch):
+    seen = {}
+
+    def fake_urlopen(request, timeout):
+        seen["url"] = request.full_url
+        seen["authorization"] = request.headers.get("Authorization")
+        seen["body"] = json.loads(request.data.decode("utf-8"))
+        return FakeResponse({"status": "submitted"})
+
+    monkeypatch.setattr(client_module, "urlopen", fake_urlopen)
+    client = TradeOSPublicIntelClient(
+        base_url="https://example.test/v1/public-intel",
+        account_token="acct_token",
+    )
+
+    payload = client.submit_quota_request(
+        project_name="Community Bot",
+        app_key_id="pubkey_1",
+        use_case="Discord bot with source-backed token summaries and feedback buttons.",
+        expected_daily_reads=1500,
+        expected_symbols_per_day=80,
+        monetization_model="paid community seats",
+        feedback_plan="Members can label useful, stale, late, or wrong answers.",
+    )
+
+    assert payload["status"] == "submitted"
+    assert seen["url"].endswith("/quota-requests")
+    assert seen["authorization"] == "Bearer acct_token"
+    assert seen["body"]["project_name"] == "Community Bot"
+    assert seen["body"]["app_key_id"] == "pubkey_1"
+    assert seen["body"]["requested_tier"] == "reviewed_project"
+
+
 def test_submit_digest_feedback_maps_to_conversions(monkeypatch):
     seen = {}
 
@@ -142,6 +175,24 @@ def test_get_token_watchlist_snapshot_encodes_path_segments(monkeypatch):
     client.get_token_watchlist_snapshot("base/0xabc", mode="trader")
 
     assert seen["url"].endswith("/tokens/base%2F0xabc/watchlist-snapshot?mode=trader")
+
+
+def test_get_symbol_cockpit_evidence_aggregates_public_interfaces(monkeypatch):
+    seen = []
+
+    def fake_urlopen(request, timeout):
+        seen.append(request.full_url)
+        return FakeResponse({"schema_version": "ok", "url": request.full_url})
+
+    monkeypatch.setattr(client_module, "urlopen", fake_urlopen)
+    client = TradeOSPublicIntelClient(base_url="https://example.test/v1/public-intel")
+
+    payload = client.get_symbol_cockpit_evidence("vvv", mode="trader", chain="8453")
+
+    assert payload["schema_version"] == "tradeos.public_intel.symbol_cockpit_evidence.v1"
+    assert payload["symbol"] == "VVV"
+    assert "watchlist_snapshot" in payload["sources"]
+    assert any("/digest-inputs?limit=10&chain_id=8453" in url for url in seen)
 
 
 def test_create_watchlist_uses_account_auth_and_app_key_header(monkeypatch):

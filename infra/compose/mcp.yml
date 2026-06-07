@@ -1,0 +1,10 @@
+services:
+  mcp-server:
+    build:
+      context: ../..
+      dockerfile: infra/docker/node-workspace.Dockerfile
+    environment:
+      TRADEOS_API_BASE: ${TRADEOS_API_BASE:-https://api.tradeos.tech/v1/public-intel}
+      TRADEOS_PUBLIC_INTEL_KEY: ${TRADEOS_PUBLIC_INTEL_KEY:-}
+    command: ["npm", "--workspace", "@tradeos/public-intel-mcp-server", "run", "dev"]
+

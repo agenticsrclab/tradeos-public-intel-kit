@@ -5,17 +5,31 @@ products people already pay for: research, monitoring, community bots,
 dashboards, widgets, bot intelligence layers, quant validation, and reputation
 tools.
 
-It does not promise trading profits. It does not provide personalized financial
-advice. It does not place trades. The value is commercial product leverage:
-TradeOS supplies a crypto intelligence marketplace layer, and builders sell the
-workflow around it.
+The strongest commercial wedge is the private self-hosted Symbol Cockpit: a
+trader-owned decision agent that uses TradeOS intelligence but keeps account
+control, keys, local rules, portfolio context, approvals, and execution in the
+customer's environment.
+
+It does not promise trading profits or place trades from TradeOS
+infrastructure. The value is commercial product leverage: TradeOS supplies a
+crypto market Data Intelligence layer, and builders sell the workflow around
+it, including self-hosted cockpits that can recommend buy, sell, trim, avoid,
+watch, or pass under the user's own rules.
 
 The best builder pitch is not "use this endpoint." It is "ship a paid product
 faster because TradeOS already supplies source-backed market context,
 confidence, caveats, freshness, stable IDs, and feedback write paths."
 
-For the canonical marketplace framing, start with
-[Marketplace Model](marketplace-model.md).
+For trader-facing products, the sharper pitch is:
+
+```text
+Run your own crypto decision cockpit.
+TradeOS powers the intelligence.
+Your keys, rules, approvals, and execution stay with you.
+```
+
+For the canonical Data Intelligence product framing, start with
+[Data Intelligence Product Model](marketplace-model.md).
 
 ## What TradeOS Supplies
 
@@ -35,6 +49,7 @@ structured feedback write paths
 ## What Builders Can Sell
 
 ```text
+private self-hosted symbol cockpit
 paid research digest
 community market bot
 watchlist dashboard
@@ -54,16 +69,21 @@ outcome around that input:
 
 | Customer Type | What They Pay For | Product Shape |
 | --- | --- | --- |
-| Active traders and analysts | fewer blind spots and faster market review | paid digest, watchlist dashboard, alert workflow |
+| Active traders | private local recommendations without handing over keys | self-hosted Symbol Cockpit, local ops dashboard |
+| Analysts and researchers | fewer blind spots and faster market review | paid digest, watchlist dashboard, alert workflow |
 | Research communities | better member retention and market Q&A | Discord/Telegram bot, premium command tier, feedback ranking |
 | Token teams and DAOs | explainable market context for their ecosystem | context widget, community bot, public proof page |
-| Bot builders | context, caveats, and post-decision explainability | paid plugin, risk overlay, review dashboard |
+| Bot builders | context, caveats, and post-decision explainability | paid plugin, risk overlay, local preflight dashboard |
 | Quant shops and funds | outside labels for validation and disagreement analysis | validation export, benchmark report, enterprise API |
 | Analyst creators | proof, accountability, and paid audience conversion | claim page, outcome tracker, paid research profile |
 
 Do not sell guaranteed trading performance. Sell saved time, explainability,
 monitoring, auditability, validation, community workflow, and integration into
 places where users already work.
+
+For self-hosted cockpit products, also sell private control: local model keys,
+local strategy memory, local risk gates, local execution adapters, and local
+audit logs.
 
 ## Offer Templates
 
@@ -107,7 +127,7 @@ weaker, and what needs review.
 ```text
 Free: attach public digest and thesis caveats to a bot report
 Paid: bot plugin, explainability layer, risk review, post-trade journal context
-TradeOS paid trigger: automation-safe access, private context, premium regimes
+TradeOS paid trigger: automation-safe access, private intelligence context, premium regimes
 ```
 
 Why it works: the builder is not selling TradeOS as a trade executor. They are
@@ -346,8 +366,9 @@ The access model should match TradeOS:
 ```text
 Free public kit: bounded reads and feedback writes
 Anonymous starter ask: 3 public-intelligence questions
-Signed-in starter ask: 20 public-intelligence questions for 7 days
-Feedback credits: dashboard-only depth, 30-day unlock by default
+Signed-in starter ask: 10 public-intelligence questions for 7 days
+DTI question pack: 5 extra public-intelligence questions
+Data Intel Credits: dashboard-only depth, 7-day unlock by default
 Paid TradeOS: automation, exports, alerts, premium data, validation APIs
 x402: machine payment for paid API resources
 ```
@@ -382,15 +403,16 @@ historical or replayable datasets
 team API access
 ```
 
-Keep x402 separate from user feedback credits. Credits create dashboard depth
-and quality loops; x402 creates explicit paid entitlement for machine access.
+Keep x402 separate from user Data Intel Credits. DTI credits create dashboard
+depth and quality loops; x402 creates explicit paid entitlement for machine
+access.
 
 ## Copy Builders Can Use
 
 ```text
 Powered by TradeOS public intelligence.
 Source-backed market context with confidence, caveats, and feedback loops.
-Not financial advice. No trade execution.
+Private self-hosted recommendations. TradeOS does not hold keys or place orders.
 ```
 
 ```text

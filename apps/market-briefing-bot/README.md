@@ -3,7 +3,7 @@
 Discord and Telegram ready market briefing bot powered by TradeOS public
 intelligence.
 
-This is the first concrete bot in the marketplace distribution kit. It is useful
+This is the first concrete bot in the Data Intelligence distribution kit. It is useful
 out of the box because communities, research groups, bot builders, and analysts
 already need a short source-backed market brief they can post on a schedule.
 

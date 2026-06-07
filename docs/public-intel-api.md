@@ -116,6 +116,7 @@ GET    /api-keys
 POST   /api-keys/{key_id}/rotate
 DELETE /api-keys/{key_id}
 GET    /app-attribution
+POST   /quota-requests
 ```
 
 App-key management requires a signed-in TradeOS account bearer token. Most
@@ -126,6 +127,48 @@ the app key is valid.
 
 The app-key secret is returned once at creation or rotation. Existing secrets
 cannot be retrieved.
+
+`POST /quota-requests` requires a signed-in, email-verified TradeOS account. It
+records a project review request for higher public quota or paid evaluation.
+
+## Quota Policy
+
+Public reads return quota information under `access_control`:
+
+```json
+{
+  "access_control": {
+    "rate_limit_status": {
+      "quota_profile": "anonymous_preview|starter|baseline|earned|reviewed_project|limited",
+      "minute_limit": 30,
+      "hour_limit": 300,
+      "day_limit": 1000,
+      "symbol_cardinality_day_limit": 50
+    },
+    "quota_policy": {
+      "refresh_reason": "recent useful feedback refreshed public quota",
+      "review_request_endpoint": "/v1/public-intel/quota-requests",
+      "paid_upgrade_note": "Production scale requires x402 payment or a TradeOS entitlement."
+    }
+  }
+}
+```
+
+Default profiles:
+
+| Profile | Reads/min | Reads/hour | Reads/day | Symbols/day |
+| --- | ---: | ---: | ---: | ---: |
+| Anonymous preview | 2 | 10 | 20 | 3 |
+| Builder baseline | 5 | 50 | 100 | 10 |
+| Builder starter/earned | 10 | 100 | 250 | 20 |
+| Reviewed project | 20 | 200 | 500 | 40 |
+
+Data Intel Credits and app keys do not unlock paid resources. Use x402, paid API
+entitlement, or a TradeOS contract for machine-scale reads, alerts, exports,
+historical replay, private intelligence products, premium automation, or data rights.
+
+At launch, free public reads are counted as one read unit per request. The API
+returns the current policy in `access_control.quota_policy.read_unit_policy`.
 
 ## Watchlist SDK Example
 
@@ -201,8 +244,11 @@ provenance, not credit entitlement. TradeOS decides credit server-side.
 
 ## Public Boundary
 
-Responses are public-intelligence evidence. They are not personalized financial
-advice, trade instructions, raw premium exports, or execution data.
+Responses are public-intelligence evidence. The API itself does not place
+trades, hold keys, return raw premium exports, or provide execution data.
+Private self-hosted applications may turn this evidence into trade/action
+recommendations when they make assumptions, freshness, risk, and execution
+ownership visible.
 
 The public API is the free discovery and integration surface. Server-side rate
 limits and abuse controls may apply. Paid TradeOS resources, including x402-paid

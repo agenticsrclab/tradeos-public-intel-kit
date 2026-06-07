@@ -1,22 +1,22 @@
 # Access And Payments
 
 This kit follows the same TradeOS access pattern used by the public dashboard:
-free public intelligence for discovery, feedback credits for temporary dashboard
-depth, and paid TradeOS products for automation, exports, premium data, and
-machine-paid access.
+free public intelligence for discovery, Data Intel Credits for temporary
+dashboard depth, and paid TradeOS products for private intelligence products,
+automation, exports, premium data, and machine-paid access.
 
-That access pattern is the commercial boundary of the crypto intelligence
-marketplace: public intelligence makes builder products easy to try, feedback
-improves marketplace quality, and paid TradeOS/x402/enterprise access unlocks
-production depth, scale, automation, and data rights.
+That access pattern is the commercial boundary of the crypto market Data
+Intelligence OS: public intelligence makes builder products easy to try,
+feedback improves intelligence quality, and paid TradeOS/x402/enterprise access
+unlocks production depth, scale, automation, and data rights.
 
 The simple version:
 
 ```text
 Use TradeOS free.
-Give useful feedback to unlock more public depth.
+Earn Data Intel Credits by improving intelligence quality.
 Build products on public intelligence.
-Pay when you need scale, alerts, automation, private context, or data rights.
+Pay when you need private intelligence products, scale, alerts, automation, or data rights.
 ```
 
 ## Free Public Usage
@@ -43,19 +43,24 @@ Server-side rate limits and abuse controls may still apply. When a consumer
 needs more volume or premium surfaces, move them to the paid TradeOS path
 instead of trying to stretch the public kit.
 
-Free public API reads do not create a durable paid-style entitlement that
-expires after a set number of days. The time-boxed parts of the model are the
-starter ask quota and feedback-credit depth unlocks.
+Keyless public reads do not create a durable paid-style entitlement that expires
+after a set number of days. Verified builder app keys do have a starter window:
+after 7 days they fall back to baseline quota unless useful feedback refreshes
+the app, TradeOS approves a quota request, or the builder pays for scale.
 
 ## Expiry Summary
 
 | Feature | Free / Credit Behavior | Expiry |
 | --- | --- | --- |
 | Public-intel reads | Bounded public evidence for discovery and prototypes | No credit-style expiry; server limits may apply |
+| Public-intel app starter | Starter public API quota for a verified builder key | 7 days from key creation |
+| Earned public API quota | Starter-level public quota refreshed by useful attributed feedback | Recomputed from recent feedback and app reputation |
+| Reviewed project quota | Higher public API quota after operator approval | Bound to app reputation and manual review |
 | Feedback writes | Free structured feedback into TradeOS quality loop | No credit-style expiry for the write itself |
 | Anonymous ask | 3 public-intelligence questions | No durable entitlement; bound to anonymous/session quota |
-| Signed-in starter ask | 20 public-intelligence questions | 7 days from first activation |
-| Feedback dashboard depth | Temporary deeper dashboard access earned through useful feedback | 30 days by default |
+| Signed-in starter ask | 10 public-intelligence questions | 7 days from first activation |
+| DTI question pack | 5 extra public-intelligence questions | Earned with Data Intel Credits |
+| DTI dashboard depth | Temporary deeper dashboard access earned through useful feedback | 7 days by default |
 | Paid/x402 resources | Premium machine access after explicit payment/entitlement | Bound to paid listing or contract terms |
 
 ## Account And API Key Model
@@ -72,7 +77,7 @@ resources.
 | --- | --- | --- | --- |
 | No-account public trial | none | none | lowest-friction public reads and feedback writes |
 | Optional builder registration | builder TradeOS account | `TRADEOS_PUBLIC_INTEL_KEY` | app attribution, abuse controls, support, potential higher public limits |
-| User credit linking | user TradeOS account or linked identity | sign-in/link token when available | required for durable user credits; anonymous feedback still helps quality |
+| DTI credit linking | user TradeOS account or linked identity | sign-in/link token when available | required for durable user DTI credits; anonymous feedback still helps quality |
 | x402 paid machine access | payer needs wallet/payment flow | x402 payment | good for bots, agents, and backends buying a paid resource |
 | Paid API/enterprise | builder or customer account/contract | paid API key or entitlement | scale, premium data, exports, alerts, validation, support |
 
@@ -91,6 +96,35 @@ limits, creation velocity limits, per-key write limits, anonymous write limits,
 and suspended/revoked key rejection. See
 [Distribution Setup Guide](distribution-setup-guide.md).
 
+## Public API Quota Lifecycle
+
+TradeOS public API quota is useful enough for demos and early products, but it is
+not a free bulk feed.
+
+| Profile | Reads/min | Reads/hour | Reads/day | Symbols/day | How to get it |
+| --- | ---: | ---: | ---: | ---: | --- |
+| Anonymous preview | 2 | 10 | 20 | 3 | no key, keyless trial |
+| Builder baseline | 5 | 50 | 100 | 10 | app key after starter expiry |
+| Builder starter | 10 | 100 | 250 | 20 | verified app key for 7 days |
+| Builder earned | 10 | 100 | 250 | 20 | at least 5 useful feedback events in 7 days with low suppression |
+| Reviewed project | 20 | 200 | 500 | 40 | approved quota request |
+| Limited app | 5 | 50 | 100 | 10 | reputation or operator action |
+
+Default feedback/write limits are also bounded: app-key writes are 10/minute and
+100/day; anonymous writes are 5/minute per IP.
+
+To ask for more public quota before buying, submit a project request from a
+verified TradeOS account:
+
+```text
+POST https://api.tradeos.tech/v1/public-intel/quota-requests
+```
+
+Include the project name, app key, use case, expected daily reads, expected
+symbols per day, monetization model, feedback plan, and paid intent. Approval is
+manual. TradeOS may approve reviewed-project quota, keep the app at baseline,
+limit abusive usage, or move the project to x402/paid entitlement.
+
 Do not put TradeOS paid keys or model-provider keys in browser code. Keep
 builder credentials on the server side. If a user brings their own entitlement,
 make that an explicit power-user flow.
@@ -100,7 +134,7 @@ Identity rules:
 ```text
 No user identity: feedback can improve quality, but cannot earn durable user credit.
 Anonymous session ID: feedback can be grouped for local UX and possible later reconciliation.
-Linked TradeOS user: feedback can be reconciled to starter quota and dashboard credits.
+Linked TradeOS user: feedback can be reconciled to starter quota and DTI credits.
 Builder API key: identifies the app, not the end user's paid entitlement.
 Paid/x402 credential: unlocks paid machine resources under explicit payment or entitlement.
 ```
@@ -122,7 +156,7 @@ Public reads and feedback writes
 Users create feedback against stable target IDs
         |
         v
-TradeOS reconciles quality signal, credits, and account/session state
+TradeOS reconciles quality signal, DTI credits, and account/session state
         |
         +--> dashboard-only credit depth for eligible users
         |
@@ -138,13 +172,14 @@ Feature unlock paths:
 | --- | --- | --- |
 | Public API | bounded public intelligence | SDK/MCP/CLI call public endpoints |
 | Package update | new public helper, MCP tool, or CLI command | builder upgrades the package version |
-| Feedback credits | temporary dashboard-only depth | feedback writes include stable target IDs and optional user/session IDs |
+| Earned app quota | starter-level public API depth | feedback writes include stable target IDs, app attribution, and honest provenance |
+| Data Intel Credits | temporary dashboard-only depth | feedback writes include stable target IDs and optional user/session IDs |
 | x402 payment | paid machine resource for bots/agents/backends | paid resource returns explicit payment/entitlement behavior |
 | Paid API key / contract | premium data, scale, exports, alerts, support | builder configures credentials and paid endpoint access |
 
-Credits do not unlock x402, exports, bot automation, execution, private
-forecasts, or raw premium data. They only unlock dashboard-style depth where
-TradeOS has enabled that credit policy.
+DTI credits do not unlock x402, exports, bot automation, execution, private
+intelligence products, or raw premium data. They only unlock dashboard-style
+depth where TradeOS has enabled that credit policy.
 
 More detail on key issuance and feedback provenance:
 [API Keys And Feedback Provenance](api-keys-and-feedback-provenance.md).
@@ -156,7 +191,8 @@ Ask-style products should mirror the current TradeOS starter quota:
 | User State | Starter Access | Expiry |
 | --- | --- | --- |
 | Anonymous visitor | 3 public-intelligence questions | Session or anonymous quota boundary |
-| Signed-in starter user | 20 public-intelligence questions | 7 days from first quota activation |
+| Signed-in starter user | 10 public-intelligence questions | 7 days from first quota activation |
+| DTI question pack | 5 extra public-intelligence questions | Earned with Data Intel Credits |
 
 Starter questions are for public-intelligence Q&A only. They do not unlock
 portfolio context, execution, custody, raw exports, alert delivery, x402/API
@@ -167,20 +203,31 @@ bounded by the user's LLM provider key and by the TradeOS public-intel API
 limits. Product builders who add their own hosted ask surface should apply the
 starter quota above.
 
-## Feedback Credits
+## Data Intel Credits
 
-Feedback credits reward users for improving intelligence quality. They are
-separate from starter question quota.
+Data Intel Credits reward users for improving intelligence quality. They are
+account-based app credits, not transferable assets, and they are separate from
+starter question quota.
 
 Current TradeOS pattern:
 
 ```text
-New signed-in account: 6 dashboard welcome credits
-Feedback-earned depth unlock: 30 days by default
+New signed-in account: 6 welcome DTI credits
+Eligible unique feedback: 3 DTI credits after quality checks
+Light dashboard unlocks: 3 DTI credits for 7 days
+Deeper review/preview unlocks: 6 DTI credits for 7 days
+Ask question pack: 6 DTI credits for 5 extra public-intelligence questions
+Feedback-earned depth unlock: 7 days by default
 Expired unlock: fall back to free public limits
 ```
 
-Credits may unlock dashboard-only depth:
+Free public access, starter access, and feedback-earned depth are best-effort
+promotional access. They have no SLA, no guaranteed availability, no cash value,
+and may be rate-limited, changed, paused, degraded, or revoked to protect
+TradeOS infrastructure. Paid/x402/contract access is reserved for reliable
+production scale.
+
+DTI credits may unlock dashboard-only depth:
 
 ```text
 longer public history windows
@@ -190,7 +237,7 @@ more public dashboard refreshes
 limited paid-preview cards
 ```
 
-Credits must not unlock:
+DTI credits must not unlock:
 
 ```text
 x402 paid API calls

@@ -3,6 +3,19 @@
 This guide shows how to run the TradeOS public intelligence kit without giving
 away paid credentials or creating an abuse path.
 
+The recommended production model is private and self-hosted. TradeOS provides
+public or paid intelligence; the Symbol Cockpit, local rules, model key,
+portfolio context, feasibility checks, EA/risk checks, execution adapters, and
+operations dashboard run in the self-hosted operator's environment.
+
+```text
+TradeOS intelligence API -> private cockpit -> local gates -> optional local execution
+```
+
+For orientation before setup, see [Repository Layout](repository-layout.md).
+For concrete key, URL, Venice, SMTP, and local runtime values, see
+[Integration Keys And URLs](integration-keys-and-urls.md).
+
 ## Access Modes
 
 | Mode | Credential | Use It For |
@@ -17,6 +30,10 @@ away paid credentials or creating an abuse path.
 
 Keep `TRADEOS_ACCOUNT_TOKEN`, `TRADEOS_PUBLIC_INTEL_KEY`, and model-provider
 keys on the server side. Do not ship them in browser code.
+
+Never send exchange keys, wallet private keys, full portfolio state, or private
+strategy memory to TradeOS. If a builder adds execution later, keep those
+adapters local and require explicit approvals before live orders.
 
 ## 1. Try Public Reads
 
@@ -35,7 +52,98 @@ Try a public token watchlist snapshot:
 node -e "import('@tradeos/public-intel-sdk').then(async ({ TradeOSPublicIntelClient }) => { const c = new TradeOSPublicIntelClient(); console.log(await c.getTokenWatchlistSnapshot('VVV', { mode: 'trader', chain: '8453' })); })"
 ```
 
-## 2. Ask With Venice AI
+## 2. Try The Private Symbol Cockpit Pattern
+
+The cockpit pattern is the recommended first consumer workflow:
+
+```text
+symbol -> good / bad / ugly -> local recommendation -> feedback
+```
+
+Run the reference cockpit app:
+
+```bash
+export TRADEOS_PUBLIC_INTEL_KEY=<optional-public-intel-app-key>
+npm run symbol-cockpit
+```
+
+Open `http://127.0.0.1:18100`.
+
+Run the same flow through the CLI:
+
+```bash
+npm run cli -- cockpit VVV --chain 8453 --mode trader
+npm run cli -- preflight VVV --action buy --chain 8453
+```
+
+Run the scanner worker once:
+
+```bash
+COCKPIT_WORKER_RUN_ONCE=true COCKPIT_WATCHLIST=VVV,BTC \
+npm --workspace @tradeos/symbol-cockpit run worker
+```
+
+Or start the app-level Compose topology:
+
+```bash
+cd apps/symbol-cockpit
+cp .env.example .env
+docker compose up
+docker compose --profile risk up
+docker compose --profile execution up
+```
+
+The implemented package/module split is:
+
+```text
+packages/cockpit-core        recommendation schemas and scoring
+packages/policy-core         approvals, account gates, kill switch, actionability
+packages/tradeos-connectors  TradeOS and Venice/OpenAI-compatible connectors
+modules/feasibility          local Tier 1/Tier 2 gate helper
+modules/ea-risk              expected-advantage/risk helper
+modules/execution-gateway    paper-only local execution gateway
+modules/ops-dashboard        local ops snapshot contract
+modules/notification-router  stdout/webhook/email recommendation delivery
+apps/symbol-cockpit          web/API/worker product runtime
+```
+
+For a lower-level SDK-only check, fetch public evidence directly:
+
+```bash
+node - <<'JS'
+import { TradeOSPublicIntelClient } from "@tradeos/public-intel-sdk";
+
+const client = new TradeOSPublicIntelClient();
+const token = process.argv[2] ?? "VVV";
+const evidence = await client.getSymbolCockpitEvidence(token, {
+  mode: "trader",
+  chain: "8453",
+});
+
+console.log(JSON.stringify(evidence, null, 2));
+JS
+```
+
+Keep local portfolio, strategy notes, wallet context, bot rules, execution
+keys, and logs out of TradeOS requests unless the user explicitly chooses to
+send them. TradeOS receives the symbol/public query and any feedback or
+paid/private scope your runtime submits.
+
+Use this as the default control-plane split:
+
+```text
+TradeOS evidence
+  -> private self-hosted cockpit
+  -> local feasibility gate
+  -> local EA/risk gate
+  -> optional local execution adapter
+  -> local operations dashboard and audit log
+```
+
+See [Symbol Cockpit And Action Agent](symbol-cockpit-agent.md) for the product
+shape, privacy modes, and recommendation examples.
+
+## 3. Ask With Venice AI
 
 Venice is the default OpenAI-compatible provider for the CLI agent. Get a key
 from the [Venice AI subscription page](https://venice.ai/pricing).
@@ -54,7 +162,7 @@ export OPENAI_API_KEY=...
 export TRADEOS_AGENT_MODEL=your-model
 ```
 
-## 3. Try The Market Briefing Bot
+## 4. Try The Market Briefing Bot
 
 The fastest useful app path is the market briefing bot. It works with no
 TradeOS account and no LLM key:
@@ -98,7 +206,7 @@ npm run briefing-bot -- post
 
 More detail: [Market Briefing Bot](market-briefing-bot.md)
 
-## 4. Create An App Key
+## 5. Create An App Key
 
 App-key creation requires a signed-in, email-verified TradeOS account. The
 normal path is the TradeOS dashboard. The kit can also call the key issuer for
@@ -138,6 +246,37 @@ npm run cli -- auth
 Existing secrets cannot be retrieved from TradeOS. If you lose a secret, rotate
 the key in Developer Keys and update your server environment.
 
+Public API quota is intentionally bounded. A verified app key starts with a
+7-day starter window, then falls back to baseline unless useful attributed
+feedback refreshes the app, TradeOS approves a quota request, or the builder pays
+for scale.
+
+```text
+Anonymous preview: 2/min, 10/hour, 20/day, 3 symbols/day
+Builder baseline: 5/min, 50/hour, 100/day, 10 symbols/day
+Builder starter/earned: 10/min, 100/hour, 250/day, 20 symbols/day
+Reviewed project: 20/min, 200/hour, 500/day, 40 symbols/day
+```
+
+To request reviewed public quota or a paid evaluation:
+
+```text
+POST https://api.tradeos.tech/v1/public-intel/quota-requests
+```
+
+Or from the CLI:
+
+```bash
+npm run cli -- quota request \
+  --project-name community-market-bot \
+  --app-key-id pubkey_... \
+  --use-case "Discord bot with source-backed token summaries and feedback buttons." \
+  --reads 1500 \
+  --symbols 80 \
+  --feedback-plan "Members can mark useful, stale, late, wrong, or missing context." \
+  --paid-intent "Will use x402 for alerts and higher scale."
+```
+
 Advanced automation path:
 
 ```bash
@@ -150,7 +289,7 @@ npm run cli -- keys revoke --key-id pubkey_...
 The account token is the signed-in account bearer token and should stay local to
 trusted automation. Do not commit it and do not ship it in client-side code.
 
-## 5. Try Account-Owned Watchlists
+## 6. Try Account-Owned Watchlists
 
 Saved watchlists require a TradeOS account token. Public snapshots are keyless,
 but saved lists, state, events, notification channels, and feedback are
@@ -226,7 +365,7 @@ export TRADEOS_ACCOUNT_TOKEN="$(
 )"
 ```
 
-## 6. Run The MCP Server
+## 7. Run The MCP Server
 
 Claude Desktop example:
 
@@ -249,7 +388,7 @@ Claude Desktop example:
 The app key is optional for local trials. Use it for production attribution and
 support.
 
-## 7. Submit Feedback With Provenance
+## 8. Submit Feedback With Provenance
 
 Human feedback:
 
@@ -279,7 +418,7 @@ TradeOS decides credit class server-side. Agent and automation feedback can help
 app reputation and quality analytics, but it does not become personal user
 credit by default.
 
-## 8. Handle Guardrail Responses
+## 9. Handle Guardrail Responses
 
 The public-intel API protects app-key issuance and write paths.
 
@@ -292,9 +431,10 @@ The public-intel API protects app-key issuance and write paths.
 
 Default production guardrails include email verification, per-account key caps,
 per-account and per-network creation limits, per-key write limits, anonymous IP
-write limits, and revoked/suspended key rejection.
+write limits, read quota profiles, app reputation, quota review, and
+revoked/suspended key rejection.
 
-## 8. Production Checklist
+## 10. Production Checklist
 
 For builders:
 

@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 import OpenAI from "openai";
+import {
+  buildBotPreflightResponse,
+  buildEvidenceBundle,
+  buildRecommendationCard,
+  buildSymbolCockpitPacket,
+} from "@tradeos/cockpit-core";
 import { TradeOSPublicIntelClient } from "@tradeos/public-intel-sdk";
 import type { JsonObject } from "@tradeos/public-intel-sdk";
 import { buildAskPrompt, extractDigestSummary } from "./prompt.js";
@@ -38,6 +44,10 @@ async function main(argv: string[]): Promise<void> {
       await handleKeysCommand(client, rest);
       return;
     }
+    case "quota": {
+      await handleQuotaCommand(client, rest);
+      return;
+    }
     case "digest": {
       const digest = await client.getMarketDigest(parseFlags(rest));
       printJson(extractDigestSummary(digest));
@@ -49,6 +59,83 @@ async function main(argv: string[]): Promise<void> {
     }
     case "watchlist": {
       printJson(await client.getThesisWatchlist(parseFlags(rest)));
+      return;
+    }
+    case "cockpit": {
+      const flags = parseFlags(rest);
+      const symbol = String(rest.find((item) => !item.startsWith("--")) ?? flags.symbol ?? "");
+      if (!symbol) {
+        throw new Error("cockpit requires a symbol, for example: tradeos-intel cockpit VVV --chain 8453");
+      }
+      const evidence = await client.getSymbolCockpitEvidence(symbol, {
+        chain: optionalString(flags.chain ?? flags.chainId),
+        mode: optionalMode(flags.mode),
+        contractAddress: optionalString(flags.contractAddress),
+      });
+      const packet = buildSymbolCockpitPacket(
+        {
+          symbol,
+          chain: optionalString(flags.chain ?? flags.chainId),
+          mode: optionalMode(flags.mode),
+          recommendationType: "symbol_cockpit",
+        },
+        buildEvidenceBundle(
+          {
+            symbol,
+            chain: optionalString(flags.chain ?? flags.chainId),
+            mode: optionalMode(flags.mode),
+          },
+          asJsonObject(evidence.sources),
+          asStringRecord(evidence.source_errors),
+        ),
+      );
+      printJson({
+        schema_version: "tradeos.public_intel.cli_cockpit.v1",
+        packet,
+        card: buildRecommendationCard(packet),
+        source_errors: evidence.source_errors ?? {},
+      });
+      return;
+    }
+    case "preflight": {
+      const flags = parseFlags(rest);
+      const symbol = String(rest.find((item) => !item.startsWith("--")) ?? flags.symbol ?? "");
+      if (!symbol) {
+        throw new Error("preflight requires a symbol, for example: tradeos-intel preflight VVV --action buy");
+      }
+      const evidence = await client.getSymbolCockpitEvidence(symbol, {
+        chain: optionalString(flags.chain ?? flags.chainId),
+        mode: "trader",
+      });
+      const packet = buildSymbolCockpitPacket(
+        {
+          symbol,
+          chain: optionalString(flags.chain ?? flags.chainId),
+          mode: "trader",
+          recommendationType: "trade_preflight",
+        },
+        buildEvidenceBundle(
+          {
+            symbol,
+            chain: optionalString(flags.chain ?? flags.chainId),
+            mode: "trader",
+            recommendationType: "trade_preflight",
+          },
+          asJsonObject(evidence.sources),
+          asStringRecord(evidence.source_errors),
+        ),
+      );
+      printJson(
+        buildBotPreflightResponse(
+          {
+            symbol,
+            chain: optionalString(flags.chain ?? flags.chainId),
+            proposed_action: optionalString(flags.action ?? flags.proposedAction) ?? "buy",
+            proposed_notional_usd: optionalNumber(flags.notional ?? flags.proposedNotionalUsd),
+          },
+          packet,
+        ),
+      );
       return;
     }
     case "feedback": {
@@ -136,6 +223,40 @@ async function handleKeysCommand(client: TradeOSPublicIntelClient, args: string[
   }
 }
 
+async function handleQuotaCommand(client: TradeOSPublicIntelClient, args: string[]): Promise<void> {
+  const [subcommand, ...rest] = args;
+  const flags = parseFlags(rest);
+  switch (subcommand) {
+    case "request": {
+      const projectName = optionalString(flags.projectName ?? flags.project);
+      const useCase = optionalString(flags.useCase ?? flags.use);
+      if (!projectName || !useCase) {
+        throw new Error("quota request requires --project-name <name> and --use-case <description>");
+      }
+      printJson(
+        await client.submitQuotaRequest(
+          {
+            projectName,
+            projectUrl: optionalString(flags.projectUrl ?? flags.url),
+            appKeyId: optionalString(flags.appKeyId ?? flags.keyId),
+            requestedTier: optionalString(flags.requestedTier ?? flags.tier),
+            useCase,
+            expectedDailyReads: optionalNumber(flags.expectedDailyReads ?? flags.reads),
+            expectedSymbolsPerDay: optionalNumber(flags.expectedSymbolsPerDay ?? flags.symbols),
+            monetizationModel: optionalString(flags.monetizationModel ?? flags.monetization),
+            feedbackPlan: optionalString(flags.feedbackPlan ?? flags.feedback),
+            paidIntent: optionalString(flags.paidIntent ?? flags.paid),
+          },
+          { accountToken: requireAccountToken() },
+        ),
+      );
+      return;
+    }
+    default:
+      throw new Error(`Unknown quota command: ${subcommand ?? ""}\n\n${helpText()}`);
+  }
+}
+
 async function appAttributionStatus(client: TradeOSPublicIntelClient): Promise<JsonObject> {
   try {
     return await client.getAppAttribution();
@@ -151,7 +272,7 @@ async function appAttributionStatus(client: TradeOSPublicIntelClient): Promise<J
 function requireAccountToken(): string {
   const token = process.env.TRADEOS_ACCOUNT_TOKEN;
   if (!token) {
-    throw new Error("TRADEOS_ACCOUNT_TOKEN is required for app-key management.");
+    throw new Error("TRADEOS_ACCOUNT_TOKEN is required for app-key management and quota requests.");
   }
   return token;
 }
@@ -260,6 +381,36 @@ function optionalStringList(value: unknown): string[] | undefined {
     .filter(Boolean);
 }
 
+function optionalMode(value: unknown): "investor" | "swing" | "trader" | undefined {
+  const raw = optionalString(value);
+  if (raw === "investor" || raw === "swing" || raw === "trader") {
+    return raw;
+  }
+  return undefined;
+}
+
+function asJsonObject(value: unknown): Record<string, JsonObject> {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return {};
+  }
+  return Object.fromEntries(
+    Object.entries(value as Record<string, unknown>).filter((entry): entry is [string, JsonObject] => isJsonObject(entry[1])),
+  );
+}
+
+function asStringRecord(value: unknown): Record<string, string> {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return {};
+  }
+  return Object.fromEntries(
+    Object.entries(value as Record<string, unknown>).map(([key, item]) => [key, String(item)]),
+  );
+}
+
+function isJsonObject(value: unknown): value is JsonObject {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
 function printJson(value: unknown): void {
   console.log(JSON.stringify(value, null, 2));
 }
@@ -272,9 +423,14 @@ Commands:
   keys create --app-name <name> [--scopes public_intel.feedback:write]
   keys list
   keys revoke --key-id <pubkey_id>
+  quota request --project-name <name> --use-case <description>
+    [--app-key-id <pubkey_id>] [--tier reviewed_project|earned_extension|paid_eval]
+    [--reads 1500] [--symbols 80] [--feedback-plan <plan>] [--paid-intent <intent>]
   digest [--limit 10] [--chain-id 8453]
   candidates [--limit 10] [--chain-id 8453]
   watchlist [--limit 10] [--chain-id 8453]
+  cockpit <symbol> [--chain 8453] [--mode investor|swing|trader]
+  preflight <symbol> [--action buy|sell|trim] [--chain 8453]
   feedback --target-id <id> --label useful [--target-type digest]
     [--feedback-source human|human_assisted|agent|automation]
     [--automation-level none|assisted|automated|autonomous]

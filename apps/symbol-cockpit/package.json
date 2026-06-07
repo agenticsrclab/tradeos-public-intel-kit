@@ -1,0 +1,40 @@
+{
+  "name": "@tradeos/symbol-cockpit",
+  "version": "0.1.0",
+  "description": "Private self-hosted TradeOS Symbol Cockpit and Action Agent.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src/web",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev:api": "tsx src/api/server.ts",
+    "dev:web": "tsx src/api/static-server.ts",
+    "e2e:headless": "playwright test -c playwright.config.ts",
+    "e2e:live": "node scripts/live-e2e.mjs",
+    "worker": "tsx src/worker/index.ts",
+    "test": "vitest run test",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@tradeos/action-intent": "0.1.0",
+    "@tradeos/cockpit-core": "0.1.0",
+    "@tradeos/module-ea-risk": "0.1.0",
+    "@tradeos/module-execution-gateway": "0.1.0",
+    "@tradeos/module-feasibility": "0.1.0",
+    "@tradeos/module-notification-router": "0.1.0",
+    "@tradeos/module-ops-dashboard": "0.1.0",
+    "@tradeos/policy-core": "0.1.0",
+    "@tradeos/public-intel-sdk": "0.1.0",
+    "@tradeos/tradeos-connectors": "0.1.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.22.4",
+    "vitest": "^4.1.8"
+  }
+}

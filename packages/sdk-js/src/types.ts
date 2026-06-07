@@ -31,6 +31,19 @@ export interface PublicIntelAppKeyCreate {
   expiresAt?: string;
 }
 
+export interface PublicIntelQuotaRequest {
+  projectName: string;
+  projectUrl?: string;
+  appKeyId?: string;
+  requestedTier?: "earned_extension" | "reviewed_project" | "paid_eval" | string;
+  useCase: string;
+  expectedDailyReads?: number;
+  expectedSymbolsPerDay?: number;
+  monetizationModel?: string;
+  feedbackPlan?: string;
+  paidIntent?: string;
+}
+
 export interface ListQuery {
   limit?: number;
   chainId?: string;
@@ -54,6 +67,15 @@ export interface WatchlistSnapshotQuery {
   chain?: string;
   contractAddress?: string;
   limit?: number;
+}
+
+export interface SymbolCockpitEvidenceQuery {
+  mode?: WatchlistMode;
+  chain?: string;
+  contractAddress?: string;
+  digestLimit?: number;
+  candidateLimit?: number;
+  watchlistLimit?: number;
 }
 
 export interface WatchlistCreate {

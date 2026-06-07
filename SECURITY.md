@@ -1,6 +1,6 @@
 # Security
 
-This repository is a public intelligence marketplace distribution kit. It must
+This repository is a public Data Intelligence distribution kit. It must
 not handle exchange credentials, trading execution, private forecasts, raw
 VPIN/features, or portfolio state.
 

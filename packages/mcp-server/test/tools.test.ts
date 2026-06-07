@@ -71,6 +71,29 @@ describe("MCP tool handlers", () => {
     expect(payload.items).toEqual([]);
   });
 
+  it("builds symbol cockpit packets through public evidence aggregation", async () => {
+    const client = {
+      async getSymbolCockpitEvidence() {
+        return {
+          sources: {
+            watchlist_snapshot: {
+              events: [{ event_id: "wle_1", summary: "VVV flow stress warning and fusion degraded." }],
+            },
+          },
+          source_errors: {},
+        };
+      },
+    } as unknown as TradeOSPublicIntelClient;
+    const tools = createToolHandlers({ client });
+
+    const response = await tools.getSymbolCockpit({ symbol: "VVV", chain: "8453", mode: "trader" });
+    const payload = JSON.parse(response.content[0].text);
+
+    expect(payload.packet.symbol).toBe("VVV");
+    expect(payload.card.feedback_target.target_type).toBe("cockpit_recommendation");
+    expect(payload.safety_notice).toContain("not personalized financial advice");
+  });
+
   it("triggers watchlist deliveries through the safety envelope", async () => {
     const client = {
       async triggerWatchlistDeliveries(watchlistId: string) {

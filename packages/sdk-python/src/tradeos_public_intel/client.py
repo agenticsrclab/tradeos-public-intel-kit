@@ -69,6 +69,38 @@ class TradeOSPublicIntelClient:
             authorization_token=self._require_account_token(account_token),
         )
 
+    def submit_quota_request(
+        self,
+        *,
+        project_name: str,
+        use_case: str,
+        project_url: str | None = None,
+        app_key_id: str | None = None,
+        requested_tier: str = "reviewed_project",
+        expected_daily_reads: int | None = None,
+        expected_symbols_per_day: int | None = None,
+        monetization_model: str | None = None,
+        feedback_plan: str | None = None,
+        paid_intent: str | None = None,
+        account_token: str | None = None,
+    ) -> dict[str, Any]:
+        payload: dict[str, Any] = {
+            "project_name": project_name,
+            "use_case": use_case,
+            "requested_tier": requested_tier,
+        }
+        optional_fields = {
+            "project_url": project_url,
+            "app_key_id": app_key_id,
+            "expected_daily_reads": expected_daily_reads,
+            "expected_symbols_per_day": expected_symbols_per_day,
+            "monetization_model": monetization_model,
+            "feedback_plan": feedback_plan,
+            "paid_intent": paid_intent,
+        }
+        payload.update({key: value for key, value in optional_fields.items() if value not in (None, "")})
+        return self._post("/quota-requests", payload, authorization_token=self._require_account_token(account_token))
+
     def get_market_digest(
         self,
         *,
@@ -146,6 +178,50 @@ class TradeOSPublicIntelClient:
                 "limit": limit,
             },
         )
+
+    def get_symbol_cockpit_evidence(
+        self,
+        symbol: str,
+        *,
+        mode: str | None = None,
+        chain: str | None = None,
+        contract_address: str | None = None,
+        digest_limit: int = 10,
+        candidate_limit: int = 10,
+        watchlist_limit: int = 100,
+    ) -> dict[str, Any]:
+        sources: dict[str, Any] = {}
+        source_errors: dict[str, str] = {}
+
+        def capture(name: str, fn) -> None:
+            try:
+                sources[name] = fn()
+            except Exception as exc:  # noqa: BLE001 - preserve per-source failures for cockpit callers
+                source_errors[name] = str(exc)
+
+        capture(
+            "watchlist_snapshot",
+            lambda: self.get_token_watchlist_snapshot(
+                symbol,
+                mode=mode,
+                chain=chain,
+                contract_address=contract_address,
+                limit=watchlist_limit,
+            ),
+        )
+        capture("digest", lambda: self.get_market_digest(limit=digest_limit, chain_id=chain))
+        capture("candidates", lambda: self.get_public_candidates(limit=candidate_limit, chain_id=chain))
+        capture("thesis_watchlist", lambda: self.get_thesis_watchlist(limit=watchlist_limit, chain_id=chain))
+
+        return {
+            "schema_version": "tradeos.public_intel.symbol_cockpit_evidence.v1",
+            "symbol": symbol.strip().upper(),
+            "chain": chain or "",
+            "mode": mode or "investor",
+            "sources": sources,
+            "source_errors": source_errors,
+            "generated_at": now_iso(),
+        }
 
     def create_watchlist(
         self,

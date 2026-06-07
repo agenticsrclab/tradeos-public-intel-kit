@@ -16,7 +16,7 @@ attributed feedback loop without paying for every builder's inference.
 | Evidence-backed | uses TradeOS public digest and thesis watchlist surfaces |
 | BYOK inference | [Venice AI](https://venice.ai/pricing) default; builders pay their own model provider |
 | Feedback loop | can submit publication/provenance events back to TradeOS |
-| Safe boundary | no exchange keys, no execution, no private data |
+| Safe boundary | no exchange keys, no TradeOS-hosted execution, no private data |
 
 ## Run Locally
 
@@ -126,7 +126,7 @@ Quant research desk morning brief
 Avoid:
 
 ```text
-trade execution
+TradeOS-hosted trade execution
 exchange-key collection
 personalized financial advice
 private TradeOS data exposure

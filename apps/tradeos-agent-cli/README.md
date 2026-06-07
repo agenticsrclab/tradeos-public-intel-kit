@@ -1,7 +1,7 @@
 # @tradeos/public-intel-agent-cli
 
 Bring-your-own-key CLI for asking questions over the TradeOS public
-intelligence marketplace.
+Data Intelligence layer.
 
 ```bash
 npm install -g @tradeos/public-intel-agent-cli
@@ -44,6 +44,20 @@ tradeos-intel keys list
 tradeos-intel keys revoke --key-id pubkey_...
 ```
 
+Request reviewed public quota when a real product needs more before it is ready
+for paid scale:
+
+```bash
+tradeos-intel quota request \
+  --project-name community-market-bot \
+  --app-key-id pubkey_... \
+  --use-case "Discord bot with source-backed token summaries and feedback buttons." \
+  --reads 1500 \
+  --symbols 80 \
+  --feedback-plan "Members can mark useful, stale, late, wrong, or missing context." \
+  --paid-intent "Will use x402 for alerts and higher scale."
+```
+
 Ask with the default Venice AI provider. Get a key from the
 [Venice AI subscription page](https://venice.ai/pricing):
 
@@ -82,8 +96,9 @@ Access model:
 
 ```text
 Free public kit: bounded reads and feedback writes
+Builder app quota: 7-day starter, useful feedback refresh, or reviewed quota request
 Starter ask products: 3 anonymous questions or 20 signed-in questions for 7 days
-Feedback credits: dashboard-only depth, 30-day unlock by default
+Data Intel Credits: dashboard-only depth, 30-day unlock by default
 Paid TradeOS/x402: automation, exports, alerts, premium data, validation APIs
 ```
 

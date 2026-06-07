@@ -7,9 +7,19 @@
   "type": "module",
   "workspaces": [
     "packages/sdk-js",
+    "packages/action-intent",
+    "packages/cockpit-core",
+    "packages/policy-core",
+    "packages/tradeos-connectors",
     "packages/mcp-server",
     "apps/tradeos-agent-cli",
-    "apps/market-briefing-bot"
+    "apps/market-briefing-bot",
+    "apps/symbol-cockpit",
+    "modules/feasibility",
+    "modules/ea-risk",
+    "modules/execution-gateway",
+    "modules/ops-dashboard",
+    "modules/notification-router"
   ],
   "scripts": {
     "build": "npm run build --workspaces",
@@ -17,9 +27,12 @@
     "typecheck": "npm run typecheck --workspaces --if-present",
     "mcp": "npm --workspace @tradeos/public-intel-mcp-server run dev",
     "cli": "npm --workspace @tradeos/public-intel-agent-cli run dev --",
-    "briefing-bot": "npm --workspace @tradeos/market-briefing-bot run dev --"
+    "briefing-bot": "npm --workspace @tradeos/market-briefing-bot run dev --",
+    "symbol-cockpit": "npm --workspace @tradeos/symbol-cockpit run dev:api",
+    "symbol-cockpit:e2e": "npm --workspace @tradeos/symbol-cockpit run e2e:headless"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@types/node": "^24.10.1",
     "typescript": "^5.9.3",
     "vitest": "^4.1.8"

@@ -1,0 +1,32 @@
+{
+  "name": "@tradeos/module-notification-router",
+  "version": "0.1.0",
+  "description": "Local notification router for TradeOS cockpit recommendation cards.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@tradeos/cockpit-core": "0.1.0",
+    "nodemailer": "^8.0.10"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^8.0.0",
+    "vitest": "^4.1.8"
+  }
+}

@@ -7,6 +7,11 @@ TradeOS does not sell guaranteed trading returns through this kit. The public
 kit helps builders sell workflows around source-backed market context:
 monitoring, summaries, proof, validation, community tools, and explainability.
 
+The highest-conviction workflow is the private self-hosted Symbol Cockpit. It
+lets a trader or builder use TradeOS intelligence to make local buy, sell,
+trim, avoid, watch, or pass decisions while keeping keys, custody, account
+state, approvals, strategy memory, and execution on their own box.
+
 ## The Commercial Rule
 
 ```text
@@ -17,6 +22,10 @@ Sell the workflow the API makes possible.
 Customers pay when the product saves time, reduces monitoring burden, makes
 market context easier to explain, creates proof they can share, or gives them an
 outside benchmark for their own system.
+
+For cockpit products, customers also pay for private control. The product can
+sit close to their wallet, exchange account, bot, or research process without
+turning TradeOS into the account manager.
 
 ## Where Builders And TradeOS Both Win
 
@@ -61,13 +70,25 @@ Builder-facing tiering:
 | Tier | User Gets | Builder Gets | TradeOS Gets |
 | --- | --- | --- | --- |
 | Free public | digest, candidates, proof lookup, basic feedback | top-of-funnel product and usage data | broader distribution and feedback labels |
-| Feedback credit | temporary dashboard depth where enabled | stronger engagement loop | quality signal for public intelligence |
+| Data Intel Credit | temporary dashboard depth where enabled | stronger engagement loop | quality signal for public intelligence |
 | Builder paid tier | saved workflows, scheduled posts, reports, widgets, community analytics | subscription or license revenue | branded distribution and upgrade demand |
 | TradeOS paid/x402 | premium market pulse, validation API, automation-safe reads, paid resources | richer product surface | paid machine access revenue |
 | Enterprise/private | custom universe, exports, replay datasets, support | larger customer contracts | enterprise revenue and data partnerships |
 
+For the self-hosted cockpit path, the paid builder tier can be:
+
+```text
+local recommendation inbox
+saved private watchlists
+local feasibility and EA/risk checks
+paper-mode replay
+approval queue
+optional execution adapter status
+local audit log
+```
+
 The kit should make those upgrade points clear in product copy, but the builder
-should not claim that feedback credits unlock paid API calls or that the public
+should not claim that Data Intel Credits unlock paid API calls or that the public
 kit includes premium historical datasets.
 
 ## Account Strategy For Builder Products
@@ -298,7 +319,10 @@ enterprise support
 Boundary:
 
 ```text
-The public kit does not place trades and should not be sold as an execution signal.
+The public kit can power pre-trade recommendations, bot preflight, and action
+cards. It does not place trades from TradeOS infrastructure. Execution keys,
+approvals, sizing, and automation controls must stay with the self-hosted
+operator.
 ```
 
 ### 5. Quant Validation Pack
@@ -491,12 +515,12 @@ better labels for improving public intelligence.
 ```text
 Powered by TradeOS public intelligence.
 Source-backed market context with freshness, confidence, caveats, and feedback.
-Not financial advice. No trade execution.
+Private self-hosted recommendations. Your keys and execution stay with you.
 ```
 
 ```text
-Turn market evidence into a paid workflow: briefings, bots, watchlists,
-validation, proof pages, and context widgets.
+Turn market evidence into a paid workflow: private cockpits, briefings, bots,
+watchlists, validation, proof pages, and context widgets.
 ```
 
 ```text
