@@ -3,7 +3,8 @@
 This document records the public consumer flow tested before publish.
 
 The test was run from fresh package tarball installs in a temporary directory,
-not from workspace-local imports. A real Venice API key was used for the BYOK
+not from workspace-local imports. A real Venice API key from the
+[Venice AI subscription page](https://venice.ai/pricing) was used for the BYOK
 LLM path, but the key was not printed or stored in the repository.
 
 ## Tested Surfaces

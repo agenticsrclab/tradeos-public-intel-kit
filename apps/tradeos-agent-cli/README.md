@@ -43,7 +43,8 @@ tradeos-intel keys list
 tradeos-intel keys revoke --key-id pubkey_...
 ```
 
-Ask with the default Venice AI provider:
+Ask with the default Venice AI provider. Get a key from the
+[Venice AI subscription page](https://venice.ai/pricing):
 
 ```bash
 VENICE_API_KEY=your_venice_key \

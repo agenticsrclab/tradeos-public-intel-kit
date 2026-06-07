@@ -37,7 +37,8 @@ node -e "import('@tradeos/public-intel-sdk').then(async ({ TradeOSPublicIntelCli
 
 ## 2. Ask With Venice AI
 
-Venice is the default OpenAI-compatible provider for the CLI agent.
+Venice is the default OpenAI-compatible provider for the CLI agent. Get a key
+from the [Venice AI subscription page](https://venice.ai/pricing).
 
 ```bash
 export VENICE_API_KEY=...
@@ -62,7 +63,8 @@ TradeOS account and no LLM key:
 npm run briefing-bot -- brief
 ```
 
-Use Venice AI for a stronger natural-language brief:
+Use Venice AI for a stronger natural-language brief. Get a key from the
+[Venice AI subscription page](https://venice.ai/pricing):
 
 ```bash
 export VENICE_API_KEY=...

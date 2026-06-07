@@ -14,7 +14,7 @@ attributed feedback loop without paying for every builder's inference.
 | Works in existing platforms | Discord and Telegram can use it immediately |
 | Easy to monetize | community bot, paid channel, analyst brief, DAO monitor |
 | Evidence-backed | uses TradeOS public digest and thesis watchlist surfaces |
-| BYOK inference | Venice AI default; builders pay their own model provider |
+| BYOK inference | [Venice AI](https://venice.ai/pricing) default; builders pay their own model provider |
 | Feedback loop | can submit publication/provenance events back to TradeOS |
 | Safe boundary | no exchange keys, no execution, no private data |
 
@@ -37,7 +37,8 @@ npm run briefing-bot -- brief
 
 Without an LLM key, the bot renders a deterministic source-backed template.
 
-With Venice AI:
+With Venice AI. Get a key from the
+[Venice AI subscription page](https://venice.ai/pricing):
 
 ```bash
 export VENICE_API_KEY=...

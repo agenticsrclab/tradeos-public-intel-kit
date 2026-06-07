@@ -6,7 +6,8 @@ Build crypto market-intelligence products on top of
 This repo gives builders SDKs, MCP tools, a BYOK agent CLI, and runnable bot
 examples for the TradeOS public-intel API. TradeOS hosts the intelligence API.
 Builders and users bring their own model provider key when they want LLM
-summaries, with Venice AI as the default OpenAI-compatible path.
+summaries, with [Venice AI](https://venice.ai/pricing) as the default
+OpenAI-compatible path.
 
 The practical loop is simple:
 
@@ -27,7 +28,7 @@ access, or enterprise support.
 | Public reads | no TradeOS account required, server-side limits apply |
 | Saved watchlists | require a signed-in TradeOS account token |
 | Builder attribution | optional `TRADEOS_PUBLIC_INTEL_KEY` |
-| LLM inference | BYOK, Venice AI or any OpenAI-compatible provider |
+| LLM inference | BYOK, [Venice AI](https://venice.ai/pricing) or any OpenAI-compatible provider |
 | Paid machine access | x402 payment or TradeOS entitlement |
 | Safety boundary | research context only, no execution or personalized financial advice |
 
@@ -59,8 +60,9 @@ framework.
   market data pipeline first.
 - **Ground agents**: give LLMs current evidence, caveats, stable IDs, and source
   references before they answer.
-- **Control inference cost**: use Venice AI or another provider with your own
-  key instead of asking TradeOS to sponsor model calls.
+- **Control inference cost**: use [Venice AI](https://venice.ai/pricing) or
+  another provider with your own key instead of asking TradeOS to sponsor model
+  calls.
 - **Build for money**: package the intelligence into products customers already
   understand, such as briefings, monitoring, validation, or research workflows.
 - **Close the loop**: send human, agent, or automation feedback back to TradeOS
@@ -114,7 +116,8 @@ npm run briefing-bot -- brief
 That works without a TradeOS account and without an LLM key. It prints a
 deterministic briefing from live public evidence.
 
-Use Venice AI for a stronger natural-language brief:
+Use Venice AI for a stronger natural-language brief. Get a key from the
+[Venice AI subscription page](https://venice.ai/pricing):
 
 ```bash
 export VENICE_API_KEY=...
@@ -147,7 +150,8 @@ npm run cli -- digest --limit 5
 npm run cli -- watchlist --limit 5
 ```
 
-Ask a Venice-backed question:
+Ask a Venice-backed question. Get a key from the
+[Venice AI subscription page](https://venice.ai/pricing):
 
 ```bash
 export VENICE_API_KEY=...

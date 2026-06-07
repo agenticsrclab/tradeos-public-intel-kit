@@ -33,9 +33,10 @@ Optional LLM path:
 TradeOS public evidence -> user-owned model key -> grounded answer
 ```
 
-The default CLI provider is Venice AI through an OpenAI-compatible endpoint.
-Users can replace it with another OpenAI-compatible provider by configuring
-`OPENAI_BASE_URL`, `OPENAI_API_KEY`, and `TRADEOS_AGENT_MODEL`.
+The default CLI provider is [Venice AI](https://venice.ai/pricing) through an
+OpenAI-compatible endpoint. Users can replace it with another OpenAI-compatible
+provider by configuring `OPENAI_BASE_URL`, `OPENAI_API_KEY`, and
+`TRADEOS_AGENT_MODEL`.
 
 ## Feature Expansion Model
 
