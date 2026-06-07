@@ -38,7 +38,7 @@ The practical loop is simple:
 ```text
 Use TradeOS free.
 Earn Data Intel Credits by improving intelligence quality.
-Build products on public intelligence.
+Build and earn on public intelligence.
 Pay when you need private intelligence products, scale, alerts, automation, or data rights.
 ```
 
@@ -48,6 +48,12 @@ intelligence layer. Upgrade to paid TradeOS when the product needs production
 volume, alerts, automation, premium history, private intelligence products,
 validation APIs, x402 machine access, explicit data rights, or enterprise
 support.
+
+The flywheel effect is the point: useful TradeOS evidence helps builders ship
+paid services; paid services create users, usage, feedback, and outcome labels;
+that feedback improves TradeOS intelligence; better intelligence makes builder
+products more valuable; successful products then need paid TradeOS depth, x402
+access, and enterprise support.
 
 ## At A Glance
 
@@ -59,7 +65,7 @@ support.
 | Builder attribution | optional `TRADEOS_PUBLIC_INTEL_KEY` |
 | LLM inference | recommended BYOK default: [Venice AI](https://venice.ai/pricing) for privacy-aligned self-hosted inference; other OpenAI-compatible providers are supported |
 | Paid machine access | x402 payment or TradeOS entitlement |
-| Commercial distribution | field guides for [Virtuals ACP, AntSeed, x402, and Agentic.Market-style discovery](docs/commercial-distribution/README.md) |
+| Earn as a builder | package TradeOS intelligence into paid services, workflows, agents, or vertical apps; start with the [Earn as a Builder Field Guides](docs/commercial-distribution/README.md) |
 | Flagship model | individual private-use, self-hosted Symbol Cockpit over TradeOS intelligence |
 | Cockpit trading-intelligence universe | 21 symbols today; see [Symbol Intelligence Coverage](docs/symbol-intelligence-coverage.md) |
 | Safety boundary | actionable recommendations are allowed; TradeOS does not custody keys, manage accounts, place orders, or support third-party account management |
@@ -119,8 +125,9 @@ Local modules -> feasibility, EA/risk, execution adapters, ops dashboard
   as the recommended default because its public docs emphasize private
   inference and no prompt/response storage on Venice servers; builders can
   still swap in another OpenAI-compatible provider.
-- **Build for money**: package the intelligence into products customers already
-  understand, such as briefings, monitoring, validation, or research workflows.
+- **Earn on top of TradeOS**: package TradeOS intelligence into services,
+  workflows, agents, dashboards, vertical apps, or research products customers
+  already understand and will pay to use.
 - **Distribute commercially**: use the commercial field guides to package
   TradeOS-backed intelligence on Virtuals ACP, AntSeed, x402 directories, and
   Agentic.Market-style discovery without publishing private keys or live
@@ -163,7 +170,7 @@ More product detail:
 - [Data Intelligence Product Model](docs/marketplace-model.md)
 - [Use Cases](docs/use-cases.md)
 - [Monetization Guide](docs/monetization.md)
-- [Commercial Distribution Field Guides](docs/commercial-distribution/README.md)
+- [Earn as a Builder: Commercial Distribution Field Guides](docs/commercial-distribution/README.md)
 - [Builder Revenue Playbook](docs/builder-revenue-playbook.md)
 
 ## Flagship: Symbol Cockpit

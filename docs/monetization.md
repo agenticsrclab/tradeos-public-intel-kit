@@ -1,9 +1,9 @@
-# Monetization Guide
+# Earn as a Builder on TradeOS
 
-This kit helps builders make money by packaging TradeOS public intelligence into
-products people already pay for: research, monitoring, community bots,
-dashboards, widgets, bot intelligence layers, quant validation, and reputation
-tools.
+This kit helps builders earn on top of TradeOS by packaging TradeOS public
+intelligence into products and services people already pay for: research,
+monitoring, community bots, dashboards, widgets, bot intelligence layers, quant
+validation, reputation tools, custom workflows, and vertical apps.
 
 The strongest commercial wedge is the private self-hosted Symbol Cockpit: a
 trader-owned decision agent that uses TradeOS intelligence but keeps account
@@ -61,6 +61,12 @@ feedback-powered community analytics
 tradebot intelligence layer
 quant validation dataset
 ```
+
+This list is a starter menu, not a ceiling. Builders can create paid services,
+workflow automation, agent skills, private dashboards, vertical intelligence
+apps, consulting-backed research, or customer-specific monitoring if the offer
+stays source-grounded and inside the safety, data-rights, and paid-access
+boundaries.
 
 ## What Customers Pay For
 
@@ -145,21 +151,25 @@ Why it works: quant teams buy data when it helps validate or challenge their own
 signals. The public kit proves the shape; paid TradeOS supplies production
 history and evaluation surfaces.
 
-## The Builder-TradeOS Loop
+## The Builder Flywheel
 
-The healthiest commercial loop is:
+The healthiest commercial loop is a flywheel:
 
 ```text
-Builder launches with free public intelligence
-Builder gets users through a paid workflow
-Users submit feedback through stable TradeOS IDs
-TradeOS improves public intelligence quality
-Builder needs more depth, scale, or automation
-Builder or customer upgrades to paid TradeOS/x402/enterprise access
+TradeOS exposes useful public evidence
+Builder packages it into a paid service, workflow, agent, or app
+Customers use the builder product
+Users and agents submit feedback through stable TradeOS IDs
+TradeOS improves coverage, ranking, caveats, confidence, and freshness
+Better intelligence makes the builder product more valuable
+Successful workflows need more depth, history, alerts, automation, or scale
+Builder or customer upgrades to paid TradeOS, x402, or enterprise access
 ```
 
-That loop lets builders make money from distribution and workflow while TradeOS
-makes money from premium intelligence infrastructure.
+The effect compounds because builders bring distribution, audience, workflow
+context, and domain expertise back into the intelligence layer. TradeOS does not
+need to own every app; it needs to make the evidence, feedback, and paid-depth
+paths strong enough that many builders can build on top.
 
 For concrete launch recipes, see [Builder Revenue Playbook](builder-revenue-playbook.md).
 

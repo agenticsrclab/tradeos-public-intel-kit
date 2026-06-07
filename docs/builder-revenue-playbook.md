@@ -1,11 +1,13 @@
 # Builder Revenue Playbook
 
-This playbook is for builders who want to turn TradeOS public intelligence into
-a product people can pay for.
+This playbook is for builders who want to earn on top of TradeOS by turning
+TradeOS public intelligence into products, services, workflows, agents, or
+vertical apps people can pay for.
 
 TradeOS does not sell guaranteed trading returns through this kit. The public
 kit helps builders sell workflows around source-backed market context:
-monitoring, summaries, proof, validation, community tools, and explainability.
+monitoring, summaries, proof, validation, community tools, explainability,
+private dashboards, concierge research, and domain-specific automation.
 
 The highest-conviction workflow is the private self-hosted Symbol Cockpit. It
 lets a trader or builder use TradeOS intelligence to make local buy, sell,
@@ -29,6 +31,8 @@ turning TradeOS into the account manager.
 
 ## Where Builders And TradeOS Both Win
 
+This is the builder flywheel:
+
 ```text
 1. Builder ships a useful workflow with free public intelligence.
 2. Builder gets users, feedback, and revenue from packaging/distribution.
@@ -37,6 +41,11 @@ turning TradeOS into the account manager.
 5. Successful workflows need more volume, history, alerts, automation, or premium data.
 6. Builder or customer upgrades to paid TradeOS, x402, or enterprise access.
 ```
+
+Each turn should improve both sides. Builders get better evidence, clearer
+products, and stronger customer retention. TradeOS gets higher-quality feedback,
+more usage data, better source prioritization, and clearer demand for paid
+intelligence products.
 
 ## Feature Unlock Loop
 

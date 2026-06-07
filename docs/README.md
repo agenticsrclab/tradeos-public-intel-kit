@@ -8,7 +8,7 @@ The canonical builder story is:
 ```text
 Use TradeOS free.
 Earn Data Intel Credits by improving intelligence quality.
-Build products on public intelligence.
+Build and earn on public intelligence.
 Pay when you need private intelligence products, scale, alerts, automation, or data rights.
 ```
 
@@ -40,7 +40,7 @@ Start with the path that matches what you are trying to do.
 | Build saved watchlists | [Public Intel API](public-intel-api.md) | [Use Cases](use-cases.md), [Access And Payments](access-and-payments.md) |
 | Add TradeOS to an agent host | [MCP Tools](mcp-tools.md) | [Architecture](architecture.md), [API Keys And Feedback Provenance](api-keys-and-feedback-provenance.md) |
 | Find product ideas | [Use Cases](use-cases.md) | [Monetization Guide](monetization.md), [Builder Revenue Playbook](builder-revenue-playbook.md) |
-| Publish a paid agent/API service | [Commercial Distribution Field Guides](commercial-distribution/README.md) | [Service Packaging Checklist](commercial-distribution/service-packaging-checklist.md), [Access And Payments](access-and-payments.md) |
+| Earn as a builder on TradeOS | [Earn as a Builder: Commercial Distribution Field Guides](commercial-distribution/README.md) | [Service Packaging Checklist](commercial-distribution/service-packaging-checklist.md), [Access And Payments](access-and-payments.md) |
 | Understand access and paid upgrades | [Access And Payments](access-and-payments.md) | [Paid Boundaries](paid-boundaries.md) |
 | Publish or operate the repo | [Production Readiness](production-readiness.md) | [Consumer E2E](consumer-e2e.md) |
 
@@ -121,9 +121,10 @@ Start with the path that matches what you are trying to do.
   workflow, audience, validation, and feedback into paid products.
 - [Builder Revenue Playbook](builder-revenue-playbook.md): concrete launch
   recipes, pricing ideas, and upgrade triggers.
-- [Commercial Distribution Field Guides](commercial-distribution/README.md):
-  sanitized setup guides for packaging TradeOS-backed intelligence on Virtuals
-  ACP, AntSeed, x402 directories, and Agentic.Market-style discovery.
+- [Earn as a Builder: Commercial Distribution Field Guides](commercial-distribution/README.md):
+  sanitized setup guides for packaging TradeOS-backed intelligence into paid
+  services, workflows, agents, vertical apps, and marketplace listings on
+  Virtuals ACP, AntSeed, x402 directories, and Agentic.Market-style discovery.
 - [Access And Payments](access-and-payments.md): free public usage, earned app
   quota, quota review requests, starter ask quota, DTI credits, x402, and
   paid TradeOS surfaces.

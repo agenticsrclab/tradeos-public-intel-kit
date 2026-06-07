@@ -14,7 +14,7 @@ The public story is:
 ```text
 Use TradeOS free.
 Earn Data Intel Credits by improving intelligence quality.
-Build products on public intelligence.
+Build and earn on public intelligence.
 Pay when you need private intelligence products, scale, alerts, automation, or data rights.
 ```
 
@@ -24,6 +24,11 @@ These are commercial products a builder can sell using TradeOS public
 intelligence. TradeOS supplies evidence, freshness, caveats, source refs, stable
 IDs, and feedback write paths. The builder supplies packaging, audience,
 workflow, and distribution.
+
+These examples are not the limit. Builders can sell services, workflows,
+vertical apps, private dashboards, agent skills, monitoring packages, concierge
+research, or domain-specific products as long as the offer is source-grounded,
+supportable, and clear about the TradeOS safety and paid-access boundaries.
 
 The useful commercial framing is:
 

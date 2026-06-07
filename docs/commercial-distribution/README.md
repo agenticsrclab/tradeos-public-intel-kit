@@ -1,6 +1,7 @@
-# Commercial Distribution Field Guides
+# Earn as a Builder: Commercial Distribution Field Guides
 
-These guides show how a builder can package TradeOS intelligence into paid
+These guides show how a builder can earn on top of TradeOS by packaging TradeOS
+intelligence into paid services, workflows, agents, vertical apps, and
 agent-economy distribution channels without copying TradeOS private keys,
 wallets, live agent IDs, or internal host details.
 
@@ -17,7 +18,7 @@ Use them as field guides, not permanent protocol documentation. Agent platforms
 move quickly. Re-check the official docs, dashboards, Discord support notes, and
 API responses before a production launch.
 
-## What Builders Can Sell
+## How Builders Earn
 
 TradeOS works best as the intelligence layer under concrete paid services.
 The examples below are starter product shapes, not the full menu. Builders can
@@ -40,6 +41,24 @@ Good builder products may include:
 The first publishable service should still be narrow, testable, and easy for a
 buyer to understand. Expand from there as demand and operating capacity become
 clear.
+
+## Builder Flywheel
+
+The commercial flywheel should be simple enough for builders to repeat:
+
+```text
+TradeOS evidence
+  -> builder packages a paid service, workflow, agent, dashboard, or vertical app
+  -> customers use the builder product
+  -> feedback, outcomes, and provenance flow back through stable TradeOS IDs
+  -> TradeOS improves source coverage, ranking, caveats, and confidence
+  -> the builder product becomes more useful and differentiated
+  -> successful workflows upgrade to paid TradeOS, x402, or enterprise access
+```
+
+The builder owns packaging, support, customer workflow, and distribution.
+TradeOS owns the intelligence layer, feedback targets, paid depth, and data
+rights boundary.
 
 Starter examples:
 

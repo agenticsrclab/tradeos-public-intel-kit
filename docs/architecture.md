@@ -18,7 +18,7 @@ The product ladder stays the same across the kit and TradeOS:
 ```text
 Use TradeOS free.
 Earn Data Intel Credits by improving intelligence quality.
-Build products on public intelligence.
+Build and earn on public intelligence.
 Pay when you need private intelligence products, scale, alerts, automation, or data rights.
 ```
 
