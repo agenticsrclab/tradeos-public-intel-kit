@@ -1,6 +1,7 @@
 # @tradeos/public-intel-agent-cli
 
-Bring-your-own-key CLI for asking questions over TradeOS public intelligence.
+Bring-your-own-key CLI for asking questions over the TradeOS public
+intelligence marketplace.
 
 ```bash
 npm install -g @tradeos/public-intel-agent-cli

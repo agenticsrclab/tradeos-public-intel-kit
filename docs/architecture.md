@@ -1,9 +1,12 @@
 # Architecture
 
 TradeOS public intelligence is a distribution surface for source-backed market
-context. The public kit is intentionally thin: it helps builders consume,
-summarize, and send feedback on public evidence without exposing TradeOS private
-systems or making users pay TradeOS for inference.
+context. In marketplace terms, TradeOS supplies the crypto intelligence
+layer, builders create the product demand through workflows and distribution,
+and feedback writes return quality signals to TradeOS. The public kit is
+intentionally thin: it helps builders consume, summarize, and send feedback on
+public evidence without exposing TradeOS private systems or making users pay
+TradeOS for inference.
 
 The product ladder stays the same across the kit and TradeOS:
 
@@ -17,6 +20,10 @@ Pay when you need scale, alerts, automation, private context, or data rights.
 ## System Shape
 
 ```text
+TradeOS intelligence marketplace
+        |
+        | source-backed public evidence, stable IDs, caveats, paid-depth paths
+        v
 Builder app / agent host / CLI / MCP client
         |
         | TypeScript SDK, Python SDK, CLI, or stdio MCP tools
@@ -46,6 +53,19 @@ The default CLI provider is [Venice AI](https://venice.ai/pricing) through an
 OpenAI-compatible endpoint. Users can replace it with another OpenAI-compatible
 provider by configuring `OPENAI_BASE_URL`, `OPENAI_API_KEY`, and
 `TRADEOS_AGENT_MODEL`.
+
+## Marketplace Roles
+
+| Role | Owned By | Examples |
+| --- | --- | --- |
+| Intelligence supply | TradeOS | digest inputs, candidates, thesis watchlists, token snapshots, proofs, caveats, freshness, stable IDs |
+| Product packaging | Builder | briefings, bots, watchlists, dashboards, widgets, notebooks, validation packs |
+| Distribution | Builder | paid community, SaaS, API product, MCP host, agent workflow, newsletter, customer dashboard |
+| Feedback and provenance | Builder product plus TradeOS | usefulness labels, missed-move labels, app attribution, source metadata, credit reconciliation |
+| Paid depth | TradeOS | premium pulse, alerts, webhooks, automation-safe reads, validation APIs, exports, data rights |
+
+The local kit should make those roles visible. Builders should sell the
+workflow around the intelligence, not raw endpoint access.
 
 ## Feature Expansion Model
 

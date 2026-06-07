@@ -1,7 +1,8 @@
 # Use Cases
 
 This kit is for builders who want market intelligence as a product ingredient,
-not raw trading infrastructure.
+not raw trading infrastructure. It is the builder-facing distribution layer of
+the TradeOS crypto intelligence marketplace.
 
 The public story is:
 
@@ -22,7 +23,7 @@ workflow, and distribution.
 The useful commercial framing is:
 
 ```text
-TradeOS supplies the evidence layer.
+TradeOS supplies the intelligence marketplace layer.
 The builder sells the workflow around the evidence.
 The customer pays for saved time, monitoring, proof, validation, or integration.
 TradeOS gets paid when the workflow needs scale, automation, premium history, or x402.

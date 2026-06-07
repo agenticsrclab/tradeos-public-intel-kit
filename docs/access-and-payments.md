@@ -5,6 +5,11 @@ free public intelligence for discovery, feedback credits for temporary dashboard
 depth, and paid TradeOS products for automation, exports, premium data, and
 machine-paid access.
 
+That access pattern is the commercial boundary of the crypto intelligence
+marketplace: public intelligence makes builder products easy to try, feedback
+improves marketplace quality, and paid TradeOS/x402/enterprise access unlocks
+production depth, scale, automation, and data rights.
+
 The simple version:
 
 ```text

@@ -1,7 +1,7 @@
 # TradeOS Public Intelligence Kit Docs
 
 This directory explains how to build, ship, monetize, and safely operate
-products on top of TradeOS public market intelligence.
+products on top of the TradeOS crypto intelligence marketplace.
 
 The canonical builder story is:
 
@@ -12,8 +12,8 @@ Build products on public intelligence.
 Pay when you need scale, alerts, automation, private context, or data rights.
 ```
 
-Use the docs below to map that story into setup, APIs, feedback provenance,
-monetizable products, and paid boundaries.
+Use the docs below to map that story into marketplace positioning, setup, APIs,
+feedback provenance, monetizable products, and paid boundaries.
 
 Start with the path that matches what you are trying to do.
 
@@ -21,6 +21,7 @@ Start with the path that matches what you are trying to do.
 
 | Goal | Start Here | Then Read |
 | --- | --- | --- |
+| Understand the marketplace thesis | [Marketplace Model](marketplace-model.md) | [Use Cases](use-cases.md), [Monetization Guide](monetization.md) |
 | Try the kit as a builder | [Distribution Setup Guide](distribution-setup-guide.md) | [Public Intel API](public-intel-api.md), [MCP Tools](mcp-tools.md) |
 | Build a bot quickly | [Market Briefing Bot](market-briefing-bot.md) | [Feedback Credit Loop](feedback-credit-loop.md), [Safety Boundaries](safety-boundaries.md) |
 | Build saved watchlists | [Public Intel API](public-intel-api.md) | [Use Cases](use-cases.md), [Access And Payments](access-and-payments.md) |
@@ -31,17 +32,19 @@ Start with the path that matches what you are trying to do.
 
 ## Recommended Reading Order
 
-1. [Architecture](architecture.md) explains the shape of the kit and the
+1. [Marketplace Model](marketplace-model.md) explains the supply, demand,
+   feedback, and paid-depth loop behind the distribution kit.
+2. [Architecture](architecture.md) explains the shape of the kit and the
    boundary between TradeOS-hosted intelligence and builder-owned apps.
-2. [Distribution Setup Guide](distribution-setup-guide.md) shows the practical
+3. [Distribution Setup Guide](distribution-setup-guide.md) shows the practical
    install, environment, app-key, MCP, and CLI setup.
-3. [Public Intel API](public-intel-api.md) lists the public read and feedback
+4. [Public Intel API](public-intel-api.md) lists the public read and feedback
    write endpoints.
-4. [API Keys And Feedback Provenance](api-keys-and-feedback-provenance.md)
+5. [API Keys And Feedback Provenance](api-keys-and-feedback-provenance.md)
    explains app-key attribution, key management, and feedback source metadata.
-5. [Feedback Credit Loop](feedback-credit-loop.md) explains how human, agentic,
+6. [Feedback Credit Loop](feedback-credit-loop.md) explains how human, agentic,
    and automated feedback should be reported and weighted.
-6. [Safety Boundaries](safety-boundaries.md) defines what this public kit must
+7. [Safety Boundaries](safety-boundaries.md) defines what this public kit must
    not claim or do.
 
 ## Build And Integrate
@@ -59,6 +62,9 @@ Start with the path that matches what you are trying to do.
 
 ## Monetize And Package
 
+- [Marketplace Model](marketplace-model.md): the canonical thesis for TradeOS
+  as a crypto intelligence marketplace and this repo as the builder
+  distribution layer.
 - [Use Cases](use-cases.md): product categories builders can ship with TradeOS
   public intelligence.
 - [Monetization Guide](monetization.md): how builders can package evidence,

@@ -7,12 +7,15 @@ tools.
 
 It does not promise trading profits. It does not provide personalized financial
 advice. It does not place trades. The value is commercial product leverage:
-TradeOS supplies a public evidence layer, and builders sell the workflow around
-it.
+TradeOS supplies a crypto intelligence marketplace layer, and builders sell the
+workflow around it.
 
 The best builder pitch is not "use this endpoint." It is "ship a paid product
 faster because TradeOS already supplies source-backed market context,
 confidence, caveats, freshness, stable IDs, and feedback write paths."
+
+For the canonical marketplace framing, start with
+[Marketplace Model](marketplace-model.md).
 
 ## What TradeOS Supplies
 
@@ -37,7 +40,7 @@ community market bot
 watchlist dashboard
 alerting workflow
 claim/proof reputation page
-portfolio context widget
+market context widget
 analyst notebook workflow
 feedback-powered community analytics
 tradebot intelligence layer

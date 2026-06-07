@@ -1,6 +1,6 @@
 # TradeOS Public Intelligence Kit
 
-Build crypto market-intelligence products on top of
+Build crypto intelligence marketplace products on top of
 [TradeOS public evidence](https://tradeos.tech/market).
 
 This repo gives builders SDKs, MCP tools, a BYOK agent CLI, and runnable bot
@@ -8,6 +8,17 @@ examples for the TradeOS public-intel API. TradeOS hosts the intelligence API.
 Builders and users bring their own model provider key when they want LLM
 summaries, with [Venice AI](https://venice.ai/pricing) as the default
 OpenAI-compatible path.
+
+Think of TradeOS as a crypto intelligence marketplace:
+
+- TradeOS supplies the source-backed intelligence layer.
+- Builders package that intelligence into briefings, bots, watchlists,
+  dashboards, validation packs, proof pages, and widgets.
+- Users and builder apps send structured feedback that improves marketplace
+  quality and provenance.
+- Paid TradeOS, x402, or enterprise access starts when a product needs scale,
+  alerts, automation, premium history, private context, validation APIs, or
+  explicit data rights.
 
 The practical loop is simple:
 
@@ -39,9 +50,10 @@ x402 machine access, explicit data rights, or enterprise support.
 ## What This Is
 
 TradeOS sits in the public market-intelligence layer for crypto and on-chain
-markets. This kit is for builders who need current, source-backed market
-context inside bots, dashboards, agent workflows, research products, validation
-systems, and paid communities.
+markets. This kit is the builder distribution surface for that marketplace: it
+helps products discover, consume, package, and send feedback on current,
+source-backed market context inside bots, dashboards, agent workflows, research
+products, validation systems, and paid communities.
 
 It is an evidence and feedback layer:
 
@@ -94,6 +106,7 @@ private context, or explicit paid entitlement.
 
 More product detail:
 
+- [Marketplace Model](docs/marketplace-model.md)
 - [Use Cases](docs/use-cases.md)
 - [Monetization Guide](docs/monetization.md)
 - [Builder Revenue Playbook](docs/builder-revenue-playbook.md)

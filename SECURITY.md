@@ -1,8 +1,8 @@
 # Security
 
-This repository is a public intelligence client kit. It must not handle exchange
-credentials, trading execution, private forecasts, raw VPIN/features, or
-portfolio state.
+This repository is a public intelligence marketplace distribution kit. It must
+not handle exchange credentials, trading execution, private forecasts, raw
+VPIN/features, or portfolio state.
 
 ## Supported Boundary
 
@@ -19,4 +19,3 @@ portfolio state.
 - Do not put model provider API keys in browser-only examples.
 
 Report security issues privately to the TradeOS maintainers.
-

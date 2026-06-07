@@ -1,6 +1,8 @@
 # Example Dashboard
 
 This folder is reserved for the optional public dashboard example from the ADR.
+It should demonstrate how a builder turns TradeOS marketplace intelligence into
+a customer-facing workflow without exposing secrets or private data.
 The core end-to-end path in this repository is:
 
 ```text
@@ -19,4 +21,3 @@ Recommended future scaffold:
 ```bash
 npx create-next-app@latest apps/example-next-dashboard --ts --eslint --app
 ```
-

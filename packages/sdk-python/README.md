@@ -1,6 +1,6 @@
 # tradeos-public-intel
 
-Python SDK for TradeOS public intelligence.
+Python SDK for the TradeOS public intelligence marketplace.
 
 Requires Python 3.11 or newer.
 

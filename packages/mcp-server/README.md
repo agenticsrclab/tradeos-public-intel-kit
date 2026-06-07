@@ -1,6 +1,6 @@
 # @tradeos/public-intel-mcp-server
 
-Read-mostly MCP server for TradeOS public intelligence.
+Read-mostly MCP server for the TradeOS public intelligence marketplace.
 
 ```bash
 TRADEOS_API_BASE=https://api.tradeos.tech/v1/public-intel \

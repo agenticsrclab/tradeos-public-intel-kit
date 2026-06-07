@@ -1,6 +1,6 @@
 # @tradeos/public-intel-sdk
 
-TypeScript SDK for TradeOS public intelligence.
+TypeScript SDK for the TradeOS public intelligence marketplace.
 
 Use it to pull bounded public market evidence and submit structured feedback
 from Node.js apps, bots, workers, and agent services.
