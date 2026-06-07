@@ -11,6 +11,7 @@ away paid credentials or creating an abuse path.
 | App-key attribution | `TRADEOS_PUBLIC_INTEL_KEY` | production apps, agents, feedback provenance |
 | App-key management | TradeOS Developer Keys page | create, list, rotate, revoke public-intel app keys |
 | App-key automation | `TRADEOS_ACCOUNT_TOKEN` | trusted scripts that manage app keys server-side |
+| User-owned watchlists | `TRADEOS_ACCOUNT_TOKEN` | saved lists, state, events, notification targets, feedback |
 | Model inference | `VENICE_API_KEY` or compatible provider key | BYOK agent answers |
 | Paid TradeOS resources | x402/payment or paid entitlement | premium data, exports, alerts, automation |
 
@@ -27,6 +28,12 @@ npm run cli -- watchlist --limit 5
 ```
 
 No TradeOS account is required for this path.
+
+Try a public token watchlist snapshot:
+
+```bash
+node -e "import('@tradeos/public-intel-sdk').then(async ({ TradeOSPublicIntelClient }) => { const c = new TradeOSPublicIntelClient(); console.log(await c.getTokenWatchlistSnapshot('VVV', { mode: 'trader', chain: '8453' })); })"
+```
 
 ## 2. Ask With Venice AI
 
@@ -141,6 +148,59 @@ npm run cli -- keys revoke --key-id pubkey_...
 The account token is the signed-in account bearer token and should stay local to
 trusted automation. Do not commit it and do not ship it in client-side code.
 
+## 5. Try Account-Owned Watchlists
+
+Saved watchlists require a TradeOS account token. Public snapshots are keyless,
+but saved lists, state, events, notification channels, and feedback are
+user-owned state.
+
+```bash
+export TRADEOS_ACCOUNT_TOKEN=<signed-in account token>
+export TRADEOS_PUBLIC_INTEL_KEY=<optional app key for attribution>
+```
+
+Minimal JS flow:
+
+```bash
+node - <<'JS'
+import { TradeOSPublicIntelClient } from "@tradeos/public-intel-sdk";
+
+const client = new TradeOSPublicIntelClient();
+const created = await client.createWatchlist({
+  name: "Portfolio risk monitor",
+  mode: "investor",
+});
+const watchlistId = String(created.watchlist.watchlist_id);
+
+await client.addWatchlistItem(watchlistId, {
+  symbol: "VVV",
+  chain: "8453",
+});
+
+console.log(JSON.stringify(await client.getWatchlistState(watchlistId), null, 2));
+
+await client.createWatchlistNotificationChannel(watchlistId, {
+  channelKind: "in_app",
+  target: "tradeos-dashboard",
+  minSeverity: "watch",
+  digestFrequency: "realtime",
+});
+
+console.log(JSON.stringify(await client.triggerWatchlistDeliveries(watchlistId, {
+  channelKinds: ["in_app"],
+  minSeverity: "watch",
+}), null, 2));
+
+console.log(JSON.stringify(await client.listWatchlistDeliveries(watchlistId), null, 2));
+JS
+```
+
+The first-party GUI uses the same API at:
+
+```text
+https://tradeos.tech/watchlists
+```
+
 Direct API login remains available for scripts that own the full auth flow:
 
 ```bash
@@ -164,7 +224,7 @@ export TRADEOS_ACCOUNT_TOKEN="$(
 )"
 ```
 
-## 5. Run The MCP Server
+## 6. Run The MCP Server
 
 Claude Desktop example:
 
@@ -176,7 +236,8 @@ Claude Desktop example:
       "args": ["-y", "@tradeos/public-intel-mcp-server"],
       "env": {
         "TRADEOS_API_BASE": "https://api.tradeos.tech/v1/public-intel",
-        "TRADEOS_PUBLIC_INTEL_KEY": "<tradeos-public-intel-key>"
+        "TRADEOS_PUBLIC_INTEL_KEY": "<tradeos-public-intel-key>",
+        "TRADEOS_ACCOUNT_TOKEN": "<optional-account-token-for-watchlist-tools>"
       }
     }
   }
@@ -186,7 +247,7 @@ Claude Desktop example:
 The app key is optional for local trials. Use it for production attribution and
 support.
 
-## 6. Submit Feedback With Provenance
+## 7. Submit Feedback With Provenance
 
 Human feedback:
 
@@ -216,7 +277,7 @@ TradeOS decides credit class server-side. Agent and automation feedback can help
 app reputation and quality analytics, but it does not become personal user
 credit by default.
 
-## 7. Handle Guardrail Responses
+## 8. Handle Guardrail Responses
 
 The public-intel API protects app-key issuance and write paths.
 

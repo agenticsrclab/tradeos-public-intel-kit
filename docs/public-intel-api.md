@@ -23,6 +23,8 @@ GET /thesis-watchlist
 GET /thesis-watchlist-pulse-inputs
 GET /supported-universe-digest-inputs
 GET /thesis-feedback
+GET /watchlist-capabilities
+GET /tokens/{token_ref}/watchlist-snapshot
 GET /theses/{thesis_id}
 GET /theses/{thesis_id}/events
 GET /theses/{thesis_id}/checkpoints
@@ -31,6 +33,12 @@ GET /theses/{thesis_id}/publications
 GET /proofs/{public_claim_id}
 GET /attestations/{domain}/{date}
 ```
+
+`GET /tokens/{token_ref}/watchlist-snapshot` is public and bounded. It returns
+normalized watchlist context for one token: risk state, opportunity state,
+thesis state, severity, scores, drivers, freshness, limitations, and a safety
+notice. It is useful for bots, dashboards, and research workflows that need
+token-aware context without storing user state.
 
 ## Write Endpoints
 
@@ -45,12 +53,48 @@ POST /thesis-evidence
 POST /thesis-outcomes
 ```
 
+Account-owned watchlist endpoints:
+
+```text
+POST   /watchlists
+GET    /watchlists
+GET    /watchlists/{watchlist_id}
+PATCH  /watchlists/{watchlist_id}
+DELETE /watchlists/{watchlist_id}
+POST   /watchlists/{watchlist_id}/items
+DELETE /watchlists/{watchlist_id}/items/{item_id}
+GET    /watchlists/{watchlist_id}/state
+GET    /watchlists/{watchlist_id}/events
+POST   /watchlists/{watchlist_id}/feedback
+POST   /watchlists/{watchlist_id}/notification-channels
+GET    /watchlists/{watchlist_id}/notification-channels
+POST   /watchlists/{watchlist_id}/deliveries/trigger
+GET    /watchlists/{watchlist_id}/deliveries
+```
+
+These routes require a signed-in TradeOS account bearer token. If a builder app
+also has `TRADEOS_PUBLIC_INTEL_KEY`, send it in:
+
+```text
+X-TradeOS-Public-Intel-Key: <public-intel app key>
+```
+
+That lets TradeOS attribute feedback and app usage while the user keeps control
+of their watchlists.
+
+Delivery trigger evaluates stored watchlist events against stored channels and
+writes delivery audit rows. In-app delivery is available immediately. Verified
+email delivery requires the signed-in account email to be verified and SMTP to
+be configured by TradeOS. Webhook delivery is gated by explicit channel consent
+and TradeOS server-side enablement.
+
 Generic `POST /feedback` is planned, but the current kit maps feedback to
 durable or shadow write paths:
 
 - digest/evidence feedback -> `POST /conversions`
 - claim feedback -> `POST /claim-outcomes`
 - thesis feedback -> `POST /thesis-outcomes`
+- watchlist feedback -> `POST /watchlists/{watchlist_id}/feedback`
 
 ## Required Write Headers
 
@@ -82,6 +126,52 @@ the app key is valid.
 
 The app-key secret is returned once at creation or rotation. Existing secrets
 cannot be retrieved.
+
+## Watchlist SDK Example
+
+```ts
+import { TradeOSPublicIntelClient } from "@tradeos/public-intel-sdk";
+
+const client = new TradeOSPublicIntelClient({
+  apiKey: process.env.TRADEOS_PUBLIC_INTEL_KEY,
+  accountToken: process.env.TRADEOS_ACCOUNT_TOKEN,
+});
+
+const publicSnapshot = await client.getTokenWatchlistSnapshot("VVV", {
+  mode: "trader",
+  chain: "8453",
+});
+
+const created = await client.createWatchlist({
+  name: "Long-term portfolio risks",
+  mode: "investor",
+});
+const watchlistId = String(created.watchlist.watchlist_id);
+
+await client.addWatchlistItem(watchlistId, {
+  symbol: "VVV",
+  chain: "8453",
+});
+
+const state = await client.getWatchlistState(watchlistId);
+
+await client.createWatchlistNotificationChannel(watchlistId, {
+  channelKind: "in_app",
+  target: "tradeos-dashboard",
+  minSeverity: "watch",
+  digestFrequency: "realtime",
+});
+
+const deliveryRun = await client.triggerWatchlistDeliveries(watchlistId, {
+  channelKinds: ["in_app"],
+  minSeverity: "watch",
+});
+
+const deliveryAudit = await client.listWatchlistDeliveries(watchlistId);
+```
+
+Use public snapshots for keyless demos. Use account-owned watchlists when a user
+needs saved lists, in-app state, events, channels, and feedback.
 
 Key creation and write routes may return:
 

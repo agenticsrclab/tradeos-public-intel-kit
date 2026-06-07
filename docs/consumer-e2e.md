@@ -38,10 +38,14 @@ CLI digest schema: tradeos.public_intel.digest_inputs.v1
 CLI ask: non-empty grounded answer from Venice-backed BYOK flow
 Feedback schema: tradeos.public_intel.conversion_write_ack.v1
 Feedback status: accepted_shadow
-MCP tool count: 11
+MCP tool count: 21
 MCP feedback status: accepted_shadow
 Python feedback status: accepted_shadow
 ```
+
+The later watchlist certification flow also verified account signup, token
+watchlist state, events, in-app delivery audit, unverified-email skip audit,
+watchlist feedback, and archive against the public hosts.
 
 ## Notes
 
@@ -64,4 +68,3 @@ TRADEOS_AGENT_MODEL=z-ai-glm-5-turbo
 TRADEOS_AGENT_TIMEOUT_MS=45000
 TRADEOS_AGENT_DIGEST_LIMIT=5
 ```
-

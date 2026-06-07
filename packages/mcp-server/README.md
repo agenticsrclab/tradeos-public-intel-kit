@@ -4,6 +4,8 @@ Read-mostly MCP server for TradeOS public intelligence.
 
 ```bash
 TRADEOS_API_BASE=https://api.tradeos.tech/v1/public-intel \
+TRADEOS_ACCOUNT_TOKEN=<optional-account-token-for-watchlist-tools> \
+TRADEOS_PUBLIC_INTEL_KEY=<optional-app-key-for-attribution> \
 npx @tradeos/public-intel-mcp-server
 ```
 
@@ -17,9 +19,19 @@ tradeos.get_thesis_watchlist
 tradeos.get_symbol_thesis
 tradeos.get_evidence_packet
 tradeos.get_public_claim_proof
+tradeos.watchlist_capabilities
+tradeos.get_token_watchlist_snapshot
+tradeos.list_watchlists
+tradeos.create_watchlist
+tradeos.add_watchlist_item
+tradeos.get_watchlist_state
+tradeos.list_watchlist_events
+tradeos.list_watchlist_deliveries
+tradeos.trigger_watchlist_deliveries
 tradeos.submit_digest_feedback
 tradeos.submit_thesis_feedback
 tradeos.submit_claim_outcome_feedback
+tradeos.submit_watchlist_feedback
 ```
 
 Feedback tools accept optional provenance fields:
@@ -39,14 +51,19 @@ TradeOS telemetry.
 Access model:
 
 ```text
-Free public kit: bounded reads and feedback writes
+Free public kit: bounded reads, token snapshots, and feedback writes
 Feedback credits: dashboard-only depth, 30-day unlock by default
-Paid TradeOS/x402: automation, exports, alerts, premium data, validation APIs
+Account token: saved watchlists, events, channels, delivery audit, and user-owned feedback
+Paid TradeOS/x402: automation, exports, high-volume alerts, premium data, validation APIs
 ```
 
 `TRADEOS_PUBLIC_INTEL_KEY` is optional and used only when TradeOS has issued a
 public-intel app key for attribution. This MCP server can use the key, but it
 does not create keys.
+
+Watchlist tools require `TRADEOS_ACCOUNT_TOKEN`. They expose research awareness,
+saved user state, and delivery audit only; they do not place trades or connect
+exchanges.
 
 Learn more:
 

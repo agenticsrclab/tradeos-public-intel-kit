@@ -13,6 +13,13 @@ import type {
   ThesisFeedbackQuery,
   TradeOSApiErrorBody,
   TradeOSPublicIntelClientOptions,
+  WatchlistCreate,
+  WatchlistDeliveryTrigger,
+  WatchlistFeedback,
+  WatchlistItemCreate,
+  WatchlistNotificationChannelCreate,
+  WatchlistSnapshotQuery,
+  WatchlistUpdate,
 } from "./types.js";
 
 const DEFAULT_BASE_URL = "https://api.tradeos.tech/v1/public-intel";
@@ -142,6 +149,191 @@ export class TradeOSPublicIntelClient {
     return this.get("/thesis-feedback", params);
   }
 
+  async getWatchlistCapabilities(): Promise<JsonObject> {
+    return this.get("/watchlist-capabilities");
+  }
+
+  async getTokenWatchlistSnapshot(tokenRef: string, query: WatchlistSnapshotQuery = {}): Promise<JsonObject> {
+    return this.get(`/tokens/${encodeURIComponent(tokenRef)}/watchlist-snapshot`, {
+      mode: query.mode,
+      chain: query.chain,
+      contract_address: query.contractAddress,
+      limit: query.limit,
+    });
+  }
+
+  async createWatchlist(request: WatchlistCreate, options: AccountRequestOptions = {}): Promise<JsonObject> {
+    const payload: JsonObject = {
+      name: request.name,
+      mode: request.mode ?? "investor",
+    };
+    setIfPresent(payload, "description", request.description);
+    setIfPresent(payload, "settings", request.settings);
+    return this.post("/watchlists", payload, {
+      authToken: this.requireAccountToken(options.accountToken),
+      headers: this.accountHeaders(this.requireAccountToken(options.accountToken), options.headers),
+    });
+  }
+
+  async listWatchlists(options: AccountRequestOptions = {}): Promise<JsonObject> {
+    return this.request("/watchlists", {
+      method: "GET",
+      headers: this.accountHeaders(this.requireAccountToken(options.accountToken), options.headers),
+    });
+  }
+
+  async getWatchlist(watchlistId: string, options: AccountRequestOptions = {}): Promise<JsonObject> {
+    return this.request(`/watchlists/${encodeURIComponent(watchlistId)}`, {
+      method: "GET",
+      headers: this.accountHeaders(this.requireAccountToken(options.accountToken), options.headers),
+    });
+  }
+
+  async updateWatchlist(
+    watchlistId: string,
+    request: WatchlistUpdate,
+    options: AccountRequestOptions = {},
+  ): Promise<JsonObject> {
+    const payload: JsonObject = {};
+    setIfPresent(payload, "name", request.name);
+    setIfPresent(payload, "mode", request.mode);
+    setIfPresent(payload, "description", request.description);
+    setIfPresent(payload, "settings", request.settings);
+    setIfPresent(payload, "archived", request.archived);
+    return this.request(`/watchlists/${encodeURIComponent(watchlistId)}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+        ...this.accountHeaders(this.requireAccountToken(options.accountToken), options.headers),
+      },
+      body: JSON.stringify(payload),
+    });
+  }
+
+  async archiveWatchlist(watchlistId: string, options: AccountRequestOptions = {}): Promise<JsonObject> {
+    return this.request(`/watchlists/${encodeURIComponent(watchlistId)}`, {
+      method: "DELETE",
+      headers: this.accountHeaders(this.requireAccountToken(options.accountToken), options.headers),
+    });
+  }
+
+  async addWatchlistItem(
+    watchlistId: string,
+    request: WatchlistItemCreate,
+    options: AccountRequestOptions = {},
+  ): Promise<JsonObject> {
+    const payload: JsonObject = {
+      symbol: request.symbol,
+    };
+    setIfPresent(payload, "chain", request.chain);
+    setIfPresent(payload, "contract_address", request.contractAddress);
+    setIfPresent(payload, "asset_namespace", request.assetNamespace);
+    setIfPresent(payload, "source_ref", request.sourceRef);
+    setIfPresent(payload, "identity_confidence", request.identityConfidence);
+    setIfPresent(payload, "notes", request.notes);
+    setIfPresent(payload, "metadata", request.metadata);
+    return this.post(`/watchlists/${encodeURIComponent(watchlistId)}/items`, payload, {
+      authToken: this.requireAccountToken(options.accountToken),
+      headers: this.accountHeaders(this.requireAccountToken(options.accountToken), options.headers),
+    });
+  }
+
+  async removeWatchlistItem(
+    watchlistId: string,
+    itemId: string,
+    options: AccountRequestOptions = {},
+  ): Promise<JsonObject> {
+    return this.request(
+      `/watchlists/${encodeURIComponent(watchlistId)}/items/${encodeURIComponent(itemId)}`,
+      {
+        method: "DELETE",
+        headers: this.accountHeaders(this.requireAccountToken(options.accountToken), options.headers),
+      },
+    );
+  }
+
+  async getWatchlistState(watchlistId: string, options: AccountRequestOptions = {}): Promise<JsonObject> {
+    return this.request(`/watchlists/${encodeURIComponent(watchlistId)}/state`, {
+      method: "GET",
+      headers: this.accountHeaders(this.requireAccountToken(options.accountToken), options.headers),
+    });
+  }
+
+  async listWatchlistEvents(
+    watchlistId: string,
+    options: AccountRequestOptions & { limit?: number } = {},
+  ): Promise<JsonObject> {
+    return this.request(
+      `/watchlists/${encodeURIComponent(watchlistId)}/events`,
+      {
+        method: "GET",
+        headers: this.accountHeaders(this.requireAccountToken(options.accountToken), options.headers),
+      },
+      { limit: options.limit },
+    );
+  }
+
+  async listWatchlistNotificationChannels(
+    watchlistId: string,
+    options: AccountRequestOptions = {},
+  ): Promise<JsonObject> {
+    return this.request(`/watchlists/${encodeURIComponent(watchlistId)}/notification-channels`, {
+      method: "GET",
+      headers: this.accountHeaders(this.requireAccountToken(options.accountToken), options.headers),
+    });
+  }
+
+  async createWatchlistNotificationChannel(
+    watchlistId: string,
+    request: WatchlistNotificationChannelCreate,
+    options: AccountRequestOptions = {},
+  ): Promise<JsonObject> {
+    const payload: JsonObject = {
+      channel_kind: request.channelKind,
+      target: request.target,
+    };
+    setIfPresent(payload, "min_severity", request.minSeverity);
+    setIfPresent(payload, "digest_frequency", request.digestFrequency);
+    setIfPresent(payload, "enabled", request.enabled);
+    setIfPresent(payload, "metadata", request.metadata);
+    return this.post(`/watchlists/${encodeURIComponent(watchlistId)}/notification-channels`, payload, {
+      authToken: this.requireAccountToken(options.accountToken),
+      headers: this.accountHeaders(this.requireAccountToken(options.accountToken), options.headers),
+    });
+  }
+
+  async listWatchlistDeliveries(
+    watchlistId: string,
+    options: AccountRequestOptions & { limit?: number } = {},
+  ): Promise<JsonObject> {
+    return this.request(
+      `/watchlists/${encodeURIComponent(watchlistId)}/deliveries`,
+      {
+        method: "GET",
+        headers: this.accountHeaders(this.requireAccountToken(options.accountToken), options.headers),
+      },
+      { limit: options.limit },
+    );
+  }
+
+  async triggerWatchlistDeliveries(
+    watchlistId: string,
+    request: WatchlistDeliveryTrigger = {},
+    options: AccountRequestOptions = {},
+  ): Promise<JsonObject> {
+    const payload: JsonObject = {};
+    setIfPresent(payload, "event_ids", request.eventIds);
+    setIfPresent(payload, "channel_kinds", request.channelKinds);
+    setIfPresent(payload, "min_severity", request.minSeverity);
+    setIfPresent(payload, "max_events", request.maxEvents);
+    setIfPresent(payload, "dry_run", request.dryRun);
+    setIfPresent(payload, "force", request.force);
+    return this.post(`/watchlists/${encodeURIComponent(watchlistId)}/deliveries/trigger`, payload, {
+      authToken: this.requireAccountToken(options.accountToken),
+      headers: this.accountHeaders(this.requireAccountToken(options.accountToken), options.headers),
+    });
+  }
+
   async getPublicClaimProof(publicClaimId: string): Promise<JsonObject> {
     return this.get(`/proofs/${encodeURIComponent(publicClaimId)}`);
   }
@@ -228,6 +420,29 @@ export class TradeOSPublicIntelClient {
     return this.post("/conversions", payload, options);
   }
 
+  async submitWatchlistFeedback(feedback: WatchlistFeedback, options: RequestOptions = {}): Promise<JsonObject> {
+    const occurredAt = feedback.occurredAt ?? nowIso();
+    const note = feedback.optionalNote ?? feedback.notes ?? "";
+    const payload = {
+      target_type: feedback.targetType,
+      target_id: feedback.targetId,
+      label: feedback.label,
+      optional_note: note,
+      notes: note,
+      source_snapshot_refs: feedback.sourceSnapshotRefs ?? [],
+      event_id: feedback.eventId ?? feedback.targetId,
+      client_app: feedback.clientApp ?? this.appName,
+      client_version: feedback.clientVersion ?? this.appVersion,
+      ...feedbackProvenance(feedback),
+      occurred_at: occurredAt,
+    };
+    return this.post(`/watchlists/${encodeURIComponent(feedback.watchlistId)}/feedback`, payload, {
+      ...options,
+      authToken: this.requireAccountToken(options.authToken),
+      headers: this.accountHeaders(this.requireAccountToken(options.authToken), options.headers),
+    });
+  }
+
   async postRaw(path: string, payload: JsonObject, options: RequestOptions = {}): Promise<JsonObject> {
     return this.post(path, payload, options);
   }
@@ -290,9 +505,17 @@ export class TradeOSPublicIntelClient {
   private requireAccountToken(override?: string): string {
     const token = override ?? this.accountToken;
     if (!token) {
-      throw new Error("TRADEOS_ACCOUNT_TOKEN or options.accountToken is required for app-key management.");
+      throw new Error("TRADEOS_ACCOUNT_TOKEN or an account token option is required for account-scoped public-intel operations.");
     }
     return token;
+  }
+
+  private accountHeaders(accountToken: string, headers: Record<string, string> = {}): Record<string, string> {
+    const result = accountAuthHeaders(accountToken, headers);
+    if (this.apiKey && !result["x-tradeos-public-intel-key"]) {
+      result["x-tradeos-public-intel-key"] = this.apiKey;
+    }
+    return result;
   }
 }
 

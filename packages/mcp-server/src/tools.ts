@@ -4,6 +4,8 @@ import type {
   PublicFeedback,
   ThesisFeedback,
   TradeOSPublicIntelClient,
+  WatchlistDeliveryTrigger,
+  WatchlistFeedback,
 } from "@tradeos/public-intel-sdk";
 import { jsonText, safetyEnvelope } from "./format.js";
 
@@ -87,6 +89,81 @@ export function createToolHandlers({ client }: ToolHandlerContext) {
       return jsonText(safetyEnvelope(await client.getThesisFeedback(args)));
     },
 
+    async getWatchlistCapabilities() {
+      return jsonText(safetyEnvelope(await client.getWatchlistCapabilities()));
+    },
+
+    async getTokenWatchlistSnapshot(args: {
+      tokenRef: string;
+      mode?: "investor" | "swing" | "trader";
+      chain?: string;
+      contractAddress?: string;
+      limit?: number;
+    }) {
+      return jsonText(
+        safetyEnvelope(
+          await client.getTokenWatchlistSnapshot(args.tokenRef, {
+            mode: args.mode,
+            chain: args.chain,
+            contractAddress: args.contractAddress,
+            limit: args.limit,
+          }),
+        ),
+      );
+    },
+
+    async listWatchlists() {
+      return jsonText(safetyEnvelope(await client.listWatchlists()));
+    },
+
+    async createWatchlist(args: { name: string; mode?: "investor" | "swing" | "trader"; description?: string }) {
+      return jsonText(
+        safetyEnvelope(
+          await client.createWatchlist({
+            name: args.name,
+            mode: args.mode,
+            description: args.description,
+          }),
+        ),
+      );
+    },
+
+    async addWatchlistItem(args: {
+      watchlistId: string;
+      symbol: string;
+      chain?: string;
+      contractAddress?: string;
+      notes?: string;
+    }) {
+      return jsonText(
+        safetyEnvelope(
+          await client.addWatchlistItem(args.watchlistId, {
+            symbol: args.symbol,
+            chain: args.chain,
+            contractAddress: args.contractAddress,
+            notes: args.notes,
+          }),
+        ),
+      );
+    },
+
+    async getWatchlistState(args: { watchlistId: string }) {
+      return jsonText(safetyEnvelope(await client.getWatchlistState(args.watchlistId)));
+    },
+
+    async listWatchlistEvents(args: { watchlistId: string; limit?: number }) {
+      return jsonText(safetyEnvelope(await client.listWatchlistEvents(args.watchlistId, { limit: args.limit })));
+    },
+
+    async listWatchlistDeliveries(args: { watchlistId: string; limit?: number }) {
+      return jsonText(safetyEnvelope(await client.listWatchlistDeliveries(args.watchlistId, { limit: args.limit })));
+    },
+
+    async triggerWatchlistDeliveries(args: WatchlistDeliveryTrigger & { watchlistId: string }) {
+      const { watchlistId, ...request } = args;
+      return jsonText(safetyEnvelope(await client.triggerWatchlistDeliveries(watchlistId, request)));
+    },
+
     async getCreditState(args: { anonymousSessionIdOrUserId?: string }) {
       return jsonText({
         schema_version: "tradeos.public_intel.credit_state.v1",
@@ -108,10 +185,13 @@ export function createToolHandlers({ client }: ToolHandlerContext) {
     async submitDigestFeedback(args: PublicFeedback) {
       return jsonText(safetyEnvelope(await client.submitDigestFeedback(args)));
     },
+
+    async submitWatchlistFeedback(args: WatchlistFeedback) {
+      return jsonText(safetyEnvelope(await client.submitWatchlistFeedback(args)));
+    },
   };
 }
 
 function isRecord(value: unknown): value is JsonObject {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
-

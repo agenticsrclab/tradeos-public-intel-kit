@@ -16,4 +16,13 @@ export type {
   ThesisFeedbackQuery,
   TradeOSApiErrorBody,
   TradeOSPublicIntelClientOptions,
+  WatchlistCreate,
+  WatchlistDeliveryTrigger,
+  WatchlistFeedback,
+  WatchlistItemCreate,
+  WatchlistMode,
+  WatchlistNotificationChannelCreate,
+  WatchlistSeverity,
+  WatchlistSnapshotQuery,
+  WatchlistUpdate,
 } from "./types.js";

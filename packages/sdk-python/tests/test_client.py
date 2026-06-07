@@ -113,5 +113,124 @@ def test_submit_digest_feedback_maps_to_conversions(monkeypatch):
     assert seen["idempotency"]
 
 
+def test_get_token_watchlist_snapshot_builds_public_query(monkeypatch):
+    seen = {}
+
+    def fake_urlopen(request, timeout):
+        seen["url"] = request.full_url
+        return FakeResponse({"schema_version": "tradeos.public_intel.watchlist_snapshot.v1"})
+
+    monkeypatch.setattr(client_module, "urlopen", fake_urlopen)
+    client = TradeOSPublicIntelClient(base_url="https://example.test/v1/public-intel")
+
+    payload = client.get_token_watchlist_snapshot("VVV", mode="trader", chain="8453")
+
+    assert payload["schema_version"] == "tradeos.public_intel.watchlist_snapshot.v1"
+    assert seen["url"].endswith("/tokens/VVV/watchlist-snapshot?mode=trader&chain=8453")
+
+
+def test_get_token_watchlist_snapshot_encodes_path_segments(monkeypatch):
+    seen = {}
+
+    def fake_urlopen(request, timeout):
+        seen["url"] = request.full_url
+        return FakeResponse({"schema_version": "tradeos.public_intel.watchlist_snapshot.v1"})
+
+    monkeypatch.setattr(client_module, "urlopen", fake_urlopen)
+    client = TradeOSPublicIntelClient(base_url="https://example.test/v1/public-intel")
+
+    client.get_token_watchlist_snapshot("base/0xabc", mode="trader")
+
+    assert seen["url"].endswith("/tokens/base%2F0xabc/watchlist-snapshot?mode=trader")
+
+
+def test_create_watchlist_uses_account_auth_and_app_key_header(monkeypatch):
+    seen = {}
+
+    def fake_urlopen(request, timeout):
+        seen["url"] = request.full_url
+        seen["authorization"] = request.headers.get("Authorization")
+        seen["app_key"] = request.headers.get("X-tradeos-public-intel-key")
+        seen["body"] = json.loads(request.data.decode("utf-8"))
+        return FakeResponse({"watchlist": {"watchlist_id": "wl_1"}})
+
+    monkeypatch.setattr(client_module, "urlopen", fake_urlopen)
+    client = TradeOSPublicIntelClient(
+        base_url="https://example.test/v1/public-intel",
+        api_key="tos_pub_test",
+        account_token="acct_token",
+    )
+
+    payload = client.create_watchlist(name="Portfolio risk")
+
+    assert payload["watchlist"]["watchlist_id"] == "wl_1"
+    assert seen["url"].endswith("/watchlists")
+    assert seen["authorization"] == "Bearer acct_token"
+    assert seen["app_key"] == "tos_pub_test"
+    assert seen["body"]["name"] == "Portfolio risk"
+    assert seen["body"]["mode"] == "investor"
+
+
+def test_submit_watchlist_feedback_uses_account_auth_and_app_key_header(monkeypatch):
+    seen = {}
+
+    def fake_urlopen(request, timeout):
+        seen["url"] = request.full_url
+        seen["authorization"] = request.headers.get("Authorization")
+        seen["app_key"] = request.headers.get("X-tradeos-public-intel-key")
+        seen["body"] = json.loads(request.data.decode("utf-8"))
+        return FakeResponse({"status": "accepted", "feedback_id": "pifb_1"})
+
+    monkeypatch.setattr(client_module, "urlopen", fake_urlopen)
+    client = TradeOSPublicIntelClient(
+        base_url="https://example.test/v1/public-intel",
+        api_key="tos_pub_test",
+        account_token="acct_token",
+    )
+
+    payload = client.submit_watchlist_feedback(
+        watchlist_id="wl_1",
+        target_type="watchlist_event",
+        target_id="wle_1",
+        label="useful",
+        optional_note="timely alert",
+    )
+
+    assert payload["feedback_id"] == "pifb_1"
+    assert seen["url"].endswith("/watchlists/wl_1/feedback")
+    assert seen["authorization"] == "Bearer acct_token"
+    assert seen["app_key"] == "tos_pub_test"
+    assert seen["body"]["target_id"] == "wle_1"
+    assert seen["body"]["label"] == "useful"
+    assert seen["body"]["notes"] == "timely alert"
+
+
+def test_trigger_watchlist_deliveries_uses_account_auth_and_app_key_header(monkeypatch):
+    seen = {}
+
+    def fake_urlopen(request, timeout):
+        seen["url"] = request.full_url
+        seen["authorization"] = request.headers.get("Authorization")
+        seen["app_key"] = request.headers.get("X-tradeos-public-intel-key")
+        seen["body"] = json.loads(request.data.decode("utf-8"))
+        return FakeResponse({"schema_version": "tradeos.public_intel.watchlist_deliveries.v1", "deliveries": []})
+
+    monkeypatch.setattr(client_module, "urlopen", fake_urlopen)
+    client = TradeOSPublicIntelClient(
+        base_url="https://example.test/v1/public-intel",
+        api_key="tos_pub_test",
+        account_token="acct_token",
+    )
+
+    payload = client.trigger_watchlist_deliveries("wl_1", channel_kinds=["in_app"], min_severity="watch")
+
+    assert payload["schema_version"] == "tradeos.public_intel.watchlist_deliveries.v1"
+    assert seen["url"].endswith("/watchlists/wl_1/deliveries/trigger")
+    assert seen["authorization"] == "Bearer acct_token"
+    assert seen["app_key"] == "tos_pub_test"
+    assert seen["body"]["channel_kinds"] == ["in_app"]
+    assert seen["body"]["min_severity"] == "watch"
+
+
 def test_stable_id_is_deterministic():
     assert stable_id("x", {"b": 1, "a": 2}) == stable_id("x", {"a": 2, "b": 1})

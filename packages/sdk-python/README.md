@@ -16,6 +16,7 @@ from tradeos_public_intel import TradeOSPublicIntelClient
 client = TradeOSPublicIntelClient()
 digest = client.get_market_digest(limit=10)
 attribution = client.get_app_attribution()
+snapshot = client.get_token_watchlist_snapshot("VVV", mode="trader", chain="8453")
 
 ack = client.submit_digest_feedback(
     target_type="digest",
@@ -23,6 +24,50 @@ ack = client.submit_digest_feedback(
     label="useful",
     optional_note="Clear evidence and caveats.",
     feedback_source="human",
+)
+```
+
+Create a saved watchlist when you have a TradeOS account bearer token:
+
+```python
+created = client.create_watchlist(
+    name="Portfolio risk monitor",
+    mode="investor",
+    account_token=os.environ["TRADEOS_ACCOUNT_TOKEN"],
+)
+watchlist_id = created["watchlist"]["watchlist_id"]
+
+client.add_watchlist_item(
+    watchlist_id,
+    symbol="VVV",
+    chain="8453",
+    account_token=os.environ["TRADEOS_ACCOUNT_TOKEN"],
+)
+
+state = client.get_watchlist_state(
+    watchlist_id,
+    account_token=os.environ["TRADEOS_ACCOUNT_TOKEN"],
+)
+
+client.create_watchlist_notification_channel(
+    watchlist_id,
+    channel_kind="in_app",
+    target="tradeos-dashboard",
+    min_severity="watch",
+    digest_frequency="realtime",
+    account_token=os.environ["TRADEOS_ACCOUNT_TOKEN"],
+)
+
+client.trigger_watchlist_deliveries(
+    watchlist_id,
+    channel_kinds=["in_app"],
+    min_severity="watch",
+    account_token=os.environ["TRADEOS_ACCOUNT_TOKEN"],
+)
+
+delivery_audit = client.list_watchlist_deliveries(
+    watchlist_id,
+    account_token=os.environ["TRADEOS_ACCOUNT_TOKEN"],
 )
 ```
 
@@ -58,9 +103,10 @@ https://api.tradeos.tech/v1/public-intel
 Access model:
 
 ```text
-Free public kit: bounded reads and feedback writes
+Free public kit: bounded reads, token snapshots, and feedback writes
 Feedback credits: dashboard-only depth, 30-day unlock by default
-Paid TradeOS/x402: automation, exports, alerts, premium data, validation APIs
+Account token: saved watchlists, events, channels, and user-owned feedback
+Paid TradeOS/x402: automation, exports, high-volume alerts, premium data, validation APIs
 ```
 
 `TRADEOS_PUBLIC_INTEL_KEY` is optional and used only when TradeOS has issued a

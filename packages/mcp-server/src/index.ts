@@ -135,6 +135,129 @@ server.registerTool(
 );
 
 server.registerTool(
+  "tradeos.watchlist_capabilities",
+  {
+    title: "Get Watchlist Capabilities",
+    description: "Fetch TradeOS watchlist intelligence modes, auth model, endpoints, and delivery status.",
+    inputSchema: {},
+  },
+  tools.getWatchlistCapabilities,
+);
+
+server.registerTool(
+  "tradeos.get_token_watchlist_snapshot",
+  {
+    title: "Get Token Watchlist Snapshot",
+    description: "Fetch a public bounded watchlist intelligence snapshot for a token.",
+    inputSchema: {
+      tokenRef: z.string().min(1),
+      mode: z.enum(["investor", "swing", "trader"]).optional(),
+      chain: z.string().optional(),
+      contractAddress: z.string().optional(),
+      limit: z.number().int().min(1).max(100).optional(),
+    },
+  },
+  tools.getTokenWatchlistSnapshot,
+);
+
+server.registerTool(
+  "tradeos.list_watchlists",
+  {
+    title: "List User Watchlists",
+    description: "List signed-in TradeOS account watchlists. Requires TRADEOS_ACCOUNT_TOKEN.",
+    inputSchema: {},
+  },
+  tools.listWatchlists,
+);
+
+server.registerTool(
+  "tradeos.create_watchlist",
+  {
+    title: "Create Watchlist",
+    description: "Create an account-owned TradeOS watchlist. Requires TRADEOS_ACCOUNT_TOKEN.",
+    inputSchema: {
+      name: z.string().min(1),
+      mode: z.enum(["investor", "swing", "trader"]).optional(),
+      description: z.string().optional(),
+    },
+  },
+  tools.createWatchlist,
+);
+
+server.registerTool(
+  "tradeos.add_watchlist_item",
+  {
+    title: "Add Watchlist Item",
+    description: "Add a token identity to an account-owned TradeOS watchlist.",
+    inputSchema: {
+      watchlistId: z.string().min(1),
+      symbol: z.string().min(1),
+      chain: z.string().optional(),
+      contractAddress: z.string().optional(),
+      notes: z.string().optional(),
+    },
+  },
+  tools.addWatchlistItem,
+);
+
+server.registerTool(
+  "tradeos.get_watchlist_state",
+  {
+    title: "Get Watchlist State",
+    description: "Fetch normalized risk, opportunity, thesis, freshness, and driver state for a user watchlist.",
+    inputSchema: {
+      watchlistId: z.string().min(1),
+    },
+  },
+  tools.getWatchlistState,
+);
+
+server.registerTool(
+  "tradeos.list_watchlist_events",
+  {
+    title: "List Watchlist Events",
+    description: "List deduped watchlist intelligence events for a user watchlist.",
+    inputSchema: {
+      watchlistId: z.string().min(1),
+      limit: z.number().int().min(1).max(200).optional(),
+    },
+  },
+  tools.listWatchlistEvents,
+);
+
+server.registerTool(
+  "tradeos.list_watchlist_deliveries",
+  {
+    title: "List Watchlist Deliveries",
+    description: "List delivery audit rows for a user watchlist. Requires TRADEOS_ACCOUNT_TOKEN.",
+    inputSchema: {
+      watchlistId: z.string().min(1),
+      limit: z.number().int().min(1).max(200).optional(),
+    },
+  },
+  tools.listWatchlistDeliveries,
+);
+
+server.registerTool(
+  "tradeos.trigger_watchlist_deliveries",
+  {
+    title: "Trigger Watchlist Deliveries",
+    description:
+      "Evaluate watchlist events against notification channels and write delivery audit rows. Requires TRADEOS_ACCOUNT_TOKEN.",
+    inputSchema: {
+      watchlistId: z.string().min(1),
+      eventIds: z.array(z.string()).optional(),
+      channelKinds: z.array(z.string()).optional(),
+      minSeverity: z.enum(["info", "watch", "warning", "critical"]).optional(),
+      maxEvents: z.number().int().min(1).max(200).optional(),
+      dryRun: z.boolean().optional(),
+      force: z.boolean().optional(),
+    },
+  },
+  tools.triggerWatchlistDeliveries,
+);
+
+server.registerTool(
   "tradeos.submit_thesis_feedback",
   {
     title: "Submit Thesis Feedback",
@@ -207,6 +330,26 @@ server.registerTool(
     },
   },
   tools.submitDigestFeedback,
+);
+
+server.registerTool(
+  "tradeos.submit_watchlist_feedback",
+  {
+    title: "Submit Watchlist Feedback",
+    description: "Submit feedback for a watchlist event or driver. Requires TRADEOS_ACCOUNT_TOKEN; TRADEOS_PUBLIC_INTEL_KEY adds app attribution.",
+    inputSchema: {
+      targetType: z.string().min(1),
+      targetId: z.string().min(1),
+      watchlistId: z.string().min(1),
+      label: z.string().min(1),
+      eventId: z.string().optional(),
+      optionalNote: z.string().optional(),
+      sourceSnapshotRefs: z.array(z.string()).optional(),
+      occurredAt: z.string().optional(),
+      ...feedbackProvenanceInputSchema,
+    },
+  },
+  tools.submitWatchlistFeedback,
 );
 
 await server.connect(new StdioServerTransport());

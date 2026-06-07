@@ -46,6 +46,60 @@ export interface ThesisFeedbackQuery {
   horizonSeconds?: number;
 }
 
+export type WatchlistMode = "investor" | "swing" | "trader";
+export type WatchlistSeverity = "info" | "watch" | "warning" | "critical";
+
+export interface WatchlistSnapshotQuery {
+  mode?: WatchlistMode;
+  chain?: string;
+  contractAddress?: string;
+  limit?: number;
+}
+
+export interface WatchlistCreate {
+  name: string;
+  mode?: WatchlistMode;
+  description?: string;
+  settings?: JsonObject;
+}
+
+export interface WatchlistUpdate {
+  name?: string;
+  mode?: WatchlistMode;
+  description?: string;
+  settings?: JsonObject;
+  archived?: boolean;
+}
+
+export interface WatchlistItemCreate {
+  symbol: string;
+  chain?: string;
+  contractAddress?: string;
+  assetNamespace?: string;
+  sourceRef?: string;
+  identityConfidence?: number;
+  notes?: string;
+  metadata?: JsonObject;
+}
+
+export interface WatchlistNotificationChannelCreate {
+  channelKind: "in_app" | "email" | "webhook" | "telegram" | "discord" | string;
+  target: string;
+  minSeverity?: WatchlistSeverity;
+  digestFrequency?: "realtime" | "daily" | "weekly" | "disabled" | string;
+  enabled?: boolean;
+  metadata?: JsonObject;
+}
+
+export interface WatchlistDeliveryTrigger {
+  eventIds?: string[];
+  channelKinds?: string[];
+  minSeverity?: WatchlistSeverity;
+  maxEvents?: number;
+  dryRun?: boolean;
+  force?: boolean;
+}
+
 export type FeedbackLabel =
   | "useful"
   | "not_useful"
@@ -95,6 +149,13 @@ export interface ClaimOutcomeFeedback extends PublicFeedback {
   outcomeId?: string;
   outcomeClass?: string;
   outcomeScore?: number;
+}
+
+export interface WatchlistFeedback extends PublicFeedback {
+  targetType: "watchlist_event" | "watchlist_driver" | string;
+  watchlistId: string;
+  eventId?: string;
+  notes?: string;
 }
 
 export interface TradeOSApiErrorBody {

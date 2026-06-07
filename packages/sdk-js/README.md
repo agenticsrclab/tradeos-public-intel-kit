@@ -18,6 +18,11 @@ const digest = await client.getMarketDigest({ limit: 10 });
 
 const attribution = await client.getAppAttribution();
 
+const snapshot = await client.getTokenWatchlistSnapshot("VVV", {
+  mode: "trader",
+  chain: "8453",
+});
+
 await client.submitDigestFeedback({
   targetType: "digest",
   targetId: "digest_123",
@@ -35,6 +40,40 @@ const created = await client.createAppKey(
   { accountToken: process.env.TRADEOS_ACCOUNT_TOKEN },
 );
 ```
+
+Create a saved watchlist when you have a TradeOS account bearer token:
+
+```ts
+const watchlist = await client.createWatchlist({
+  name: "Portfolio risk monitor",
+  mode: "investor",
+});
+
+const watchlistId = String(watchlist.watchlist.watchlist_id);
+await client.addWatchlistItem(watchlistId, {
+  symbol: "VVV",
+  chain: "8453",
+});
+
+const state = await client.getWatchlistState(watchlistId);
+
+await client.createWatchlistNotificationChannel(watchlistId, {
+  channelKind: "in_app",
+  target: "tradeos-dashboard",
+  minSeverity: "watch",
+  digestFrequency: "realtime",
+});
+
+await client.triggerWatchlistDeliveries(watchlistId, {
+  channelKinds: ["in_app"],
+  minSeverity: "watch",
+});
+
+const deliveryAudit = await client.listWatchlistDeliveries(watchlistId);
+```
+
+If `TRADEOS_PUBLIC_INTEL_KEY` is configured, account-scoped feedback sends that
+key through `X-TradeOS-Public-Intel-Key` for builder attribution.
 
 Agentic feedback can be tagged separately:
 
@@ -59,9 +98,10 @@ https://api.tradeos.tech/v1/public-intel
 Access model:
 
 ```text
-Free public kit: bounded reads and feedback writes
+Free public kit: bounded reads, token snapshots, and feedback writes
 Feedback credits: dashboard-only depth, 30-day unlock by default
-Paid TradeOS/x402: automation, exports, alerts, premium data, validation APIs
+Account token: saved watchlists, events, channels, and user-owned feedback
+Paid TradeOS/x402: automation, exports, high-volume alerts, premium data, validation APIs
 ```
 
 `TRADEOS_PUBLIC_INTEL_KEY` is optional and used only when TradeOS has issued a

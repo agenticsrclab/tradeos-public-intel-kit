@@ -7,7 +7,7 @@ import uuid
 from datetime import UTC, datetime
 from typing import Any
 from urllib.error import HTTPError
-from urllib.parse import urlencode
+from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 
 DEFAULT_BASE_URL = "https://api.tradeos.tech/v1/public-intel"
@@ -125,6 +125,225 @@ class TradeOSPublicIntelClient:
             },
         )
 
+    def get_watchlist_capabilities(self) -> dict[str, Any]:
+        return self._get("/watchlist-capabilities")
+
+    def get_token_watchlist_snapshot(
+        self,
+        token_ref: str,
+        *,
+        mode: str | None = None,
+        chain: str | None = None,
+        contract_address: str | None = None,
+        limit: int | None = None,
+    ) -> dict[str, Any]:
+        return self._get(
+            f"/tokens/{_path_quote(token_ref)}/watchlist-snapshot",
+            {
+                "mode": mode,
+                "chain": chain,
+                "contract_address": contract_address,
+                "limit": limit,
+            },
+        )
+
+    def create_watchlist(
+        self,
+        *,
+        name: str,
+        mode: str = "investor",
+        description: str = "",
+        settings: dict[str, Any] | None = None,
+        account_token: str | None = None,
+    ) -> dict[str, Any]:
+        return self._post(
+            "/watchlists",
+            {
+                "name": name,
+                "mode": mode,
+                "description": description,
+                "settings": settings or {},
+            },
+            authorization_token=self._require_account_token(account_token),
+        )
+
+    def list_watchlists(self, *, account_token: str | None = None) -> dict[str, Any]:
+        return self._get("/watchlists", authorization_token=self._require_account_token(account_token))
+
+    def get_watchlist(self, watchlist_id: str, *, account_token: str | None = None) -> dict[str, Any]:
+        return self._get(f"/watchlists/{watchlist_id}", authorization_token=self._require_account_token(account_token))
+
+    def update_watchlist(
+        self,
+        watchlist_id: str,
+        *,
+        name: str | None = None,
+        mode: str | None = None,
+        description: str | None = None,
+        settings: dict[str, Any] | None = None,
+        archived: bool | None = None,
+        account_token: str | None = None,
+    ) -> dict[str, Any]:
+        payload = {
+            key: value
+            for key, value in {
+                "name": name,
+                "mode": mode,
+                "description": description,
+                "settings": settings,
+                "archived": archived,
+            }.items()
+            if value is not None
+        }
+        return self._request(
+            "PATCH",
+            f"/watchlists/{watchlist_id}",
+            payload=payload,
+            authorization_token=self._require_account_token(account_token),
+        )
+
+    def archive_watchlist(self, watchlist_id: str, *, account_token: str | None = None) -> dict[str, Any]:
+        return self._request(
+            "DELETE",
+            f"/watchlists/{watchlist_id}",
+            authorization_token=self._require_account_token(account_token),
+        )
+
+    def add_watchlist_item(
+        self,
+        watchlist_id: str,
+        *,
+        symbol: str,
+        chain: str = "",
+        contract_address: str = "",
+        asset_namespace: str = "",
+        source_ref: str = "",
+        identity_confidence: float = 0.5,
+        notes: str = "",
+        metadata: dict[str, Any] | None = None,
+        account_token: str | None = None,
+    ) -> dict[str, Any]:
+        return self._post(
+            f"/watchlists/{watchlist_id}/items",
+            {
+                "symbol": symbol,
+                "chain": chain,
+                "contract_address": contract_address,
+                "asset_namespace": asset_namespace,
+                "source_ref": source_ref,
+                "identity_confidence": identity_confidence,
+                "notes": notes,
+                "metadata": metadata or {},
+            },
+            authorization_token=self._require_account_token(account_token),
+        )
+
+    def remove_watchlist_item(
+        self,
+        watchlist_id: str,
+        item_id: str,
+        *,
+        account_token: str | None = None,
+    ) -> dict[str, Any]:
+        return self._request(
+            "DELETE",
+            f"/watchlists/{watchlist_id}/items/{item_id}",
+            authorization_token=self._require_account_token(account_token),
+        )
+
+    def get_watchlist_state(self, watchlist_id: str, *, account_token: str | None = None) -> dict[str, Any]:
+        return self._get(
+            f"/watchlists/{watchlist_id}/state",
+            authorization_token=self._require_account_token(account_token),
+        )
+
+    def list_watchlist_events(
+        self,
+        watchlist_id: str,
+        *,
+        limit: int | None = None,
+        account_token: str | None = None,
+    ) -> dict[str, Any]:
+        return self._get(
+            f"/watchlists/{watchlist_id}/events",
+            {"limit": limit},
+            authorization_token=self._require_account_token(account_token),
+        )
+
+    def create_watchlist_notification_channel(
+        self,
+        watchlist_id: str,
+        *,
+        channel_kind: str,
+        target: str,
+        min_severity: str = "warning",
+        digest_frequency: str = "weekly",
+        enabled: bool = True,
+        metadata: dict[str, Any] | None = None,
+        account_token: str | None = None,
+    ) -> dict[str, Any]:
+        return self._post(
+            f"/watchlists/{watchlist_id}/notification-channels",
+            {
+                "channel_kind": channel_kind,
+                "target": target,
+                "min_severity": min_severity,
+                "digest_frequency": digest_frequency,
+                "enabled": enabled,
+                "metadata": metadata or {},
+            },
+            authorization_token=self._require_account_token(account_token),
+        )
+
+    def list_watchlist_notification_channels(
+        self,
+        watchlist_id: str,
+        *,
+        account_token: str | None = None,
+    ) -> dict[str, Any]:
+        return self._get(
+            f"/watchlists/{watchlist_id}/notification-channels",
+            authorization_token=self._require_account_token(account_token),
+        )
+
+    def list_watchlist_deliveries(
+        self,
+        watchlist_id: str,
+        *,
+        limit: int | None = None,
+        account_token: str | None = None,
+    ) -> dict[str, Any]:
+        return self._get(
+            f"/watchlists/{watchlist_id}/deliveries",
+            {"limit": limit},
+            authorization_token=self._require_account_token(account_token),
+        )
+
+    def trigger_watchlist_deliveries(
+        self,
+        watchlist_id: str,
+        *,
+        event_ids: list[str] | None = None,
+        channel_kinds: list[str] | None = None,
+        min_severity: str = "watch",
+        max_events: int = 50,
+        dry_run: bool = False,
+        force: bool = False,
+        account_token: str | None = None,
+    ) -> dict[str, Any]:
+        return self._post(
+            f"/watchlists/{watchlist_id}/deliveries/trigger",
+            {
+                "event_ids": event_ids or [],
+                "channel_kinds": channel_kinds or [],
+                "min_severity": min_severity,
+                "max_events": max_events,
+                "dry_run": dry_run,
+                "force": force,
+            },
+            authorization_token=self._require_account_token(account_token),
+        )
+
     def get_public_claim_proof(self, public_claim_id: str) -> dict[str, Any]:
         return self._get(f"/proofs/{public_claim_id}")
 
@@ -238,6 +457,58 @@ class TradeOSPublicIntelClient:
         }
         return self._post("/thesis-outcomes", payload, idempotency_key_value=idempotency_key_value)
 
+    def submit_watchlist_feedback(
+        self,
+        *,
+        watchlist_id: str,
+        target_type: str,
+        target_id: str,
+        label: str,
+        event_id: str = "",
+        optional_note: str = "",
+        source_snapshot_refs: list[str] | None = None,
+        occurred_at: str | None = None,
+        feedback_source: str = "",
+        automation_level: str = "",
+        agent_id: str = "",
+        agent_run_id: str = "",
+        agent_model: str = "",
+        agent_confidence: float | None = None,
+        provenance_note: str = "",
+        idempotency_key_value: str | None = None,
+        account_token: str | None = None,
+    ) -> dict[str, Any]:
+        timestamp = occurred_at or now_iso()
+        payload = {
+            "target_type": target_type,
+            "target_id": target_id,
+            "label": label,
+            "event_id": event_id or target_id,
+            "optional_note": optional_note,
+            "notes": optional_note,
+            "source_snapshot_refs": source_snapshot_refs or [],
+            "client_app": self.app_name,
+            "client_version": self.app_version,
+            "occurred_at": timestamp,
+        }
+        payload.update(
+            feedback_provenance(
+                feedback_source=feedback_source,
+                automation_level=automation_level,
+                agent_id=agent_id,
+                agent_run_id=agent_run_id,
+                agent_model=agent_model,
+                agent_confidence=agent_confidence,
+                provenance_note=provenance_note,
+            )
+        )
+        return self._post(
+            f"/watchlists/{watchlist_id}/feedback",
+            payload,
+            idempotency_key_value=idempotency_key_value,
+            authorization_token=self._require_account_token(account_token),
+        )
+
     def _get(
         self,
         path: str,
@@ -289,6 +560,8 @@ class TradeOSPublicIntelClient:
             headers["idempotency-key"] = idempotency_key_value or idempotency_key()
         if authorization_token:
             headers["authorization"] = f"Bearer {authorization_token}"
+            if self.api_key:
+                headers["x-tradeos-public-intel-key"] = self.api_key
         elif self.api_key:
             headers["authorization"] = f"Bearer {self.api_key}"
         request = Request(url, data=body, headers=headers, method=method)
@@ -330,6 +603,10 @@ def idempotency_key(prefix: str = "tradeos_public_intel") -> str:
 
 def now_iso() -> str:
     return datetime.now(UTC).isoformat().replace("+00:00", "Z")
+
+
+def _path_quote(value: str) -> str:
+    return quote(str(value), safe="")
 
 
 def feedback_provenance(

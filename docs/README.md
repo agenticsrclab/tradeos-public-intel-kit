@@ -11,6 +11,7 @@ Start with the path that matches what you are trying to do.
 | --- | --- | --- |
 | Try the kit as a builder | [Distribution Setup Guide](distribution-setup-guide.md) | [Public Intel API](public-intel-api.md), [MCP Tools](mcp-tools.md) |
 | Build a bot quickly | [Market Briefing Bot](market-briefing-bot.md) | [Feedback Credit Loop](feedback-credit-loop.md), [Safety Boundaries](safety-boundaries.md) |
+| Build saved watchlists | [Public Intel API](public-intel-api.md) | [Use Cases](use-cases.md), [Access And Payments](access-and-payments.md) |
 | Add TradeOS to an agent host | [MCP Tools](mcp-tools.md) | [Architecture](architecture.md), [API Keys And Feedback Provenance](api-keys-and-feedback-provenance.md) |
 | Find product ideas | [Use Cases](use-cases.md) | [Monetization Guide](monetization.md), [Builder Revenue Playbook](builder-revenue-playbook.md) |
 | Understand access and paid upgrades | [Access And Payments](access-and-payments.md) | [Paid Boundaries](paid-boundaries.md) |
@@ -36,7 +37,8 @@ Start with the path that matches what you are trying to do.
 - [Distribution Setup Guide](distribution-setup-guide.md): environment setup,
   public API base URL, Developer Keys flow, CLI, MCP, and app examples.
 - [Public Intel API](public-intel-api.md): endpoint reference for public reads,
-  feedback writes, app-key management, and provenance fields.
+  watchlist snapshots, account-owned watchlists, feedback writes, app-key
+  management, and provenance fields.
 - [MCP Tools](mcp-tools.md): local stdio MCP tool list and hosted bridge status.
 - [Architecture](architecture.md): system flow for SDKs, CLI, MCP, BYOK models,
   and feedback writes.
@@ -78,6 +80,7 @@ Start with the path that matches what you are trying to do.
 
 - [TradeOS app](https://tradeos.tech)
 - [Live market intelligence](https://tradeos.tech/market)
+- [Watchlist Intelligence](https://tradeos.tech/watchlists)
 - [Ask TradeOS](https://tradeos.tech/ask)
 - [Developer Keys](https://tradeos.tech/developer/api-keys)
 - [Public API base](https://api.tradeos.tech/v1/public-intel/sources/health)

@@ -27,7 +27,7 @@ Start with products where the customer already understands the budget.
 | --- | --- | --- | --- | --- |
 | Paid digest | traders, analysts, paid communities | cadence, curation, archive, member access | digest, candidates, source refs, caveats | custom universe, premium pulse, higher refresh |
 | Community bot | Discord/Telegram/Slack groups | install, premium commands, scheduled posts | MCP tools, digest, proof lookup, feedback | high-volume reads, remote bridge when available, alerts |
-| Watchlist dashboard | research teams, token teams, active traders | seats, saved lists, monitoring workflow | candidates, thesis watchlist, freshness | webhooks, custom lists, alert delivery |
+| Watchlist dashboard | research teams, token teams, active traders | seats, saved lists, monitoring workflow | token snapshots, account watchlists, events, freshness, feedback | webhooks, larger lists, custom universes, alert delivery |
 | Bot context plugin | bot builders, quant developers | plugin license, risk overlay, review workflow | caveats, invalidation notes, public context | automation-safe API, private regimes, premium context |
 | Validation report | quant shops, funds, signal vendors | benchmark report, export, review package | public schema, live examples, feedback labels | historical export, validation API, replay datasets |
 | Proof page | analysts, creators, communities | profiles, public proof pages, reputation tooling | proof lookup, outcome feedback, source refs | team analytics, paid proof tooling |
@@ -118,8 +118,8 @@ answers.
 
 ### Watchlist And Alert Dashboard
 
-Build a dashboard that tracks public candidates, thesis watchlist entries,
-invalidation notes, and evidence freshness.
+Build a dashboard that tracks token snapshots, account-owned watchlists,
+invalidation notes, source freshness, notification targets, and feedback.
 
 Buyer:
 
@@ -134,14 +134,13 @@ analyst creators
 TradeOS intelligence used:
 
 ```text
-/candidates
-/thesis-watchlist
-/thesis-feedback
-source_snapshot_refs
-generated_at
-freshness
-confidence
-limitations
+/watchlist-capabilities
+/tokens/{token_ref}/watchlist-snapshot
+/watchlists
+/watchlists/{watchlist_id}/state
+/watchlists/{watchlist_id}/events
+/watchlists/{watchlist_id}/feedback
+source_snapshot_refs, generated_at, freshness, confidence, limitations
 ```
 
 Revenue model:
@@ -156,9 +155,21 @@ premium dashboard seats
 Why it can make money: users pay to monitor what changed, what got weaker, and
 what needs attention. TradeOS gives the dashboard a reasoned evidence layer.
 
-Safety boundary: public kit data can power monitoring and context; execution,
-automation, private forecasts, and high-volume alerting are paid/private TradeOS
+Safety boundary: public kit data can power monitoring, context, and user-owned
+saved state. It does not execute trades, collect exchange credentials, or make
+personalized buy/sell instructions. High-volume alerting, custom universes,
+webhooks, private forecasts, and premium history belong in paid TradeOS
 surfaces.
+
+Fast MVP:
+
+```text
+1. Use public token snapshots for a no-account preview.
+2. Ask the user to connect a TradeOS account token for saved watchlists.
+3. Let the user add symbols and review normalized state cards.
+4. Record email or webhook targets as pending delivery preferences.
+5. Send feedback on noisy or useful drivers to improve the intelligence loop.
+```
 
 ### Tradebot Intelligence Layer
 
