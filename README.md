@@ -12,13 +12,17 @@ OpenAI-compatible path.
 The practical loop is simple:
 
 ```text
-TradeOS evidence -> builder product -> user feedback -> better intelligence -> paid production access when scale is needed
+Use TradeOS free.
+Give useful feedback to unlock more public depth.
+Build products on public intelligence.
+Pay when you need scale, alerts, automation, private context, or data rights.
 ```
 
 Use the free public kit to prove a workflow. Charge for the packaging around
-that workflow. Upgrade to paid TradeOS when the product needs scale,
-automation, premium data, exports, alerts, validation APIs, x402 machine
-access, or enterprise support.
+that workflow. Submit feedback with provenance so TradeOS can improve the
+intelligence layer. Upgrade to paid TradeOS when the product needs production
+volume, alerts, automation, premium history, private context, validation APIs,
+x402 machine access, explicit data rights, or enterprise support.
 
 ## At A Glance
 
@@ -68,7 +72,8 @@ framework.
 - **Close the loop**: send human, agent, or automation feedback back to TradeOS
   with provenance.
 - **Scale cleanly**: graduate from public reads to paid TradeOS data, x402, or
-  enterprise access when the workflow proves demand.
+  enterprise access when the workflow needs scale, alerts, automation, private
+  context, or data rights.
 
 ## What You Can Build
 

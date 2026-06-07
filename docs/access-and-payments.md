@@ -5,6 +5,15 @@ free public intelligence for discovery, feedback credits for temporary dashboard
 depth, and paid TradeOS products for automation, exports, premium data, and
 machine-paid access.
 
+The simple version:
+
+```text
+Use TradeOS free.
+Give useful feedback to unlock more public depth.
+Build products on public intelligence.
+Pay when you need scale, alerts, automation, private context, or data rights.
+```
+
 ## Free Public Usage
 
 The public kit is free to try for bounded public-intelligence reads and

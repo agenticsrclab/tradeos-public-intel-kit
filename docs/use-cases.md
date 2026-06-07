@@ -3,6 +3,15 @@
 This kit is for builders who want market intelligence as a product ingredient,
 not raw trading infrastructure.
 
+The public story is:
+
+```text
+Use TradeOS free.
+Give useful feedback to unlock more public depth.
+Build products on public intelligence.
+Pay when you need scale, alerts, automation, private context, or data rights.
+```
+
 ## Monetizable Products
 
 These are commercial products a builder can sell using TradeOS public

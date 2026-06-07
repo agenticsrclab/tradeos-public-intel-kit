@@ -3,6 +3,15 @@
 The public kit is designed to spread TradeOS public intelligence without giving
 away paid data products.
 
+The public value ladder is:
+
+```text
+Use TradeOS free.
+Give useful feedback to unlock more public depth.
+Build products on public intelligence.
+Pay when you need scale, alerts, automation, private context, or data rights.
+```
+
 ## Free/Public
 
 - bounded market digest;

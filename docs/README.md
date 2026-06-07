@@ -3,6 +3,18 @@
 This directory explains how to build, ship, monetize, and safely operate
 products on top of TradeOS public market intelligence.
 
+The canonical builder story is:
+
+```text
+Use TradeOS free.
+Give useful feedback to unlock more public depth.
+Build products on public intelligence.
+Pay when you need scale, alerts, automation, private context, or data rights.
+```
+
+Use the docs below to map that story into setup, APIs, feedback provenance,
+monetizable products, and paid boundaries.
+
 Start with the path that matches what you are trying to do.
 
 ## Fast Paths

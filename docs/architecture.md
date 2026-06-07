@@ -5,6 +5,15 @@ context. The public kit is intentionally thin: it helps builders consume,
 summarize, and send feedback on public evidence without exposing TradeOS private
 systems or making users pay TradeOS for inference.
 
+The product ladder stays the same across the kit and TradeOS:
+
+```text
+Use TradeOS free.
+Give useful feedback to unlock more public depth.
+Build products on public intelligence.
+Pay when you need scale, alerts, automation, private context, or data rights.
+```
+
 ## System Shape
 
 ```text
