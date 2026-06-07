@@ -2,6 +2,10 @@
 
 Private self-hosted TradeOS Action Agent and Symbol Cockpit.
 
+For the consumer-facing product walkthrough, reading model, requirements,
+dependencies, launch path, and safety boundary, see
+[Flagship Symbol Cockpit](../../docs/flagship-symbol-cockpit.md).
+
 Run locally:
 
 ```bash

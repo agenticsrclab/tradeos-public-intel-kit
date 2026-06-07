@@ -119,7 +119,7 @@ Access model:
 ```text
 Free public kit: bounded reads, token snapshots, and feedback writes
 Builder app quota: 7-day starter, useful feedback refresh, or reviewed quota request
-Data Intel Credits: dashboard-only depth, 30-day unlock by default
+Data Intel Credits: dashboard-only depth, 7-day unlock by default
 Account token: saved watchlists, events, channels, and user-owned feedback
 Paid TradeOS/x402: automation, exports, high-volume alerts, premium data, validation APIs
 ```

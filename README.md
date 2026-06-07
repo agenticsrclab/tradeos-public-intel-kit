@@ -66,10 +66,10 @@ support.
 ## What This Is
 
 TradeOS sits in the public market-intelligence layer for crypto and on-chain
-markets. This kit is the builder distribution surface for that Data Intelligence OS: it
-helps products discover, consume, package, and send feedback on current,
-source-backed market context inside bots, dashboards, agent workflows, research
-products, validation systems, and paid communities.
+markets. This kit is the builder distribution surface for that Data
+Intelligence OS. It helps products discover, consume, package, and send
+feedback on current, source-backed market context inside bots, dashboards,
+agent workflows, research products, validation systems, and paid communities.
 
 It is an evidence and feedback layer:
 
@@ -150,6 +150,7 @@ More product detail:
 
 - [Repository Layout](docs/repository-layout.md)
 - [Integration Keys And URLs](docs/integration-keys-and-urls.md)
+- [Flagship Symbol Cockpit](docs/flagship-symbol-cockpit.md)
 - [Symbol Cockpit And Action Agent](docs/symbol-cockpit-agent.md)
 - [Symbol Intelligence Coverage](docs/symbol-intelligence-coverage.md)
 - [Data Intelligence Product Model](docs/marketplace-model.md)
@@ -158,6 +159,10 @@ More product detail:
 - [Builder Revenue Playbook](docs/builder-revenue-playbook.md)
 
 ## Flagship: Symbol Cockpit
+
+For a consumer-facing walkthrough of what the cockpit is, how to read it,
+requirements, dependencies, launch steps, and safety boundaries, see
+[Flagship Symbol Cockpit](docs/flagship-symbol-cockpit.md).
 
 The fastest consumer story is:
 
@@ -534,7 +539,7 @@ the SDK, MCP server, CLI, or bot examples.
 | Free public features | included in this kit against `api.tradeos.tech/v1/public-intel` | digest, candidates, token snapshots, watchlist state, proofs, feedback writes |
 | Package improvements | upgrade npm/PyPI packages when TradeOS ships public tools | SDK helper, MCP tool, CLI command |
 | Earned public quota | useful app-attributed feedback or approved quota request | public read depth for real builder products |
-| Feedback-credit depth | TradeOS account/session credit reconciliation | dashboard-only history, evidence depth, and review capacity |
+| Data Intel Credit depth | TradeOS account/session DTI credit reconciliation | dashboard-only history, evidence depth, and review capacity |
 | Paid machine features | x402 payment or paid API entitlement | premium market pulse, validation API, automation-safe reads |
 | Enterprise features | contract, API key, or private deployment | custom universe, bulk exports, replay datasets, support |
 
@@ -553,7 +558,7 @@ Your product surface
         |
         | optional feedback writes
         v
-TradeOS feedback-credit loop
+TradeOS Data Intel Credit loop
 
 Optional BYOK LLM path:
 

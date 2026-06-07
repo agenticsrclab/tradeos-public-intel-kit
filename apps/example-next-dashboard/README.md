@@ -14,7 +14,7 @@ The dashboard example should stay client-safe:
 - never request model provider API keys in browser code;
 - never expose private TradeOS API keys;
 - use a server-side route for any BYOK inference call;
-- only render public intelligence and feedback-credit state.
+- only render public intelligence and Data Intel Credit state.
 
 Recommended future scaffold:
 
