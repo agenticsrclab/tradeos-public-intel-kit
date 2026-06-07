@@ -4,6 +4,10 @@ This page is the operator checklist for keys, URLs, SMTP, and runtime
 environment variables. Keep secrets server-side. Do not commit `.env` files or
 ship keys in browser bundles.
 
+For the shortest dashboard and CLI path to app keys, optional provider keys,
+and reviewed quota or paid scale requests, start with
+[Getting API Keys And Requesting Scale](getting-api-keys-and-scale.md).
+
 ## Quick Matrix
 
 | Need | Where To Get It | Env Var | Required For |

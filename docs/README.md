@@ -30,7 +30,8 @@ Start with the path that matches what you are trying to do.
 | Goal | Start Here | Then Read |
 | --- | --- | --- |
 | Understand the repo layout | [Repository Layout](repository-layout.md) | [Architecture](architecture.md), [Distribution Setup Guide](distribution-setup-guide.md) |
-| Configure keys, URLs, and SMTP | [Integration Keys And URLs](integration-keys-and-urls.md) | [Distribution Setup Guide](distribution-setup-guide.md), [API Keys And Feedback Provenance](api-keys-and-feedback-provenance.md) |
+| Get API keys or request scale | [Getting API Keys And Requesting Scale](getting-api-keys-and-scale.md) | [Integration Keys And URLs](integration-keys-and-urls.md), [API Keys And Feedback Provenance](api-keys-and-feedback-provenance.md) |
+| Configure runtime URLs, SMTP, and webhooks | [Integration Keys And URLs](integration-keys-and-urls.md) | [Distribution Setup Guide](distribution-setup-guide.md), [API Keys And Feedback Provenance](api-keys-and-feedback-provenance.md) |
 | Build the flagship consumer app | [Flagship Symbol Cockpit](flagship-symbol-cockpit.md) | [Symbol Cockpit And Action Agent](symbol-cockpit-agent.md), [Action Intents](action-intents.md), [Safety Boundaries](safety-boundaries.md) |
 | Confirm cockpit symbol coverage | [Symbol Intelligence Coverage](symbol-intelligence-coverage.md) | [Flagship Symbol Cockpit](flagship-symbol-cockpit.md), [Integration Keys And URLs](integration-keys-and-urls.md) |
 | Understand the intelligence product thesis | [Data Intelligence Product Model](marketplace-model.md) | [Use Cases](use-cases.md), [Monetization Guide](monetization.md) |
@@ -48,28 +49,30 @@ Start with the path that matches what you are trying to do.
    module, example, and infra folder owns.
 2. [Integration Keys And URLs](integration-keys-and-urls.md) gives the TradeOS,
    Venice, SMTP, local runtime, and e2e configuration checklist.
-3. [Flagship Symbol Cockpit](flagship-symbol-cockpit.md) explains what the
+3. [Getting API Keys And Requesting Scale](getting-api-keys-and-scale.md)
+   gives the shortest dashboard, CLI, optional key, and scale-request path.
+4. [Flagship Symbol Cockpit](flagship-symbol-cockpit.md) explains what the
    flagship private self-hosted app is, what value it gives consumers, how to
    read it, and how to bring it online.
-4. [Symbol Intelligence Coverage](symbol-intelligence-coverage.md) defines the
+5. [Symbol Intelligence Coverage](symbol-intelligence-coverage.md) defines the
    current 21-symbol cockpit trading-intelligence universe and the boundary for
    partial discovery/risk coverage.
-5. [Data Intelligence Product Model](marketplace-model.md) explains the supply, demand,
+6. [Data Intelligence Product Model](marketplace-model.md) explains the supply, demand,
    feedback, and paid-depth loop behind the Data Intelligence OS distribution kit.
-6. [Architecture](architecture.md) explains the shape of the kit and the
+7. [Architecture](architecture.md) explains the shape of the kit and the
    boundary between TradeOS-hosted intelligence and builder-owned apps.
-7. [Action Intents](action-intents.md) defines the non-executable bridge between
+8. [Action Intents](action-intents.md) defines the non-executable bridge between
    cockpit recommendations, local policy gates, paper execution, and independent
    executor experiments.
-8. [Distribution Setup Guide](distribution-setup-guide.md) shows the practical
+9. [Distribution Setup Guide](distribution-setup-guide.md) shows the practical
    install, environment, app-key, MCP, and CLI setup.
-9. [Public Intel API](public-intel-api.md) lists the public read and feedback
+10. [Public Intel API](public-intel-api.md) lists the public read and feedback
    write endpoints.
-10. [API Keys And Feedback Provenance](api-keys-and-feedback-provenance.md)
+11. [API Keys And Feedback Provenance](api-keys-and-feedback-provenance.md)
    explains app-key attribution, key management, and feedback source metadata.
-11. [Data Intel Credit Loop](feedback-credit-loop.md) explains how human, agentic,
+12. [Data Intel Credit Loop](feedback-credit-loop.md) explains how human, agentic,
    and automated feedback should be reported and weighted.
-12. [Safety Boundaries](safety-boundaries.md) defines what this public kit must
+13. [Safety Boundaries](safety-boundaries.md) defines what this public kit must
    not claim or do.
 
 ## Build And Integrate
@@ -89,6 +92,9 @@ Start with the path that matches what you are trying to do.
 - [Integration Keys And URLs](integration-keys-and-urls.md): where to get or
   configure TradeOS keys, Venice keys, SMTP credentials, provider URLs, local
   runtime URLs, and e2e envs.
+- [Getting API Keys And Requesting Scale](getting-api-keys-and-scale.md): short
+  dashboard and CLI steps for TradeOS app keys, optional provider keys, reviewed
+  quota requests, and paid/x402 upgrade boundaries.
 - [Symbol Intelligence Coverage](symbol-intelligence-coverage.md): the current
   21-symbol cockpit trading-intelligence universe, plus the boundary for
   partial discovery/risk-only symbols.

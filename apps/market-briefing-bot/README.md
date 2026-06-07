@@ -94,6 +94,9 @@ Public reads work without a TradeOS key. For production attribution:
 export TRADEOS_PUBLIC_INTEL_KEY=<tradeos-public-intel-key>
 ```
 
+See [Getting API Keys And Requesting Scale](../../docs/getting-api-keys-and-scale.md)
+for the TradeOS Developer Keys flow, optional provider keys, and quota requests.
+
 Without an app key, feedback writes may be accepted as shadow telemetry, but
 they do not earn app credit or unlock paid access.
 

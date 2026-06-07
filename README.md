@@ -150,6 +150,7 @@ More product detail:
 
 - [Repository Layout](docs/repository-layout.md)
 - [Integration Keys And URLs](docs/integration-keys-and-urls.md)
+- [Getting API Keys And Requesting Scale](docs/getting-api-keys-and-scale.md)
 - [Flagship Symbol Cockpit](docs/flagship-symbol-cockpit.md)
 - [Symbol Cockpit And Action Agent](docs/symbol-cockpit-agent.md)
 - [Symbol Intelligence Coverage](docs/symbol-intelligence-coverage.md)
@@ -473,6 +474,9 @@ accounts. The normal path is the
 validate `TRADEOS_PUBLIC_INTEL_KEY` and can manage app keys when
 `TRADEOS_ACCOUNT_TOKEN` is set for trusted automation:
 
+For the short key setup and scale-request path, see
+[Getting API Keys And Requesting Scale](docs/getting-api-keys-and-scale.md).
+
 Public API quota is earned, not unlimited:
 
 | Profile | Reads/min | Reads/hour | Reads/day | Symbols/day | Path |
@@ -679,6 +683,7 @@ Before making the repository public, run the publish gate in
 ## Explore TradeOS
 
 - [TradeOS app](https://tradeos.tech)
+- [TradeOS Public Intelligence Kit on GitHub](https://github.com/agenticsrclab/tradeos-public-intel-kit)
 - [Live market intelligence](https://tradeos.tech/market)
 - [Watchlist Intelligence](https://tradeos.tech/watchlists)
 - [Ask TradeOS](https://tradeos.tech/ask)

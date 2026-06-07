@@ -6,6 +6,9 @@ the TradeOS Developer Keys dashboard. The SDKs and CLI can also call the issuer
 for trusted automation when you provide `TRADEOS_ACCOUNT_TOKEN`; they do not
 perform TradeOS login/device auth yet.
 
+For a short builder-facing setup path, see
+[Getting API Keys And Requesting Scale](getting-api-keys-and-scale.md).
+
 ## API Key Issuance
 
 Current state:

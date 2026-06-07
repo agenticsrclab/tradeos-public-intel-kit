@@ -108,6 +108,9 @@ Public reads and feedback writes work without a key. Use
 `TRADEOS_PUBLIC_INTEL_KEY` only when TradeOS has issued one for app
 attribution.
 
+For dashboard and CLI key setup steps, see
+[Getting API Keys And Requesting Scale](getting-api-keys-and-scale.md).
+
 App-key endpoints:
 
 ```text

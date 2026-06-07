@@ -213,6 +213,10 @@ normal path is the TradeOS dashboard. The kit can also call the key issuer for
 automation, but you do not need to manually handle an account token for the
 first setup.
 
+For the short version of TradeOS app-key setup, optional provider keys, and
+scale requests, see
+[Getting API Keys And Requesting Scale](getting-api-keys-and-scale.md).
+
 Production auth currently lives on the TradeOS app host, while public-intel key
 management lives on the TradeOS API host:
 

@@ -133,5 +133,6 @@ Learn more:
 ```text
 Homepage: https://tradeos.tech
 Public docs: https://tradeos.tech/llms.txt
+Key setup: https://github.com/agenticsrclab/tradeos-public-intel-kit/blob/main/docs/getting-api-keys-and-scale.md
 x402 discovery: https://tradeos.tech/.well-known/x402.json
 ```
