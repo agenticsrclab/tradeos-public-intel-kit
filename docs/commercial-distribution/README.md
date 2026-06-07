@@ -19,7 +19,29 @@ API responses before a production launch.
 
 ## What Builders Can Sell
 
-TradeOS works best as the intelligence layer under concrete paid services:
+TradeOS works best as the intelligence layer under concrete paid services.
+The examples below are starter product shapes, not the full menu. Builders can
+package any source-grounded intelligence service, workflow, vertical app, or
+agent deliverable they can explain, price, support, and operate inside the
+TradeOS safety and data-rights boundaries.
+
+Good builder products may include:
+
+- single-call intelligence checks;
+- recurring market or watchlist workflows;
+- private dashboard refreshes;
+- research concierge services;
+- alerting and monitoring services;
+- vertical intelligence apps for funds, creators, communities, real estate,
+  supply-chain, compliance, or other domains;
+- agent skills that combine TradeOS evidence with the builder's own domain
+  logic, customer context, or workflow automation.
+
+The first publishable service should still be narrow, testable, and easy for a
+buyer to understand. Expand from there as demand and operating capacity become
+clear.
+
+Starter examples:
 
 | Product | Good First Channel | Why It Works |
 | --- | --- | --- |
