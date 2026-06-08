@@ -74,7 +74,7 @@ test.beforeAll(async () => {
       {
         id: "operator_email",
         kind: "email",
-        target: "tradeos.contact@gmail.com",
+        target: "operator@example.com",
         minSeverity: "warning",
         smtp: { host: "smtp.example.test", from: "cockpit@example.test" },
       },
@@ -147,7 +147,7 @@ test("reviews, alerts, preflights, asks, paper executes, and reports ops status"
   await expect(page.locator("#cards article").first()).toContainText("VVV");
 
   await expect.poll(() => sentEmail.length).toBeGreaterThan(0);
-  expect(sentEmail.at(-1)?.to).toBe("tradeos.contact@gmail.com");
+  expect(sentEmail.at(-1)?.to).toBe("operator@example.com");
   expect(sentEmail.at(-1)?.subject).toMatch(/VVV (avoid_new_long|trim_or_reduce|exit_or_sell_candidate)/);
   expect(sentEmail.at(-1)?.html).toContain("What Triggered This");
   expect(sentEmail.at(-1)?.html).toContain("label=useful");

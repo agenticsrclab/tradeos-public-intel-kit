@@ -75,7 +75,7 @@ settings:
 
 ```bash
 COCKPIT_ALERT_EMAIL_ENABLED=true
-COCKPIT_ALERT_EMAIL_TO=tradeos.contact@gmail.com
+COCKPIT_ALERT_EMAIL_TO=operator@example.com
 COCKPIT_ALERT_EMAIL_MIN_SEVERITY=warning
 COCKPIT_FEEDBACK_BASE_URL=https://tradeos.tech/feedback
 SMTP_HOST=<smtp-host>

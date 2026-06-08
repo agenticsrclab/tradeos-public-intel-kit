@@ -118,7 +118,7 @@ Recommended cockpit setup:
 
 ```bash
 export COCKPIT_ALERT_EMAIL_ENABLED=true
-export COCKPIT_ALERT_EMAIL_TO=tradeos.contact@gmail.com
+export COCKPIT_ALERT_EMAIL_TO=operator@example.com
 export COCKPIT_ALERT_EMAIL_MIN_SEVERITY=warning
 export COCKPIT_FEEDBACK_BASE_URL=https://tradeos.tech/feedback
 export SMTP_HOST=<smtp-host>
@@ -156,7 +156,7 @@ Provider examples:
 
 | Provider Type | Common Settings |
 | --- | --- |
-| Gmail user SMTP | `SMTP_HOST=smtp.gmail.com`, `SMTP_PORT=587`, `SMTP_STARTTLS=true`, app password when required. |
+| User SMTP | `SMTP_HOST=smtp.mail.example`, `SMTP_PORT=587`, `SMTP_STARTTLS=true`, app password when required. |
 | Google Workspace SMTP relay | Workspace admins can configure SMTP relay. Use the relay host, port, and auth policy assigned by the workspace. |
 | SendGrid/Mailgun/Postmark/SES | Use the provider SMTP host, port, username, and token/password from that provider's dashboard. |
 | Local development sink | Use Mailpit, MailHog, or another local SMTP sink and point `SMTP_HOST`/`SMTP_PORT` at it. |
@@ -231,7 +231,7 @@ export COCKPIT_DEFAULT_MODE=trader
 export COCKPIT_WATCHLIST=VVV,BTC,ETH,SOL
 
 export COCKPIT_ALERT_EMAIL_ENABLED=true
-export COCKPIT_ALERT_EMAIL_TO=tradeos.contact@gmail.com
+export COCKPIT_ALERT_EMAIL_TO=operator@example.com
 export COCKPIT_ALERT_EMAIL_MIN_SEVERITY=warning
 export COCKPIT_FEEDBACK_BASE_URL=https://tradeos.tech/feedback
 export SMTP_HOST=<smtp-host>
