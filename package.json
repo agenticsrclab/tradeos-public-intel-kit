@@ -12,14 +12,14 @@
     "packages/policy-core",
     "packages/tradeos-connectors",
     "packages/mcp-server",
-    "apps/tradeos-agent-cli",
-    "apps/market-briefing-bot",
-    "apps/symbol-cockpit",
     "modules/feasibility",
     "modules/ea-risk",
     "modules/execution-gateway",
     "modules/ops-dashboard",
-    "modules/notification-router"
+    "modules/notification-router",
+    "apps/tradeos-agent-cli",
+    "apps/market-briefing-bot",
+    "apps/symbol-cockpit"
   ],
   "scripts": {
     "build": "npm run build --workspaces",
