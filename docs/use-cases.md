@@ -4,6 +4,9 @@ This kit is for builders who want market intelligence as a product ingredient,
 not raw trading infrastructure. It is the builder-facing distribution layer of
 the TradeOS crypto market Data Intelligence OS.
 
+For the public business framing, target customers, and market-opportunity
+boundary, start with [TradeOS Business Thesis](tradeos-business-thesis.md).
+
 The flagship use case is a private self-hosted Symbol Cockpit. A trader or
 builder runs the cockpit on their own box, points it at TradeOS intelligence,
 and keeps model keys, exchange keys, strategy memory, portfolio state,
@@ -19,6 +22,10 @@ Pay when you need private intelligence products, scale, alerts, automation, or d
 ```
 
 ## Monetizable Products
+
+Target customers include curious crypto users, traders and researchers, token
+teams, paid communities, agent and bot builders, funds, analysts, quant teams,
+and workflow builders packaging TradeOS intelligence into products.
 
 These are commercial products a builder can sell using TradeOS public
 intelligence. TradeOS supplies evidence, freshness, caveats, source refs, stable

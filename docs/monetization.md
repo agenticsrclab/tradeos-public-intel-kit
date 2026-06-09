@@ -5,7 +5,11 @@ intelligence into products and services people already pay for: research,
 monitoring, community bots, dashboards, widgets, bot intelligence layers, quant
 validation, reputation tools, custom workflows, and vertical apps.
 
-The strongest commercial wedge is the private self-hosted Symbol Cockpit: a
+TradeOS is the crypto-market vertical of a broader source-grounded Data
+Intelligence OS strategy. For the public-safe business framing, see
+[TradeOS Business Thesis](tradeos-business-thesis.md).
+
+The strongest commercial wedge today is the private self-hosted Symbol Cockpit: a
 trader-owned decision agent that uses TradeOS intelligence but keeps account
 control, keys, local rules, portfolio context, approvals, and execution in the
 customer's environment.
@@ -29,6 +33,7 @@ Your keys, rules, approvals, and execution stay with you.
 ```
 
 For the canonical Data Intelligence product framing, start with
+[TradeOS Business Thesis](tradeos-business-thesis.md) and
 [Data Intelligence Product Model](marketplace-model.md).
 
 ## What TradeOS Supplies

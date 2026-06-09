@@ -13,6 +13,10 @@ identity -> evidence -> freshness -> risk -> caveats -> recommendation context -
 Without that layer, a bot, dashboard, digest, or private cockpit can look useful
 while still being stale, symbol-confused, under-sourced, or impossible to audit.
 
+TradeOS is the crypto-market vertical of a broader source-grounded data
+intelligence strategy. See [TradeOS Business Thesis](tradeos-business-thesis.md)
+for the public-safe business framing and market-opportunity boundary.
+
 ## Cost Of Missing TradeOS-Like Intelligence
 
 | Missing layer | Builder failure mode | User cost |

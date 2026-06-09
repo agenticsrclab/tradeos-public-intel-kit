@@ -2,6 +2,12 @@
 
 This kit is public-intelligence distribution infrastructure.
 
+TradeOS is the crypto-market Data Intelligence OS vertical. It supplies
+source-grounded intelligence packets and feedback paths; it does not become a
+broker, custodian, managed account service, hosted execution system, or the
+entire Source Intelligence Network. See
+[TradeOS Business Thesis](tradeos-business-thesis.md) for the business framing.
+
 The safest default product shape is private and self-hosted:
 
 ```text

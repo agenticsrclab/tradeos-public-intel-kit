@@ -3,6 +3,12 @@
 Build source-grounded crypto market Data Intelligence products on top of
 [TradeOS public evidence](https://tradeos.tech/market).
 
+TradeOS is the crypto-market vertical of a broader source-grounded Data
+Intelligence OS strategy. It is not a trading platform, broker, custodian,
+managed account service, or hosted execution system. See the
+[TradeOS Business Thesis](docs/tradeos-business-thesis.md) for the public-safe
+business framing.
+
 This repo gives builders SDKs, MCP tools, a BYOK agent CLI, runnable bots, and
 the blueprint for the flagship TradeOS app pattern: a **private self-hosted
 Symbol Cockpit**.
@@ -60,6 +66,7 @@ access, and enterprise support.
 | Topic | Default |
 | --- | --- |
 | Public API | `https://api.tradeos.tech/v1/public-intel` |
+| Business thesis | TradeOS is the crypto-market Data Intelligence OS vertical; see [TradeOS Business Thesis](docs/tradeos-business-thesis.md) |
 | Public reads | no TradeOS account required, server-side limits apply |
 | Saved watchlists | require a signed-in TradeOS account token |
 | Builder attribution | optional `TRADEOS_PUBLIC_INTEL_KEY` |
@@ -75,7 +82,8 @@ access, and enterprise support.
 ## What This Is
 
 TradeOS sits in the public market-intelligence layer for crypto and on-chain
-markets. This kit is the builder distribution surface for that Data
+markets. It is one vertical, not the entire Source Intelligence Network
+strategy. This kit is the builder distribution surface for that Data
 Intelligence OS. It helps products discover, consume, package, and send
 feedback on current, source-backed market context inside bots, dashboards,
 agent workflows, research products, validation systems, and paid communities.
@@ -127,6 +135,11 @@ Local modules -> feasibility, EA/risk, execution adapters, ops dashboard
   and outputs that cannot be audited. See [Problem Space](docs/problem-space.md)
   for exposure anchors that translate weak context into potential dollar impact
   without promising guaranteed loss prevention.
+- **Understand the business thesis**: TradeOS is the crypto-market Data
+  Intelligence OS vertical. It creates demand with useful public intelligence
+  and monetizes paid depth when workflows need scale, private intelligence,
+  alerts, validation, automation-safe access, or data rights. See
+  [TradeOS Business Thesis](docs/tradeos-business-thesis.md).
 - **Ship faster**: start with bounded TradeOS evidence instead of building a
   market data pipeline first.
 - **Ground agents**: give LLMs current evidence, caveats, stable IDs, and source

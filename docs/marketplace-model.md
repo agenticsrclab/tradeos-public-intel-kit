@@ -1,9 +1,13 @@
 # Data Intelligence Product Model
 
-TradeOS is a crypto market Data Intelligence OS. The public kit is the builder
-distribution layer for that product system: it lets apps, agents, bots,
-dashboards, and research products consume public intelligence, package it into
-workflows customers can use, and return feedback with provenance.
+TradeOS is the crypto-market vertical of a broader source-grounded Data
+Intelligence OS strategy. The public kit is the builder distribution layer for
+that product system: it lets apps, agents, bots, dashboards, and research
+products consume public intelligence, package it into workflows customers can
+use, and return feedback with provenance.
+
+For the public business overview and market-opportunity boundary, see
+[TradeOS Business Thesis](tradeos-business-thesis.md).
 
 The flagship product is not raw data resale. It is a private self-hosted
 decision runtime:
@@ -126,8 +130,11 @@ future open-source feasibility, EA/risk, and operations dashboard components
 optional execution adapters owned by the user
 ```
 
-TradeOS still sits at the foundation as the intelligence product layer. It
-provides public and paid intelligence, stable evidence IDs, feedback quality,
-app reputation, validation depth, x402 resources, and data rights. Builders
-bring the user experience, private deployment, LLM keys, bot logic, account
-connectors, execution approvals, local operations, and customer distribution.
+TradeOS still sits at the foundation as the crypto-market intelligence product
+layer. It provides public and paid intelligence, stable evidence IDs, feedback
+quality, app reputation, validation depth, x402 resources, and data rights.
+Builders bring the user experience, private deployment, LLM keys, bot logic,
+account connectors, execution approvals, local operations, and customer
+distribution. The broader Source Intelligence Network direction is separate
+from this TradeOS vertical and should be described only at a high level in
+public builder docs.
