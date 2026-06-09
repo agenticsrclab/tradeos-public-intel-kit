@@ -7,8 +7,8 @@ https://api.tradeos.tech/v1/public-intel
 ```
 
 For local TradeOS core development, point `TRADEOS_API_BASE` at the local
-metrics-api public-intel route. Do not publish local origins in consumer app
-configuration.
+metrics-api public-intel route. Consumer app builds should use the canonical
+public API origin or a server-owned proxy origin.
 
 ## Read Endpoints
 

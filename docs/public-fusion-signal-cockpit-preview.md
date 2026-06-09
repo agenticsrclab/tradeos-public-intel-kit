@@ -89,8 +89,8 @@ The public preview must not expose or claim:
 - order type;
 - venue, route, account, or execution adapter;
 - automation or alert delivery;
-- raw private Signal Fusion traces;
-- raw thresholds or proprietary feature values;
+- paid/private signal diagnostics;
+- execution-sensitive feature detail;
 - portfolio state;
 - exchange credentials;
 - executable action intents.
