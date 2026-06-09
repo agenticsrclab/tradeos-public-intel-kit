@@ -503,10 +503,10 @@ Public API quota is earned, not unlimited:
 
 | Profile | Reads/min | Reads/hour | Reads/day | Symbols/day | Path |
 | --- | ---: | ---: | ---: | ---: | --- |
-| Anonymous preview | 2 | 10 | 20 | 3 | try the kit without an account |
+| Anonymous preview | 2 | 15 | 40 | 5 | try the kit without an account |
 | Builder baseline | 5 | 50 | 100 | 10 | app key after starter expiry |
-| Builder starter/earned | 10 | 100 | 250 | 20 | 7-day starter key or recent useful feedback |
-| Reviewed project | 20 | 200 | 500 | 40 | submit `POST /quota-requests` and get operator approval |
+| Builder starter/earned | 15 | 150 | 400 | 30 | 7-day starter key or recent useful feedback |
+| Reviewed project | 30 | 300 | 800 | 60 | submit `POST /quota-requests` and get operator approval |
 
 Feedback writes are bounded too: app-key writes default to 10/minute and 100/day;
 anonymous writes default to 5/minute per IP. App keys provide attribution and

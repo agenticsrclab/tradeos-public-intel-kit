@@ -258,10 +258,10 @@ feedback refreshes the app, TradeOS approves a quota request, or the builder pay
 for scale.
 
 ```text
-Anonymous preview: 2/min, 10/hour, 20/day, 3 symbols/day
+Anonymous preview: 2/min, 15/hour, 40/day, 5 symbols/day
 Builder baseline: 5/min, 50/hour, 100/day, 10 symbols/day
-Builder starter/earned: 10/min, 100/hour, 250/day, 20 symbols/day
-Reviewed project: 20/min, 200/hour, 500/day, 40 symbols/day
+Builder starter/earned: 15/min, 150/hour, 400/day, 30 symbols/day
+Reviewed project: 30/min, 300/hour, 800/day, 60 symbols/day
 ```
 
 To request reviewed public quota or a paid evaluation:

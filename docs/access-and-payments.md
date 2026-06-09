@@ -103,11 +103,11 @@ not a free bulk feed.
 
 | Profile | Reads/min | Reads/hour | Reads/day | Symbols/day | How to get it |
 | --- | ---: | ---: | ---: | ---: | --- |
-| Anonymous preview | 2 | 10 | 20 | 3 | no key, keyless trial |
+| Anonymous preview | 2 | 15 | 40 | 5 | no key, keyless trial |
 | Builder baseline | 5 | 50 | 100 | 10 | app key after starter expiry |
-| Builder starter | 10 | 100 | 250 | 20 | verified app key for 7 days |
-| Builder earned | 10 | 100 | 250 | 20 | at least 5 useful feedback events in 7 days with low suppression |
-| Reviewed project | 20 | 200 | 500 | 40 | approved quota request |
+| Builder starter | 15 | 150 | 400 | 30 | verified app key for 7 days |
+| Builder earned | 15 | 150 | 400 | 30 | at least 5 useful feedback events in 7 days with low suppression |
+| Reviewed project | 30 | 300 | 800 | 60 | approved quota request |
 | Limited app | 5 | 50 | 100 | 10 | reputation or operator action |
 
 Default feedback/write limits are also bounded: app-key writes are 10/minute and

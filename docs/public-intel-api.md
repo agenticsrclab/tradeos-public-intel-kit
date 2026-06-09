@@ -165,10 +165,10 @@ Default profiles:
 
 | Profile | Reads/min | Reads/hour | Reads/day | Symbols/day |
 | --- | ---: | ---: | ---: | ---: |
-| Anonymous preview | 2 | 10 | 20 | 3 |
+| Anonymous preview | 2 | 15 | 40 | 5 |
 | Builder baseline | 5 | 50 | 100 | 10 |
-| Builder starter/earned | 10 | 100 | 250 | 20 |
-| Reviewed project | 20 | 200 | 500 | 40 |
+| Builder starter/earned | 15 | 150 | 400 | 30 |
+| Reviewed project | 30 | 300 | 800 | 60 |
 
 Data Intel Credits and app keys do not unlock paid resources. Public read
 responses include `access_control.quota_policy.dti_policy`: human DTI is not

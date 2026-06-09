@@ -144,11 +144,11 @@ An app key is an attribution and reputation key. It is not a paid API key.
 
 | Profile | Reads/min | Reads/hour | Reads/day | Symbols/day | Meaning |
 | --- | ---: | ---: | ---: | ---: | --- |
-| Anonymous preview | 2 | 10 | 20 | 3 | no app key |
+| Anonymous preview | 2 | 15 | 40 | 5 | no app key |
 | Builder baseline | 5 | 50 | 100 | 10 | starter expired without useful feedback |
-| Builder starter | 10 | 100 | 250 | 20 | first 7 days of a verified app key |
-| Builder earned | 10 | 100 | 250 | 20 | useful feedback refreshed quota |
-| Reviewed project | 20 | 200 | 500 | 40 | manually approved app |
+| Builder starter | 15 | 150 | 400 | 30 | first 7 days of a verified app key |
+| Builder earned | 15 | 150 | 400 | 30 | useful feedback refreshed quota |
+| Reviewed project | 30 | 300 | 800 | 60 | manually approved app |
 | Limited app | 5 | 50 | 100 | 10 | reputation or operator-limited app |
 
 Every public read response includes the active profile:
