@@ -42,7 +42,8 @@ TradeOS gets paid when the workflow needs scale, automation, premium history, or
 The cost of missing this layer is that builder products can look polished while
 still routing to the wrong token, repeating stale evidence, omitting risk
 caveats, losing feedback, or producing answers that cannot be audited. See
-[Problem Space](problem-space.md) for the builder-facing version of that cost.
+[Problem Space](problem-space.md) for builder-facing magnitude anchors across
+manual research drag, exposed capital, and customer trust loss.
 
 ## Fastest Paths To Revenue
 

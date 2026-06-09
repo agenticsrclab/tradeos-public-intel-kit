@@ -119,7 +119,9 @@ Local modules -> feasibility, EA/risk, execution adapters, ops dashboard
 
 - **Avoid weak intelligence gaps**: reduce wrong-token routing, stale context,
   unsupported claims, caveat-free recommendations, missed watchlist changes,
-  and outputs that cannot be audited. See [Problem Space](docs/problem-space.md).
+  and outputs that cannot be audited. See [Problem Space](docs/problem-space.md)
+  for exposure anchors that translate weak context into potential dollar impact
+  without promising guaranteed loss prevention.
 - **Ship faster**: start with bounded TradeOS evidence instead of building a
   market data pipeline first.
 - **Ground agents**: give LLMs current evidence, caveats, stable IDs, and source
