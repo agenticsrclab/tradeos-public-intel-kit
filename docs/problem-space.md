@@ -15,7 +15,7 @@ while still being stale, symbol-confused, under-sourced, or impossible to audit.
 
 TradeOS is the crypto-market vertical of a broader source-grounded data
 intelligence strategy. See [TradeOS Business Thesis](tradeos-business-thesis.md)
-for the public-safe business framing and market-opportunity boundary.
+for the business overview and market opportunity.
 
 ## Cost Of Missing TradeOS-Like Intelligence
 

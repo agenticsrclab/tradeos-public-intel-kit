@@ -4,7 +4,7 @@ This directory explains how to build, ship, monetize, and safely operate
 products on top of the TradeOS crypto market Data Intelligence OS.
 
 TradeOS is the crypto-market vertical of a broader source-grounded Data
-Intelligence OS strategy. For the public-safe business framing, start with
+Intelligence OS strategy. For the business overview, start with
 [TradeOS Business Thesis](tradeos-business-thesis.md).
 
 The canonical builder story is:
@@ -97,7 +97,7 @@ Start with the path that matches what you are trying to do.
 
 - [Problem Space](problem-space.md): why TradeOS-like source-grounded market
   intelligence matters for agents, bots, dashboards, and private cockpits.
-- [TradeOS Business Thesis](tradeos-business-thesis.md): public-safe framing
+- [TradeOS Business Thesis](tradeos-business-thesis.md): business overview
   for what business TradeOS is in, who it serves, and how it stays separate from
   trading, custody, and the broader Source Intelligence Network strategy.
 - [Flagship Symbol Cockpit](flagship-symbol-cockpit.md): the consumer-facing

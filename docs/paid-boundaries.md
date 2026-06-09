@@ -5,8 +5,8 @@ away paid data products.
 
 TradeOS is the crypto-market Data Intelligence OS vertical. It is not the whole
 Source Intelligence Network and not a hosted trading platform. See
-[TradeOS Business Thesis](tradeos-business-thesis.md) for the public-safe
-business framing.
+[TradeOS Business Thesis](tradeos-business-thesis.md) for the business
+overview.
 
 The public value ladder is:
 

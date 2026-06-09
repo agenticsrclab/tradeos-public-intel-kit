@@ -5,8 +5,8 @@ Intelligence OS strategy. It turns fragmented market, token, source, risk, and
 outcome data into reviewable intelligence packets for users, builders, and
 agents before decisions or workflows depend on them.
 
-This page is public-safe positioning for builders. It explains what TradeOS is,
-what business it is in, who it serves, and how builders can package it without
+This page is a builder-facing overview. It explains what TradeOS is, what
+business it is in, who it serves, and how builders can package it without
 turning TradeOS into a broker, custodian, hosted execution system, or managed
 account service.
 
@@ -111,38 +111,28 @@ the source-grounded intelligence and paid-depth layer.
 
 ## Market Opportunity
 
-The older "crypto trading tools and bots" TAM is not the right primary frame
-for the current product boundary. It is adjacent, but TradeOS is better framed
-across:
+TradeOS sits at the intersection of crypto market intelligence, token-risk
+context, agent-ready research, and validation/proof infrastructure.
 
-- crypto market data and analytics;
-- source-grounded research and token-risk intelligence;
-- agent-ready intelligence infrastructure;
-- validation, proof, replay, and feedback-aware workflow tools;
-- builder APIs, x402 resources, and private intelligence products.
+The immediate opportunity is practical: users and builders need current,
+source-backed intelligence they can inspect before a dashboard, bot, agent,
+community, or private cockpit depends on it.
 
-Public copy should avoid unsourced numeric TAM claims. A numeric TAM/SAM/SOM
-should be published only after a sourced refresh and should clearly separate:
-
-- **TradeOS** as the crypto-market vertical; and
-- the broader **Source Intelligence Network** / vertical Data Intelligence OS
-  direction.
+TradeOS focuses on the crypto-market vertical first, with surfaces that can
+expand from free public reads into paid depth, larger coverage, alerts,
+automation-safe access, validation workflows, and enterprise data rights.
 
 ## TradeOS And Source Intelligence Network
 
-TradeOS is one vertical. The broader company direction is a network of
-source-grounded vertical Data Intelligence OS products.
+TradeOS is the crypto-market Data Intelligence OS vertical. The broader company
+direction is a network of source-grounded vertical intelligence products, where
+each vertical packages evidence, freshness, caveats, confidence, feedback, and
+outcomes for a specific market or workflow.
 
-```text
-TradeOS = crypto market Data Intelligence OS vertical
-Source Intelligence Network = broader cross-vertical direction
-```
-
-Public builder docs can describe this relationship at a high level. They should
-not publish patent-sensitive mechanics such as exact quality-ledger flows,
-source-weighting algorithms, credit-allocation formulas, abuse-control
-internals, cross-vertical ledger mechanics, private routes, thresholds, schemas,
-or deployment runbooks.
+For builders, the practical takeaway is simple: integrate TradeOS when your
+product needs crypto-market intelligence today, and use the same
+evidence-and-feedback pattern as a foundation for future vertical intelligence
+products.
 
 ## Boundary
 

@@ -6,8 +6,8 @@ Build source-grounded crypto market Data Intelligence products on top of
 TradeOS is the crypto-market vertical of a broader source-grounded Data
 Intelligence OS strategy. It is not a trading platform, broker, custodian,
 managed account service, or hosted execution system. See the
-[TradeOS Business Thesis](docs/tradeos-business-thesis.md) for the public-safe
-business framing.
+[TradeOS Business Thesis](docs/tradeos-business-thesis.md) for the business
+overview.
 
 This repo gives builders SDKs, MCP tools, a BYOK agent CLI, runnable bots, and
 the blueprint for the flagship TradeOS app pattern: a **private self-hosted

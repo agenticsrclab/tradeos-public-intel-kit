@@ -6,7 +6,7 @@ monitoring, community bots, dashboards, widgets, bot intelligence layers, quant
 validation, reputation tools, custom workflows, and vertical apps.
 
 TradeOS is the crypto-market vertical of a broader source-grounded Data
-Intelligence OS strategy. For the public-safe business framing, see
+Intelligence OS strategy. For the business overview, see
 [TradeOS Business Thesis](tradeos-business-thesis.md).
 
 The strongest commercial wedge today is the private self-hosted Symbol Cockpit: a
