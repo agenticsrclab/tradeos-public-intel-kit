@@ -45,7 +45,7 @@ Recommended TradeOS links:
 | Surface | URL |
 | --- | --- |
 | TradeOS app | `https://tradeos.tech` |
-| Live market intelligence | `https://tradeos.tech/market` |
+| Live market intelligence | [Platform Pulse](https://tradeos.tech/market) |
 | Watchlist Intelligence | `https://tradeos.tech/watchlists` |
 | Ask TradeOS | `https://tradeos.tech/ask` |
 | Developer Keys | `https://tradeos.tech/developer/api-keys` |

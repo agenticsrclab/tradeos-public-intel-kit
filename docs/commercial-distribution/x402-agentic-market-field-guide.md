@@ -39,11 +39,8 @@ pay once for a machine-readable response.
 
 ## Live Proof
 
-TradeOS exposes a public proof page at:
-
-```text
-https://tradeos.tech/market
-```
+TradeOS exposes a public proof page at
+[Platform Pulse](https://tradeos.tech/market).
 
 The Platform Pulse section shows feedback-loop activity, x402 challenge demand,
 rolling source attribution, and settlement health. Builders can use it in demos

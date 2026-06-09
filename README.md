@@ -65,7 +65,7 @@ access, and enterprise support.
 | Builder attribution | optional `TRADEOS_PUBLIC_INTEL_KEY` |
 | LLM inference | recommended BYOK default: [Venice AI](https://venice.ai/pricing) for privacy-aligned self-hosted inference; other OpenAI-compatible providers are supported |
 | Paid machine access | x402 payment or TradeOS entitlement |
-| Live platform proof | `https://tradeos.tech/market` shows Platform Pulse: feedback signals, x402 challenge demand, source mix, and settlement health |
+| Live platform proof | [Platform Pulse](https://tradeos.tech/market) shows feedback signals, x402 challenge demand, source mix, and settlement health |
 | Public Fusion preview | `https://tradeos.tech/fusion` shows bounded symbol-level Signal Cockpit reads and feedback intake; see [Public Fusion Signal Cockpit Preview](docs/public-fusion-signal-cockpit-preview.md) |
 | Earn as a builder | package TradeOS intelligence into paid services, workflows, agents, or vertical apps; start with the [Earn as a Builder Field Guides](docs/commercial-distribution/README.md) |
 | Flagship model | individual private-use, self-hosted Symbol Cockpit over TradeOS intelligence |
@@ -138,10 +138,10 @@ Local modules -> feasibility, EA/risk, execution adapters, ops dashboard
 - **Earn on top of TradeOS**: package TradeOS intelligence into services,
   workflows, agents, dashboards, vertical apps, or research products customers
   already understand and will pay to use.
-- **Show market proof**: point prospects to Platform Pulse on
-  `https://tradeos.tech/market` for live feedback volume, x402 challenge
-  demand, source attribution, and settlement health. Treat x402 challenges as
-  interest signals; only verified/completed payments are revenue.
+- **Show market proof**: point prospects to
+  [Platform Pulse](https://tradeos.tech/market) for live feedback volume, x402
+  challenge demand, source attribution, and settlement health. Treat x402
+  challenges as interest signals; only verified/completed payments are revenue.
 - **Distribute commercially**: use the commercial field guides to package
   TradeOS-backed intelligence on Virtuals ACP, AntSeed, x402 directories, and
   Agentic.Market-style discovery without publishing private keys or live
