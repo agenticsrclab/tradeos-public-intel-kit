@@ -14,6 +14,13 @@ They are based on the TradeOS field setup reviewed on June 7, 2026:
 - generated marketplace submission bundles for x402 directories and agent-skill
   marketplaces.
 
+Live proof is now part of the builder pitch. Platform Pulse at
+`https://tradeos.tech/market` shows feedback-loop activity, x402 challenge
+demand, source attribution by human/API/agent/automation, and settlement health.
+Use it to show that buyers and crawlers are discovering paid intelligence, but
+keep the language precise: unpaid `402 Payment Required` challenges are demand
+signals, not seller-wallet revenue.
+
 Use them as field guides, not permanent protocol documentation. Agent platforms
 move quickly. Re-check the official docs, dashboards, Discord support notes, and
 API responses before a production launch.

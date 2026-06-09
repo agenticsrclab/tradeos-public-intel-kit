@@ -97,6 +97,7 @@ files are reusable pieces for builders who want a larger local topology.
 | `docs/integration-keys-and-urls.md` | Where to get keys, which URLs to use, and how to configure SMTP. |
 | `docs/distribution-setup-guide.md` | Step-by-step setup path for the kit. |
 | `docs/symbol-cockpit-agent.md` | Product and runtime guide for the flagship cockpit. |
+| `docs/public-fusion-signal-cockpit-preview.md` | Public `/fusion` page pattern, redacted signal boundary, and feedback intake. |
 | `docs/public-intel-api.md` | Public-intel endpoint reference. |
 | `docs/mcp-tools.md` | MCP tool reference and host setup. |
 | `docs/safety-boundaries.md` | Custody, execution, privacy, and claim boundaries. |

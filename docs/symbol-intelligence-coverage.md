@@ -5,10 +5,15 @@ Action Agent.
 
 ## Current Answer
 
-The current full trading-intelligence cockpit universe is **21 symbols**.
-Those are the symbols shared by the TradeOS market-ingestion universe,
-price-forecaster `GP_SYMBOLS`, directional-bias tracked symbols, and the
-dashboard forecast-accuracy matrix.
+The current coverage model has **two tiers**:
+
+1. The full trading-intelligence cockpit universe is **21 symbols**. Those are
+   the symbols shared by the TradeOS market-ingestion universe, price-forecaster
+   `GP_SYMBOLS`, directional-bias tracked symbols, and the dashboard
+   forecast-accuracy matrix.
+2. The broader public thesis registry is **52 symbols**. Those symbols can have
+   public thesis, discovery, watchlist, source-profile, or risk context, but
+   they should not automatically be described as full cockpit trading coverage.
 
 Full trading-intelligence coverage means the cockpit can expect the strongest
 combination of TradeOS evidence for trader-facing calls: market ingestion,
@@ -16,14 +21,16 @@ forecast/bias signals, public-intel snapshots, source references, and local
 cockpit layers such as feasibility, EA/risk, preflight, notification cards, and
 ops review.
 
-The cockpit UI and API still accept arbitrary symbols. For symbols outside the
-21-symbol core, treat the response as **partial discovery/risk coverage** unless
-TradeOS returns enough evidence to support the call. Non-core symbols may have
-token-discovery, token-risk, thesis, source-profile, public-candidate, or
-watchlist evidence, but they should not be presented as having the same
-forecast/directional-bias/trading-evidence depth as the core universe.
+The cockpit UI defaults to the 21 full-coverage symbols. The underlying public
+API and SDK can still read broader symbols where public-intel evidence exists.
+For symbols outside the 21-symbol core, treat the response as **partial
+discovery/risk/thesis coverage** unless TradeOS returns enough evidence to
+support the call. Non-core symbols may have token-discovery, token-risk, thesis,
+source-profile, public-candidate, or watchlist evidence, but they should not be
+presented as having the same forecast/directional-bias/trading-evidence depth as
+the core universe.
 
-## Core 21 Symbols
+## Full Cockpit 21 Symbols
 
 Use base symbols in the cockpit UI and `COCKPIT_WATCHLIST`. TradeOS services may
 use venue-native forms internally.
@@ -58,6 +65,21 @@ Full local scanner list:
 export COCKPIT_WATCHLIST=BTC,ETH,SOL,ADA,DOGE,XRP,DOT,POL,LINK,UNI,VVV,KTA,AVAX,NEAR,ARB,OP,SUI,APT,INJ,TIA,FET
 ```
 
+## Broader Public Thesis Registry 52 Symbols
+
+The public thesis registry currently includes:
+
+```text
+BTC, ETH, SOL, BNB, ADA, DOGE, SHIB, PEPE, BONK, XRP, DOT, POL, LINK, PYTH, API3,
+UNI, AAVE, MKR, CRV, LDO, AERO, VVV, KTA, AVAX, NEAR, ARB, OP, SUI, APT, INJ,
+TIA, FET, TAO, RNDR, AKT, STRK, ONDO, PENDLE, CFG, VIRTUAL, REPPO, SR, BRETT,
+DEGEN, TOSHI, CLANKER, ZORA, MORPHO, WELL, AIXBT, SKI, KEYCAT
+```
+
+This registry is classification and thesis context. It is not a guarantee of
+full forecast, directional-bias, market-ingestion, scanner, or trader-facing
+evidence coverage for every symbol.
+
 ## Partial And Discovery Coverage
 
 Do not describe non-core symbols as fully supported trading-intelligence names
@@ -77,9 +99,11 @@ and public-intel evidence stack also covers the symbol.
 
 ## Operator Rules
 
-- Label the 21-symbol list as "full trading-intelligence coverage."
-- Label non-core names as "partial", "discovery", or "risk-only" when evidence
-  is thin.
+- Label the 21-symbol list as "full cockpit trading-intelligence coverage."
+- Label broader registry names as "public thesis", "partial", "discovery", or
+  "risk/thesis coverage" when they are outside the 21-symbol cockpit core.
+- Label arbitrary non-registry names as partial or unsupported unless the
+  response includes enough symbol-specific evidence.
 - For bot preflight, treat `insufficient_evidence`, source errors, or partial
   coverage as a review/block condition before any execution adapter.
 - Use the full `COCKPIT_WATCHLIST` list above for production-like cockpit

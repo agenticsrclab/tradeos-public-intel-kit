@@ -244,7 +244,7 @@ deeper public evidence cards
 more public symbols
 more public dashboard refreshes
 Token Discovery detail
-Fusion Lite detail
+Fusion Signal Cockpit detail
 read-only Review Lab task families
 public Ask question packs
 ```

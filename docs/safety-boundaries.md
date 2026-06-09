@@ -33,6 +33,11 @@ when it is evidence-first, shows assumptions and invalidation, and makes clear
 who controls execution. It is not a promise of outcome, and TradeOS does not
 place the trade.
 
+The public Fusion Signal Cockpit preview at `/fusion` is narrower. It may show
+symbol-level long, short, neutral, review, watch, or stand-aside bias,
+confidence, freshness, why-fired notes, invalidation, and feedback intake. It
+must keep that read directional and non-executable.
+
 It must not:
 
 - place trades from TradeOS infrastructure;
@@ -46,6 +51,10 @@ It must not:
 - manage third-party accounts or run third-party execution as part of the public
   TradeOS kit boundary;
 - route action intents to a live executor from TradeOS infrastructure;
+- present the public `/fusion` preview as buy-now/sell-now alerts;
+- expose entries, stops, take-profit levels, sizing, leverage, order types,
+  venues, routes, raw thresholds, raw private Signal Fusion traces, or alert
+  delivery from the public preview;
 - imply guaranteed outcomes or returns.
 
 ## Private Deployment Boundary

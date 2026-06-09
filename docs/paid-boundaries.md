@@ -19,6 +19,9 @@ Pay when you need private intelligence products, scale, alerts, automation, or d
 - public thesis watchlist;
 - source snapshot references;
 - public claim proof status;
+- public Fusion Signal Cockpit preview with bounded direction, confidence,
+  freshness, why-fired context, invalidation, quality flags, and feedback
+  intake;
 - structured feedback writes.
 
 Builders may monetize products built on top of these public surfaces, such as
@@ -32,6 +35,12 @@ keys, and final approvals stay with the self-hosted operator.
 The free public kit is a discovery and integration surface. Server-side rate
 limits and abuse controls may apply, but the public SDK/CLI/MCP packages should
 stay easy to run without payment setup.
+
+The public `/fusion` preview can show symbol-level long, short, neutral, watch,
+review, or stand-aside bias so consumers can judge signal quality. It must not
+show buy-now/sell-now labels, entries, stops, take-profit levels, sizing,
+leverage, order types, venues, raw private traces, alert delivery, automation,
+or executable action intents.
 
 Default public API limits are deliberately conservative:
 
@@ -68,7 +77,7 @@ creating personal user credit by default. Current DTI credit pattern:
 | --- | --- | --- |
 | Welcome DTI credits | public dashboard depth, public Ask packs, or read-only Review Lab where enabled | 6 credits at account start |
 | Useful unique feedback | earns 3 DTI credits after quality checks | ledger balance until spent or revoked |
-| 3-DTI unlocks | faster refresh, more symbols, longer history, deeper evidence, Token Discovery detail, Fusion Lite detail | 7 days by default |
+| 3-DTI unlocks | faster refresh, more symbols, longer history, deeper evidence, Token Discovery detail, Fusion Signal Cockpit detail | 7 days by default |
 | 6-DTI unlocks | read-only Review Lab passes for Forecast, Bias/Fusion, EA Entry Quality, Symbol Story, Token Cycle, Digest/Thesis, or Ask pack | 7 days by default |
 
 Expired credit unlocks fall back to free public limits.
@@ -87,6 +96,8 @@ contract customers are the reserved-capacity path.
 - historical validation datasets;
 - replayable evaluation datasets;
 - regime/stress validation APIs;
+- private Signal Fusion traces, raw thresholds, alert/API delivery, and
+  execution-aware local cockpit context;
 - webhooks;
 - bot automation;
 - x402 paid calls;

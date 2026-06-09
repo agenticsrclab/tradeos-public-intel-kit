@@ -37,6 +37,27 @@ Good x402 products:
 x402 is the cleanest path for agents, backends, and marketplaces that want to
 pay once for a machine-readable response.
 
+## Live Proof
+
+TradeOS exposes a public proof page at:
+
+```text
+https://tradeos.tech/market
+```
+
+The Platform Pulse section shows feedback-loop activity, x402 challenge demand,
+rolling source attribution, and settlement health. Builders can use it in demos
+to show that paid intelligence resources are being discovered and challenged by
+humans, APIs, agents, and automation.
+
+Keep the terminology exact:
+
+- x402 challenges are unpaid demand or willingness-to-buy signals;
+- verified payments are the closest gateway settlement signal;
+- completed paid requests are delivered paid intelligence;
+- source attribution uses salted fingerprints and does not expose raw IPs,
+  wallet addresses, or payment IDs.
+
 ## Runtime Shape
 
 ```text

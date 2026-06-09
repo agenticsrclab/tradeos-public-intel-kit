@@ -65,9 +65,11 @@ access, and enterprise support.
 | Builder attribution | optional `TRADEOS_PUBLIC_INTEL_KEY` |
 | LLM inference | recommended BYOK default: [Venice AI](https://venice.ai/pricing) for privacy-aligned self-hosted inference; other OpenAI-compatible providers are supported |
 | Paid machine access | x402 payment or TradeOS entitlement |
+| Live platform proof | `https://tradeos.tech/market` shows Platform Pulse: feedback signals, x402 challenge demand, source mix, and settlement health |
+| Public Fusion preview | `https://tradeos.tech/fusion` shows bounded symbol-level Signal Cockpit reads and feedback intake; see [Public Fusion Signal Cockpit Preview](docs/public-fusion-signal-cockpit-preview.md) |
 | Earn as a builder | package TradeOS intelligence into paid services, workflows, agents, or vertical apps; start with the [Earn as a Builder Field Guides](docs/commercial-distribution/README.md) |
 | Flagship model | individual private-use, self-hosted Symbol Cockpit over TradeOS intelligence |
-| Cockpit trading-intelligence universe | 21 symbols today; see [Symbol Intelligence Coverage](docs/symbol-intelligence-coverage.md) |
+| Cockpit trading-intelligence universe | 21 full cockpit symbols today, plus 52 public thesis registry symbols; see [Symbol Intelligence Coverage](docs/symbol-intelligence-coverage.md) |
 | Safety boundary | actionable recommendations are allowed; TradeOS does not custody keys, manage accounts, place orders, or support third-party account management |
 
 ## What This Is
@@ -82,6 +84,9 @@ It is an evidence and feedback layer:
 
 - public digest inputs, candidates, watchlists, thesis records, proof lookups,
   caveats, freshness, source refs, and invalidation notes;
+- a public Fusion Signal Cockpit preview that shows redacted symbol-level
+  direction, confidence, freshness, why-fired context, invalidation, and
+  feedback intake without exposing execution fields;
 - symbol-cockpit and action-agent patterns for turning evidence into
   good/bad/ugly verdicts, watchlist recommendations, and bot preflight checks;
 - non-executable action intents that carry evidence-backed action context into
@@ -133,6 +138,10 @@ Local modules -> feasibility, EA/risk, execution adapters, ops dashboard
 - **Earn on top of TradeOS**: package TradeOS intelligence into services,
   workflows, agents, dashboards, vertical apps, or research products customers
   already understand and will pay to use.
+- **Show market proof**: point prospects to Platform Pulse on
+  `https://tradeos.tech/market` for live feedback volume, x402 challenge
+  demand, source attribution, and settlement health. Treat x402 challenges as
+  interest signals; only verified/completed payments are revenue.
 - **Distribute commercially**: use the commercial field guides to package
   TradeOS-backed intelligence on Virtuals ACP, AntSeed, x402 directories, and
   Agentic.Market-style discovery without publishing private keys or live
@@ -545,6 +554,7 @@ More detail:
 - [API Keys And Feedback Provenance](docs/api-keys-and-feedback-provenance.md)
 - [Access And Payments](docs/access-and-payments.md)
 - [Paid Boundaries](docs/paid-boundaries.md)
+- [Public Fusion Signal Cockpit Preview](docs/public-fusion-signal-cockpit-preview.md)
 
 ## Feature Unlock Loop
 
@@ -608,7 +618,8 @@ More detail: [Architecture](docs/architecture.md)
 - `examples`: Claude Desktop and Cursor MCP configuration examples.
 - `docs`: architecture, setup, use cases, monetization, API reference, MCP
   tools, feedback loop, access and payments, paid boundaries, safety
-  boundaries, production readiness, and consumer E2E notes.
+  boundaries, public Fusion preview, production readiness, and consumer E2E
+  notes.
 
 Start with the [docs index](docs/README.md).
 

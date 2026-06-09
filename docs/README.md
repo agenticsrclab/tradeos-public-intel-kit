@@ -34,6 +34,7 @@ Start with the path that matches what you are trying to do.
 | Get API keys or request scale | [Getting API Keys And Requesting Scale](getting-api-keys-and-scale.md) | [Integration Keys And URLs](integration-keys-and-urls.md), [API Keys And Feedback Provenance](api-keys-and-feedback-provenance.md) |
 | Configure runtime URLs, SMTP, and webhooks | [Integration Keys And URLs](integration-keys-and-urls.md) | [Distribution Setup Guide](distribution-setup-guide.md), [API Keys And Feedback Provenance](api-keys-and-feedback-provenance.md) |
 | Build the flagship consumer app | [Flagship Symbol Cockpit](flagship-symbol-cockpit.md) | [Symbol Cockpit And Action Agent](symbol-cockpit-agent.md), [Action Intents](action-intents.md), [Safety Boundaries](safety-boundaries.md) |
+| Preview public Fusion Signals | [Public Fusion Signal Cockpit Preview](public-fusion-signal-cockpit-preview.md) | [Data Intel Credit Loop](feedback-credit-loop.md), [Paid Boundaries](paid-boundaries.md), [Safety Boundaries](safety-boundaries.md) |
 | Confirm cockpit symbol coverage | [Symbol Intelligence Coverage](symbol-intelligence-coverage.md) | [Flagship Symbol Cockpit](flagship-symbol-cockpit.md), [Integration Keys And URLs](integration-keys-and-urls.md) |
 | Understand the intelligence product thesis | [Data Intelligence Product Model](marketplace-model.md) | [Use Cases](use-cases.md), [Monetization Guide](monetization.md) |
 | Try the kit as a builder | [Distribution Setup Guide](distribution-setup-guide.md) | [Public Intel API](public-intel-api.md), [MCP Tools](mcp-tools.md) |
@@ -62,22 +63,25 @@ Start with the path that matches what you are trying to do.
 6. [Symbol Intelligence Coverage](symbol-intelligence-coverage.md) defines the
    current 21-symbol cockpit trading-intelligence universe and the boundary for
    partial discovery/risk coverage.
-7. [Data Intelligence Product Model](marketplace-model.md) explains the supply, demand,
+7. [Public Fusion Signal Cockpit Preview](public-fusion-signal-cockpit-preview.md)
+   defines the public `/fusion` queue/detail/feedback pattern and the
+   direction-only boundary for redacted Signal Cockpit reads.
+8. [Data Intelligence Product Model](marketplace-model.md) explains the supply, demand,
    feedback, and paid-depth loop behind the Data Intelligence OS distribution kit.
-8. [Architecture](architecture.md) explains the shape of the kit and the
+9. [Architecture](architecture.md) explains the shape of the kit and the
    boundary between TradeOS-hosted intelligence and builder-owned apps.
-9. [Action Intents](action-intents.md) defines the non-executable bridge between
+10. [Action Intents](action-intents.md) defines the non-executable bridge between
    cockpit recommendations, local policy gates, paper execution, and independent
    executor experiments.
-10. [Distribution Setup Guide](distribution-setup-guide.md) shows the practical
+11. [Distribution Setup Guide](distribution-setup-guide.md) shows the practical
    install, environment, app-key, MCP, and CLI setup.
-11. [Public Intel API](public-intel-api.md) lists the public read and feedback
+12. [Public Intel API](public-intel-api.md) lists the public read and feedback
    write endpoints.
-12. [API Keys And Feedback Provenance](api-keys-and-feedback-provenance.md)
+13. [API Keys And Feedback Provenance](api-keys-and-feedback-provenance.md)
    explains app-key attribution, key management, and feedback source metadata.
-13. [Data Intel Credit Loop](feedback-credit-loop.md) explains how human, agentic,
+14. [Data Intel Credit Loop](feedback-credit-loop.md) explains how human, agentic,
    and automated feedback should be reported and weighted.
-14. [Safety Boundaries](safety-boundaries.md) defines what this public kit must
+15. [Safety Boundaries](safety-boundaries.md) defines what this public kit must
    not claim or do.
 
 ## Build And Integrate
@@ -87,6 +91,9 @@ Start with the path that matches what you are trying to do.
 - [Flagship Symbol Cockpit](flagship-symbol-cockpit.md): the consumer-facing
   guide to what the private self-hosted cockpit is, how users read it, what
   dependencies it needs, and how to bring it online.
+- [Public Fusion Signal Cockpit Preview](public-fusion-signal-cockpit-preview.md):
+  the public `/fusion` page pattern for a symbol queue, selected signal detail,
+  redacted direction-only reads, and signal-quality feedback.
 - [Symbol Cockpit And Action Agent](symbol-cockpit-agent.md): the flagship
   private self-hosted technical reference for good/bad/ugly verdicts,
   recommendation inboxes, watchlist scanners, bot preflight, local operations,
@@ -146,6 +153,8 @@ Start with the path that matches what you are trying to do.
 - [Safety Boundaries](safety-boundaries.md): actionable recommendations are
   allowed, but TradeOS does not execute, custody assets, hold exchange keys, or
   expose private telemetry.
+- [Public Fusion Signal Cockpit Preview](public-fusion-signal-cockpit-preview.md):
+  public signal quality preview, feedback labels, and execution-field boundary.
 - [Consumer E2E](consumer-e2e.md): external-consumer test flow that was run
   before publish.
 
@@ -160,6 +169,7 @@ Start with the path that matches what you are trying to do.
 
 - [TradeOS app](https://tradeos.tech)
 - [Live market intelligence](https://tradeos.tech/market)
+- [Fusion Signals](https://tradeos.tech/fusion)
 - [Watchlist Intelligence](https://tradeos.tech/watchlists)
 - [Ask TradeOS](https://tradeos.tech/ask)
 - [Developer Keys](https://tradeos.tech/developer/api-keys)

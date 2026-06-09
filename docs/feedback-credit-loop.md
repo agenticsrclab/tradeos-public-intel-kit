@@ -14,8 +14,9 @@ Read evidence -> label a stable target -> preserve provenance -> quality review 
 
 In the TradeOS app, people use the loop this way:
 
-1. Open public intelligence: Market Pulse, Token Radar, Signal Radar, public
-   token dossier previews, watchlist preview, and starter Ask TradeOS.
+1. Open public intelligence: Market Pulse, Token Radar, public Fusion Signal
+   Cockpit preview, public token dossier previews, watchlist preview, and
+   starter Ask TradeOS.
 2. Create an account for starter Ask TradeOS access and welcome DTI credits.
 3. Verify email ownership so future feedback has stronger human provenance.
 4. Review specific evidence such as market cards, VPIN incidents, forecast
@@ -24,8 +25,8 @@ In the TradeOS app, people use the loop this way:
 5. Submit a contextual label and optional note.
 6. Wait for duplicate, abuse, and quality checks.
 7. Redeem approved DTI credits for temporary dashboard depth such as history,
-   evidence, Token Discovery detail, Fusion Lite detail, review passes, or
-   public Ask question packs.
+   evidence, Token Discovery detail, Fusion Signal Cockpit detail, review
+   passes, or public Ask question packs.
 
 Free public market intelligence remains available when a credit unlock expires.
 
@@ -38,7 +39,7 @@ The user-facing TradeOS Data Intel Credit model is:
 | Start anonymous | Open public intelligence | Read public market state, sector breadth, VPIN summary, Token Radar lite, Signal Radar lite, watchlist preview, token dossier previews, and ask 3 public-intelligence questions | Session or anonymous quota boundary |
 | Create account | Sign in to TradeOS | 6 welcome DTI credits and 10 signed-in starter Ask questions | Ask starter lasts 7 days |
 | Give useful feedback | Label a unique evidence target with honest provenance | 3 DTI credits after quality checks | DTI credits remain in the ledger until spent or revoked |
-| Redeem 3 DTI credits | Choose a light dashboard unlock | Faster refresh, more public symbols, longer history, deeper Market Pulse/sector/VPIN evidence, Token Discovery detail, or Fusion Lite detail | 7 days by default |
+| Redeem 3 DTI credits | Choose a light dashboard unlock | Faster refresh, more public symbols, longer history, deeper Market Pulse/sector/VPIN evidence, Token Discovery detail, or Fusion Signal Cockpit detail | 7 days by default |
 | Redeem 6 DTI credits | Choose a review or Ask unlock | Forecast Lab, Bias/Fusion Review, EA Entry Quality, Symbol Story, Token Cycle, Digest/Thesis Review, or +5 public Ask questions | 7 days by default |
 | Unlock expires | Stop contributing or let the grant lapse | Fall back to free public limits | Immediate after expiry |
 
@@ -65,7 +66,7 @@ DTI is the common credit unit. Spend scope controls where it applies.
 | --- | --- | --- | --- |
 | Market Pulse, VPIN, and evidence depth | 3 DTI public-depth unlocks | `/market` via dashboard-access limits | Market, VPIN, and evidence-card feedback prompts |
 | Token Discovery detail | Token Discovery detail (3 DTI) | `/discover` via token discovery limit, depth, and history fields | Token-cycle review opens through Review Lab |
-| Fusion Signal detail | 3 DTI Fusion Signal Lite detail | `/fusion` via fusion signal limit, depth, and history fields | Bias/fusion review opens through Review Lab |
+| Fusion Signal Cockpit preview/detail | 3 DTI public Fusion detail | `/fusion` via fusion signal limit, depth, and history fields | Public feedback labels direction quality, overconfidence, stale reads, missing context, and understated risk; deeper bias/fusion review opens through Review Lab |
 | Forecast, EA, Symbol Story, Token Cycle, Digest/Thesis | 6 DTI Review Lab passes | `/review` tasks with matching `requires_unlock_type` | Open tasks render artifact feedback prompts |
 | Ask TradeOS public questions | 6 DTI Ask question pack | `/ask` public quota | Completed answers render answer-quality feedback |
 | Private workspace, private Ask, paid delivery, exports, alerts, automation, x402/API scale, custody, execution | Not DTI | Paid/private entitlement paths | DTI cannot open these surfaces |
@@ -108,6 +109,11 @@ state_rebounded
 state_stabilized
 state_uncertain
 ```
+
+For public Fusion Signal Cockpit feedback, prefer labels that review the signal
+quality instead of asking for execution: useful, stale, overconfident,
+wrong_direction, too_early, too_late, missing_context, risk_understated,
+confusing_explanation, or evidence_too_thin.
 
 ## Feedback Event Shape
 
@@ -199,7 +205,7 @@ DTI credits may unlock public app capacity:
 
 | Cost | Unlock family | Examples |
 | ---: | --- | --- |
-| 3 DTI credits | Light dashboard depth | Faster public refresh, more symbols, 30-day public history, deeper evidence cards, Token Discovery detail, Fusion Lite detail |
+| 3 DTI credits | Light dashboard depth | Faster public refresh, more symbols, 30-day public history, deeper evidence cards, Token Discovery detail, Fusion Signal Cockpit detail |
 | 6 DTI credits | Read-only review depth | Forecast Lab, Bias/Fusion Review, EA Entry Quality, Symbol Story Deep Dive, Token Cycle Review, Digest/Thesis Review |
 | 6 DTI credits | Ask extension | 5 extra read-only public-intelligence questions |
 
