@@ -144,8 +144,8 @@ Useful labels include:
 - evidence_too_thin.
 
 Feedback improves signal-quality review and can support public Data Intel
-Credit flows, but it does not authorize execution, unlock raw private traces, or
-grant production API scale.
+Credit flows, but it does not authorize execution, unlock paid/private
+diagnostics, or grant production API scale.
 
 ## Upgrade Boundary
 

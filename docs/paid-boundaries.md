@@ -44,8 +44,8 @@ stay easy to run without payment setup.
 The public `/fusion` preview can show symbol-level long, short, neutral, watch,
 review, or stand-aside bias so consumers can judge signal quality. It must not
 show buy-now/sell-now labels, entries, stops, take-profit levels, sizing,
-leverage, order types, venues, raw private traces, alert delivery, automation,
-or executable action intents.
+leverage, order types, venues, paid/private diagnostics, alert delivery,
+automation, or executable action intents.
 
 Default public API limits are deliberately conservative:
 
