@@ -39,6 +39,11 @@ The customer pays for saved time, monitoring, proof, validation, or integration.
 TradeOS gets paid when the workflow needs scale, automation, premium history, or x402.
 ```
 
+The cost of missing this layer is that builder products can look polished while
+still routing to the wrong token, repeating stale evidence, omitting risk
+caveats, losing feedback, or producing answers that cannot be audited. See
+[Problem Space](problem-space.md) for the builder-facing version of that cost.
+
 ## Fastest Paths To Revenue
 
 Start with products where the customer already understands the budget.

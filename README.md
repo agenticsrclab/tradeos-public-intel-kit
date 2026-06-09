@@ -117,6 +117,9 @@ Local modules -> feasibility, EA/risk, execution adapters, ops dashboard
 
 ## Why Builders Use It
 
+- **Avoid weak intelligence gaps**: reduce wrong-token routing, stale context,
+  unsupported claims, caveat-free recommendations, missed watchlist changes,
+  and outputs that cannot be audited. See [Problem Space](docs/problem-space.md).
 - **Ship faster**: start with bounded TradeOS evidence instead of building a
   market data pipeline first.
 - **Ground agents**: give LLMs current evidence, caveats, stable IDs, and source
@@ -161,6 +164,7 @@ private intelligence products, or explicit paid entitlement.
 
 More product detail:
 
+- [Problem Space](docs/problem-space.md)
 - [Repository Layout](docs/repository-layout.md)
 - [Integration Keys And URLs](docs/integration-keys-and-urls.md)
 - [Getting API Keys And Requesting Scale](docs/getting-api-keys-and-scale.md)
