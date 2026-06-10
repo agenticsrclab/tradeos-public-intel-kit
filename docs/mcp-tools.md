@@ -18,6 +18,11 @@ tradeos.watchlist_capabilities
 tradeos.get_token_watchlist_snapshot
 ```
 
+`tradeos.get_credit_state` returns app reputation DTI for the configured
+`TRADEOS_PUBLIC_INTEL_KEY` when available. It does not expose personal human
+DTI; human DTI remains scoped to signed-in TradeOS dashboard and Review Lab
+surfaces.
+
 ## Feedback Tools
 
 ```text

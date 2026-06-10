@@ -34,6 +34,28 @@ describe("MCP tool handlers", () => {
     expect(payload.anonymous_session_id_or_user_id).toBe("session_1");
   });
 
+  it("returns app reputation DTI from credit state when available", async () => {
+    const client = {
+      async getAppFeedbackStatus(args: { status?: string; source?: string; limit?: number }) {
+        return {
+          schema_version: "tradeos.public_intel.feedback_activity.v1",
+          viewer: "app_key",
+          filters: args,
+          app_reputation_dti: { credit_class: "app_reputation_dti", earned: 1.25 },
+        };
+      },
+    } as unknown as TradeOSPublicIntelClient;
+    const tools = createToolHandlers({ client });
+
+    const response = await tools.getCreditState({ status: "accepted", source: "agent", limit: 5 });
+    const payload = JSON.parse(response.content[0].text);
+
+    expect(payload.status).toBe("available");
+    expect(payload.credit_scope).toBe("app_reputation_dti");
+    expect(payload.app_feedback_status.viewer).toBe("app_key");
+    expect(payload.app_feedback_status.filters.status).toBe("accepted");
+  });
+
   it("returns token watchlist snapshots through the safety envelope", async () => {
     const client = {
       async getTokenWatchlistSnapshot(tokenRef: string) {

@@ -92,6 +92,12 @@ tradeos-intel feedback \
   --agent-run-id run_001
 ```
 
+Inspect app reputation DTI for the configured public-intel key:
+
+```bash
+tradeos-intel credit --status all --source all --limit 10
+```
+
 Access model:
 
 ```text
@@ -99,6 +105,7 @@ Free public kit: bounded reads and feedback writes
 Builder app quota: 7-day starter, useful feedback refresh, or reviewed quota request
 Starter ask products: 3 anonymous questions or 10 signed-in questions for 7 days
 Human DTI: public dashboard depth, public Ask packs, or read-only Review Lab where enabled
+App reputation DTI: app-key feedback quality and quota confidence, not personal balance
 Paid TradeOS/x402: automation, exports, alerts, premium data, validation APIs
 ```
 

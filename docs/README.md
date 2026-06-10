@@ -37,6 +37,7 @@ Start with the path that matches what you are trying to do.
 | Understand the problem and cost | [Problem Space](problem-space.md) | [Data Intelligence Product Model](marketplace-model.md), [Use Cases](use-cases.md) |
 | Understand the repo layout | [Repository Layout](repository-layout.md) | [Architecture](architecture.md), [Distribution Setup Guide](distribution-setup-guide.md) |
 | Get API keys or request scale | [Getting API Keys And Requesting Scale](getting-api-keys-and-scale.md) | [Integration Keys And URLs](integration-keys-and-urls.md), [API Keys And Feedback Provenance](api-keys-and-feedback-provenance.md) |
+| Understand DTI/API credit lifecycle | [Data Intel Credit Loop](feedback-credit-loop.md) | [Public Intel API](public-intel-api.md), [API Keys And Feedback Provenance](api-keys-and-feedback-provenance.md), [Paid Boundaries](paid-boundaries.md) |
 | Configure runtime URLs, SMTP, and webhooks | [Integration Keys And URLs](integration-keys-and-urls.md) | [Distribution Setup Guide](distribution-setup-guide.md), [API Keys And Feedback Provenance](api-keys-and-feedback-provenance.md) |
 | Build the flagship consumer app | [Flagship Symbol Cockpit](flagship-symbol-cockpit.md) | [Symbol Cockpit And Action Agent](symbol-cockpit-agent.md), [Action Intents](action-intents.md), [Safety Boundaries](safety-boundaries.md) |
 | Preview public Fusion Signals | [Public Fusion Signal Cockpit Preview](public-fusion-signal-cockpit-preview.md) | [Data Intel Credit Loop](feedback-credit-loop.md), [Paid Boundaries](paid-boundaries.md), [Safety Boundaries](safety-boundaries.md) |
@@ -88,8 +89,9 @@ Start with the path that matches what you are trying to do.
    write endpoints.
 14. [API Keys And Feedback Provenance](api-keys-and-feedback-provenance.md)
    explains app-key attribution, key management, and feedback source metadata.
-15. [Data Intel Credit Loop](feedback-credit-loop.md) explains how human, agentic,
-   and automated feedback should be reported and weighted.
+15. [Data Intel Credit Loop](feedback-credit-loop.md) explains human DTI, app
+   reputation DTI, API feedback lifecycle state, and how builders inspect
+   `feedback-activity` and `app-feedback-status`.
 16. [Safety Boundaries](safety-boundaries.md) defines what this public kit must
    not claim or do.
 

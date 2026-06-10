@@ -111,6 +111,20 @@ client.submit_digest_feedback(
 )
 ```
 
+Inspect app feedback lifecycle and app reputation DTI:
+
+```python
+app_status = client.get_app_feedback_status(status="all", source="all", limit=10)
+
+account_activity = client.get_feedback_activity(
+    key_id="pubkey_...",
+    status="accepted",
+    source="agent",
+    limit=25,
+    account_token=os.environ["TRADEOS_ACCOUNT_TOKEN"],
+)
+```
+
 Default API base:
 
 ```text
@@ -122,7 +136,8 @@ Access model:
 ```text
 Free public kit: bounded reads, token snapshots, and feedback writes
 Builder app quota: 7-day starter, useful feedback refresh, or reviewed quota request
-Data Intel Credits: dashboard-only depth, 7-day unlock by default
+Human DTI: public dashboard depth, public Ask packs, or read-only Review Lab where enabled
+App reputation DTI: app-key feedback quality and quota confidence, not personal balance
 Account token: saved watchlists, events, channels, and user-owned feedback
 Paid TradeOS/x402: automation, exports, high-volume alerts, premium data, validation APIs
 ```

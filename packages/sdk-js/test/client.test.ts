@@ -39,6 +39,55 @@ describe("TradeOSPublicIntelClient", () => {
     expect(payload.valid).toBe(true);
   });
 
+  it("lists builder feedback activity with account auth", async () => {
+    const fetchImpl = vi.fn(async (input: string | URL, init?: RequestInit) => {
+      const url = new URL(String(input));
+      expect(url.pathname).toBe("/v1/public-intel/feedback-activity");
+      expect(url.searchParams.get("key_id")).toBe("pubkey_1");
+      expect(url.searchParams.get("status")).toBe("accepted");
+      expect(url.searchParams.get("source")).toBe("agent");
+      expect(url.searchParams.get("limit")).toBe("10");
+      const headers = new Headers(init?.headers);
+      expect(headers.get("authorization")).toBe("Bearer acct_token");
+      expect(headers.get("x-tradeos-public-intel-key")).toBe("tos_pub_existing");
+      return jsonResponse({ schema_version: "tradeos.public_intel.feedback_activity.v1", viewer: "builder_account" });
+    });
+    const client = new TradeOSPublicIntelClient({
+      baseUrl: "https://example.test/v1/public-intel",
+      apiKey: "tos_pub_existing",
+      fetchImpl,
+    });
+
+    const payload = await client.getFeedbackActivity(
+      { keyId: "pubkey_1", status: "accepted", source: "agent", limit: 10 },
+      { accountToken: "acct_token" },
+    );
+
+    expect(payload.viewer).toBe("builder_account");
+  });
+
+  it("checks app feedback status with public-intel app-key auth", async () => {
+    const fetchImpl = vi.fn(async (input: string | URL, init?: RequestInit) => {
+      const url = new URL(String(input));
+      expect(url.pathname).toBe("/v1/public-intel/app-feedback-status");
+      expect(url.searchParams.get("status")).toBe("pending");
+      expect(url.searchParams.get("source")).toBe("automation");
+      expect(url.searchParams.get("limit")).toBe("5");
+      const headers = new Headers(init?.headers);
+      expect(headers.get("authorization")).toBe("Bearer tos_pub_test");
+      return jsonResponse({ schema_version: "tradeos.public_intel.feedback_activity.v1", viewer: "app_key" });
+    });
+    const client = new TradeOSPublicIntelClient({
+      baseUrl: "https://example.test/v1/public-intel",
+      apiKey: "tos_pub_test",
+      fetchImpl,
+    });
+
+    const payload = await client.getAppFeedbackStatus({ status: "pending", source: "automation", limit: 5 });
+
+    expect(payload.viewer).toBe("app_key");
+  });
+
   it("creates app keys with account auth instead of app-key auth", async () => {
     const fetchImpl = vi.fn(async (input: string | URL, init?: RequestInit) => {
       const url = new URL(String(input));

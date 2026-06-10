@@ -2,7 +2,11 @@ export { TradeOSApiError, TradeOSPublicIntelClient } from "./client.js";
 export { idempotencyKey, nowIso, stableId } from "./ids.js";
 export type {
   AccountRequestOptions,
+  AppFeedbackStatusQuery,
   ClaimOutcomeFeedback,
+  FeedbackActivityQuery,
+  FeedbackActivitySource,
+  FeedbackActivityStatus,
   FeedbackLabel,
   FetchLike,
   JsonObject,

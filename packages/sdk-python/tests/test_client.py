@@ -57,6 +57,55 @@ def test_get_app_attribution_sends_optional_public_intel_key(monkeypatch):
     assert seen["authorization"] == "Bearer tos_pub_test"
 
 
+def test_get_feedback_activity_uses_account_auth_and_app_key_header(monkeypatch):
+    seen = {}
+
+    def fake_urlopen(request, timeout):
+        seen["url"] = request.full_url
+        seen["authorization"] = request.headers.get("Authorization")
+        seen["app_key"] = request.headers.get("X-tradeos-public-intel-key")
+        return FakeResponse({"schema_version": "tradeos.public_intel.feedback_activity.v1", "viewer": "builder_account"})
+
+    monkeypatch.setattr(client_module, "urlopen", fake_urlopen)
+    client = TradeOSPublicIntelClient(
+        base_url="https://example.test/v1/public-intel",
+        api_key="tos_pub_existing",
+        account_token="acct_token",
+    )
+
+    payload = client.get_feedback_activity(key_id="pubkey_1", status="accepted", source="agent", limit=10)
+
+    assert payload["viewer"] == "builder_account"
+    assert seen["url"].startswith("https://example.test/v1/public-intel/feedback-activity?")
+    assert "key_id=pubkey_1" in seen["url"]
+    assert "status=accepted" in seen["url"]
+    assert "source=agent" in seen["url"]
+    assert "limit=10" in seen["url"]
+    assert seen["authorization"] == "Bearer acct_token"
+    assert seen["app_key"] == "tos_pub_existing"
+
+
+def test_get_app_feedback_status_uses_public_intel_key_auth(monkeypatch):
+    seen = {}
+
+    def fake_urlopen(request, timeout):
+        seen["url"] = request.full_url
+        seen["authorization"] = request.headers.get("Authorization")
+        return FakeResponse({"schema_version": "tradeos.public_intel.feedback_activity.v1", "viewer": "app_key"})
+
+    monkeypatch.setattr(client_module, "urlopen", fake_urlopen)
+    client = TradeOSPublicIntelClient(base_url="https://example.test/v1/public-intel", api_key="tos_pub_test")
+
+    payload = client.get_app_feedback_status(status="pending", source="automation", limit=5)
+
+    assert payload["viewer"] == "app_key"
+    assert seen["url"].startswith("https://example.test/v1/public-intel/app-feedback-status?")
+    assert "status=pending" in seen["url"]
+    assert "source=automation" in seen["url"]
+    assert "limit=5" in seen["url"]
+    assert seen["authorization"] == "Bearer tos_pub_test"
+
+
 def test_create_app_key_uses_account_token_over_app_key(monkeypatch):
     seen = {}
 

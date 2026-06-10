@@ -50,6 +50,8 @@ GET    /v1/public-intel/api-keys        list non-secret key metadata
 POST   /v1/public-intel/api-keys/{id}/rotate rotate secret and return it once
 DELETE /v1/public-intel/api-keys/{id}   revoke key
 GET    /v1/public-intel/app-attribution validate optional bearer app key
+GET    /v1/public-intel/feedback-activity inspect builder-owned app-key feedback lifecycle
+GET    /v1/public-intel/app-feedback-status inspect the authenticated app key's feedback lifecycle
 POST   /v1/public-intel/quota-requests request reviewed quota or paid evaluation
 ```
 
@@ -163,6 +165,22 @@ Earned quota requires useful recent app-attributed feedback. The default policy
 requires at least 5 feedback events in 7 days with a suppressed-feedback ratio
 below 25 percent.
 
+Builders can inspect the feedback rows that affect app reputation:
+
+```bash
+curl -sS "$TRADEOS_API_BASE/feedback-activity?key_id=pubkey_...&status=all&source=all" \
+  -H "authorization: Bearer $TRADEOS_ACCOUNT_TOKEN"
+
+curl -sS "$TRADEOS_API_BASE/app-feedback-status?status=accepted&source=agent" \
+  -H "authorization: Bearer $TRADEOS_PUBLIC_INTEL_KEY"
+```
+
+`feedback-activity` is scoped to app keys owned by the signed-in builder
+account. `app-feedback-status` is scoped to the authenticated public-intel app
+key. Both responses expose `app_reputation_dti`, per-row lifecycle state, and
+policy flags that confirm app feedback is not a personal user balance, not
+API-convertible, and not paid capacity.
+
 To request more before buying:
 
 ```bash
@@ -225,11 +243,11 @@ agent, or a fully automated process.
 
 | Source | Meaning | Credit Treatment | Value To TradeOS |
 | --- | --- | --- | --- |
-| `human` | a person reviewed and labeled the intelligence | eligible for normal user credit when linked | high-quality judgment, UX signal |
-| `human_assisted` | an agent suggested or summarized, but a person confirmed | eligible, usually lower or equal weight depending trust | strong signal with provenance |
-| `agent` | an LLM/agent generated the label without direct human confirmation | usually no user credit; possible app reputation after validation | scale, disagreement detection, model-quality signal |
-| `automation` | deterministic bot/job/rule emitted feedback | no user credit by default; app-level trust only after calibration | monitoring, regression detection, outcome telemetry |
-| `hybrid` | mixed workflow with unclear boundary | conservative credit until clarified | useful but should be sampled/audited |
+| `human` | a person reviewed and labeled the intelligence | GUI human feedback can be eligible for human DTI; public-intel API feedback affects app reputation by default | high-quality judgment, UX signal |
+| `human_assisted` | an agent suggested or summarized, but a person confirmed | app reputation and quota-confidence signal by default unless future policy links it to verified human DTI | strong signal with provenance |
+| `agent` | an LLM/agent generated the label without direct human confirmation | app reputation after validation; no personal user credit | scale, disagreement detection, model-quality signal |
+| `automation` | deterministic bot/job/rule emitted feedback | telemetry by default; app reputation only after calibration | monitoring, regression detection, outcome telemetry |
+| `hybrid` | mixed workflow with unclear boundary | conservative app-reputation treatment until clarified | useful but should be sampled/audited |
 
 Clients can report provenance, but they cannot choose their own credit class.
 TradeOS should compute credit weight server-side.
@@ -241,12 +259,12 @@ high-volume, copied, or self-referential.
 
 | Feedback Class | Credit treatment | Access effect | Notes |
 | --- | --- | --- | --- |
-| linked human | eligible for human DTI after quality checks | temporary public dashboard depth, public Ask packs, or read-only Review Lab where enabled | current default pattern |
-| linked human-assisted | partial to full human DTI after validation | same scoped human DTI surfaces when approved | depends on app reputation and agreement with later outcomes |
-| unlinked human/anonymous | quality signal only until linked | none or later reconciliation | can backfill if identity is linked later |
+| signed-in GUI human | pending human DTI when eligible; spendable only after Feedback Ops accepts it | temporary public dashboard depth, public Ask packs, or read-only Review Lab where enabled | current personal-credit path |
+| public-intel API human or human-assisted | app reputation and quota-confidence signal by default | may support earned public app quota after validation | does not mint personal DTI without future explicit policy |
+| unlinked human/anonymous | quality signal only until linked | none or later reconciliation | can backfill provenance, but not spendable credit by itself |
 | verified agent | app reputation or quota confidence, not personal credit | may support earned public app quota after calibration | useful for builders and QA |
-| raw automation | no personal credit by default | none by default | store as telemetry until trust is established |
-| spam/looped automation | no credit | none | rate-limit or ignore |
+| raw automation | telemetry by default; zero-weight for earned app reputation until trusted | none by default | store as telemetry until trust is established |
+| spam/looped automation | no credit | none | rate-limit, suppress, or ignore |
 
 Agent and automation feedback is still valuable. It can identify stale evidence,
 find confusing explanations, measure model disagreement, and produce product

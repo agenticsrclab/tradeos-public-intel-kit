@@ -424,6 +424,22 @@ TradeOS decides credit class server-side. Agent and automation feedback can help
 app reputation and quality analytics, but it does not become personal user
 credit by default.
 
+Inspect feedback lifecycle after writes:
+
+```bash
+npm run cli -- auth
+node - <<'JS'
+import { TradeOSPublicIntelClient } from "@tradeos/public-intel-sdk";
+
+const client = new TradeOSPublicIntelClient();
+console.log(await client.getAppFeedbackStatus({ status: "all", source: "all", limit: 10 }));
+JS
+```
+
+The response reports `app_reputation_dti`, accepted/pending/rejected/suppressed
+rows, and policy flags. It is app reputation for the public-intel key, not a
+personal human DTI balance.
+
 ## 9. Handle Guardrail Responses
 
 The public-intel API protects app-key issuance and write paths.

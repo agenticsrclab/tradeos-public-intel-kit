@@ -139,6 +139,11 @@ Builder API key: identifies the app, not the end user's paid entitlement.
 Paid/x402 credential: unlocks paid machine resources under explicit payment or entitlement.
 ```
 
+Builder app-key feedback is tracked separately from personal user credit. It
+appears as app reputation DTI in `GET /v1/public-intel/feedback-activity` for
+signed-in builder accounts and `GET /v1/public-intel/app-feedback-status` for
+the authenticated app key.
+
 ## How More Features Unlock
 
 The kit is a connector layer. It does not contain hidden paid datasets or switch
@@ -217,6 +222,12 @@ DTI uses one common unit with different spend scopes:
 | App reputation DTI | app reputation and quota confidence for attributed builder feedback |
 | Reviewed project grant | operator-approved public quota for a real project |
 | Paid capacity | x402, paid API, contract, or entitlement for scale and paid surfaces |
+
+`human_dti` and `app_reputation_dti` can use the same DTI unit vocabulary, but
+they do not share spend authority. Human DTI belongs to the signed-in TradeOS
+user's GUI/review lifecycle. App reputation DTI belongs to the builder app key
+and can support quota confidence; it is not a personal balance, not
+API-convertible, and not paid capacity.
 
 Current TradeOS pattern:
 

@@ -45,6 +45,10 @@ agentModel
 agentConfidence
 ```
 
+`tradeos.get_credit_state` can return app reputation DTI for the configured
+public-intel app key. It does not expose personal human DTI; human DTI remains a
+signed-in TradeOS dashboard and Review Lab lifecycle.
+
 The server does not place trades, accept exchange credentials, or expose private
 TradeOS telemetry.
 
@@ -52,7 +56,8 @@ Access model:
 
 ```text
 Free public kit: bounded reads, token snapshots, and feedback writes
-Data Intel Credits: dashboard-only depth, 7-day unlock by default
+Human DTI: public dashboard depth, public Ask packs, or read-only Review Lab where enabled
+App reputation DTI: app-key feedback quality and quota confidence, not personal balance
 Account token: saved watchlists, events, channels, delivery audit, and user-owned feedback
 Paid TradeOS/x402: automation, exports, high-volume alerts, premium data, validation APIs
 ```

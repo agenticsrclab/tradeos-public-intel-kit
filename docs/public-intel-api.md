@@ -119,6 +119,8 @@ GET    /api-keys
 POST   /api-keys/{key_id}/rotate
 DELETE /api-keys/{key_id}
 GET    /app-attribution
+GET    /feedback-activity
+GET    /app-feedback-status
 POST   /quota-requests
 ```
 
@@ -127,6 +129,18 @@ builders should use the TradeOS Developer Keys dashboard. Automation can call
 these endpoints directly when it has a trusted account token. `GET
 /app-attribution` accepts the optional public-intel app key and returns whether
 the app key is valid.
+
+Feedback lifecycle endpoints are scoped differently:
+
+| Endpoint | Auth | Scope |
+| --- | --- | --- |
+| `GET /feedback-activity` | signed-in account bearer token | App-key feedback rows owned by the builder account. Optional filters: `key_id`, `status`, `source`, `limit`. |
+| `GET /app-feedback-status` | public-intel app key bearer token | Feedback rows for the authenticated app key only. Optional filters: `status`, `source`, `limit`. |
+
+Both return `schema_version: tradeos.public_intel.feedback_activity.v1`,
+`app_reputation_dti`, per-row lifecycle entries, and policy flags showing that
+app reputation DTI is not a personal balance, not API-convertible, and not paid
+capacity.
 
 The app-key secret is returned once at creation or rotation. Existing secrets
 cannot be retrieved.
@@ -176,6 +190,27 @@ API-convertible, while attributed builder feedback affects app reputation and
 quota confidence. Use x402, paid API entitlement, or a TradeOS contract for
 machine-scale reads, alerts, exports, historical replay, private intelligence
 products, premium automation, or data rights.
+
+Lifecycle responses use the same boundary:
+
+```json
+{
+  "app_reputation_dti": {
+    "credit_class": "app_reputation_dti",
+    "earned": 1.25,
+    "pending": 0.5,
+    "revoked": 0.0,
+    "suppressed": 0.0,
+    "quota_confidence": "earned"
+  },
+  "policy": {
+    "personal_balance": false,
+    "api_convertible": false,
+    "paid_capacity_unlocked": false,
+    "human_dti_created": false
+  }
+}
+```
 
 At launch, free public reads are counted as one read unit per request. The API
 returns the current policy in `access_control.quota_policy.read_unit_policy`.

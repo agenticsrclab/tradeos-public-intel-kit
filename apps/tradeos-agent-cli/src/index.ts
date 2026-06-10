@@ -138,6 +138,18 @@ async function main(argv: string[]): Promise<void> {
       );
       return;
     }
+    case "credit":
+    case "feedback-status": {
+      const flags = parseFlags(rest);
+      printJson(
+        await client.getAppFeedbackStatus({
+          status: optionalString(flags.status),
+          source: optionalString(flags.source),
+          limit: optionalNumber(flags.limit),
+        }),
+      );
+      return;
+    }
     case "feedback": {
       const flags = parseFlags(rest);
       const targetType = String(flags.targetType ?? flags.target_type ?? "digest");
@@ -431,6 +443,8 @@ Commands:
   watchlist [--limit 10] [--chain-id 8453]
   cockpit <symbol> [--chain 8453] [--mode investor|swing|trader]
   preflight <symbol> [--action buy|sell|trim] [--chain 8453]
+  credit [--status all|pending|accepted|rejected|suppressed]
+    [--source all|human|human_assisted|agent|automation|hybrid] [--limit 25]
   feedback --target-id <id> --label useful [--target-type digest]
     [--feedback-source human|human_assisted|agent|automation]
     [--automation-level none|assisted|automated|autonomous]

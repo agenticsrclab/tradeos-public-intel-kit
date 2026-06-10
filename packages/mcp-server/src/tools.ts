@@ -246,13 +246,42 @@ export function createToolHandlers({ client }: ToolHandlerContext) {
       return jsonText(safetyEnvelope(await client.triggerWatchlistDeliveries(watchlistId, request)));
     },
 
-    async getCreditState(args: { anonymousSessionIdOrUserId?: string }) {
+    async getCreditState(args: { anonymousSessionIdOrUserId?: string; status?: string; source?: string; limit?: number }) {
+      if (typeof client.getAppFeedbackStatus === "function") {
+        try {
+          const appFeedbackStatus = await client.getAppFeedbackStatus({
+            status: args.status ?? "all",
+            source: args.source ?? "all",
+            limit: args.limit ?? 25,
+          });
+          return jsonText({
+            schema_version: "tradeos.public_intel.credit_state.v1",
+            status: "available",
+            credit_scope: "app_reputation_dti",
+            anonymous_session_id_or_user_id: args.anonymousSessionIdOrUserId ?? "",
+            app_feedback_status: appFeedbackStatus,
+            note:
+              "This reports app reputation DTI for the configured public-intel app key. Personal human DTI remains a signed-in TradeOS dashboard/review lifecycle.",
+          });
+        } catch (error) {
+          return jsonText({
+            schema_version: "tradeos.public_intel.credit_state.v1",
+            status: "not_available",
+            credit_scope: "app_reputation_dti",
+            anonymous_session_id_or_user_id: args.anonymousSessionIdOrUserId ?? "",
+            reason: "app_feedback_status_unavailable",
+            detail: error instanceof Error ? error.message : String(error),
+            note:
+              "Configure TRADEOS_PUBLIC_INTEL_KEY to inspect app reputation DTI. Personal human DTI is not exposed through this public kit tool.",
+          });
+        }
+      }
       return jsonText({
         schema_version: "tradeos.public_intel.credit_state.v1",
         status: "not_available",
         anonymous_session_id_or_user_id: args.anonymousSessionIdOrUserId ?? "",
         note:
-          "A durable credit-state endpoint is not exposed in this kit yet. Feedback write tools attach stable target IDs so credits can be reconciled when the feedback-credit service is enabled.",
+          "Personal human DTI is not exposed through this public kit tool. Feedback write tools attach stable target IDs so TradeOS can reconcile human DTI or app reputation DTI server-side.",
       });
     },
 

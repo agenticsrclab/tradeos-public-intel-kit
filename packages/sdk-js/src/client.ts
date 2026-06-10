@@ -1,7 +1,9 @@
 import { idempotencyKey, nowIso, stableId } from "./ids.js";
 import type {
   AccountRequestOptions,
+  AppFeedbackStatusQuery,
   ClaimOutcomeFeedback,
+  FeedbackActivityQuery,
   FetchLike,
   JsonObject,
   JsonValue,
@@ -61,6 +63,24 @@ export class TradeOSPublicIntelClient {
 
   async getAppAttribution(): Promise<JsonObject> {
     return this.get("/app-attribution");
+  }
+
+  async getFeedbackActivity(
+    query: FeedbackActivityQuery = {},
+    options: AccountRequestOptions = {},
+  ): Promise<JsonObject> {
+    return this.request(
+      "/feedback-activity",
+      {
+        method: "GET",
+        headers: this.accountHeaders(this.requireAccountToken(options.accountToken), options.headers),
+      },
+      feedbackActivityQueryParams(query),
+    );
+  }
+
+  async getAppFeedbackStatus(query: AppFeedbackStatusQuery = {}): Promise<JsonObject> {
+    return this.get("/app-feedback-status", appFeedbackStatusQueryParams(query));
   }
 
   async createAppKey(request: PublicIntelAppKeyCreate, options: AccountRequestOptions = {}): Promise<JsonObject> {
@@ -596,6 +616,27 @@ function listQueryParams(query: ListQuery): Record<string, string | number | und
     since: query.since,
     window_start: query.windowStart,
     window_end: query.windowEnd,
+  };
+}
+
+function feedbackActivityQueryParams(
+  query: FeedbackActivityQuery,
+): Record<string, string | number | undefined> {
+  return {
+    key_id: query.keyId,
+    status: query.status,
+    source: query.source,
+    limit: query.limit,
+  };
+}
+
+function appFeedbackStatusQueryParams(
+  query: AppFeedbackStatusQuery,
+): Record<string, string | number | undefined> {
+  return {
+    status: query.status,
+    source: query.source,
+    limit: query.limit,
   };
 }
 

@@ -126,9 +126,13 @@ server.registerTool(
   "tradeos.get_credit_state",
   {
     title: "Get Credit State",
-    description: "Return feedback-credit state when available; currently reports endpoint readiness.",
+    description:
+      "Return app reputation DTI for the configured public-intel app key when available. Personal human DTI is not exposed through this public kit tool.",
     inputSchema: {
       anonymousSessionIdOrUserId: z.string().optional(),
+      status: z.enum(["all", "pending", "accepted", "rejected", "suppressed"]).optional(),
+      source: z.enum(["all", "human", "human_assisted", "agent", "automation", "hybrid", "unspecified"]).optional(),
+      limit: z.number().int().min(1).max(100).optional(),
     },
   },
   tools.getCreditState,

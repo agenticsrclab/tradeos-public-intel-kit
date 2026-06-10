@@ -44,7 +44,9 @@ export TRADEOS_PUBLIC_INTEL_KEY=<tradeos-public-intel-app-key>
 ```
 
 The app key identifies the builder app. It is not a paid API entitlement, not a
-user's paid access, and not a personal DTI balance.
+user's paid access, and not a personal DTI balance. API feedback sent with this
+key contributes to app reputation DTI and quota confidence by default, not
+spendable human DTI.
 
 ## Validate The Key
 
@@ -70,6 +72,25 @@ curl -sS https://api.tradeos.tech/v1/public-intel/app-attribution \
 
 An invalid key should return a JSON response with `valid: false`; rotate or
 remove invalid keys before production use.
+
+Inspect app feedback lifecycle and app reputation DTI:
+
+```bash
+curl -sS "https://api.tradeos.tech/v1/public-intel/app-feedback-status?status=all&source=all" \
+  -H "authorization: Bearer $TRADEOS_PUBLIC_INTEL_KEY"
+```
+
+From a signed-in builder account, inspect feedback activity for app keys the
+account owns:
+
+```bash
+curl -sS "https://api.tradeos.tech/v1/public-intel/feedback-activity?key_id=pubkey_..." \
+  -H "authorization: Bearer $TRADEOS_ACCOUNT_TOKEN"
+```
+
+See [Data Intel Credit Loop](feedback-credit-loop.md) and
+[Public Intel API](public-intel-api.md) for the lifecycle response fields and
+the human DTI versus app reputation DTI boundary.
 
 ## Use A TradeOS Account Token Only For Trusted Automation
 

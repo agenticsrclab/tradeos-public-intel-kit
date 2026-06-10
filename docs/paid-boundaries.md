@@ -76,7 +76,10 @@ machine-scale surfaces are paid/x402 or entitlement-gated.
 Data Intel Credits are separate from starter ask quota. Human DTI is scoped to
 public dashboard depth, public Ask packs, and read-only Review Lab access.
 Builder feedback affects app reputation and quota confidence instead of
-creating personal user credit by default. Current DTI credit pattern:
+creating personal user credit by default. Builders can inspect app feedback
+lifecycle through `GET /v1/public-intel/feedback-activity` and
+`GET /v1/public-intel/app-feedback-status`; see
+[Data Intel Credit Loop](feedback-credit-loop.md). Current DTI credit pattern:
 
 | Credit Type | Unlock | Expiry |
 | --- | --- | --- |

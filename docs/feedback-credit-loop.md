@@ -7,7 +7,7 @@ infrastructure access.
 The loop:
 
 ```text
-Read evidence -> label a stable target -> preserve provenance -> quality review -> DTI credit or app reputation -> better dashboard and data quality
+Read evidence -> label a stable target -> preserve provenance -> quality review -> human DTI or app reputation DTI -> better dashboard and app quality
 ```
 
 ## Human App Model
@@ -56,9 +56,22 @@ DTI is the common credit unit. Spend scope controls where it applies.
 | Credit class | Earned by | Spend scope | What it does not do |
 | --- | --- | --- | --- |
 | `human_dti` | Welcome credits and quality-reviewed human feedback | Public dashboard depth, public Ask packs, read-only Review Lab | Does not convert to API scale or paid data rights |
-| `app_reputation_dti` | Attributed builder, agent, or automation feedback with stable target IDs | App reputation and quota confidence | Does not become a personal user balance |
+| `app_reputation_dti` | Attributed builder, agent, or automation feedback with stable target IDs after Feedback Ops disposition | App reputation and quota confidence | Does not become a personal user balance, paid entitlement, or API-scale credit |
 | `grant_dti` | Operator-approved quota request | Reviewed public API quota | Does not open paid/private resources |
 | `paid_capacity` | x402 payment, paid API key, contract, or entitlement | Scale, alerts, automation, exports, private context, data rights | Separate from feedback-earned credits |
+
+Viewer expectations are intentionally different:
+
+| Viewer | Surface | What they can inspect |
+| --- | --- | --- |
+| Human user | TradeOS dashboard credit and review surfaces | Personal `human_dti`, pending/spent activity, active unlocks, and review tasks. |
+| Builder account | `GET /v1/public-intel/feedback-activity` | App-key feedback rows and app reputation DTI effects for app keys owned by the signed-in account. |
+| Agent or app key | `GET /v1/public-intel/app-feedback-status` | The authenticated app key's own feedback lifecycle and app reputation DTI summary. |
+
+That boundary matters: public-intel API feedback can prove app quality and help
+quota confidence, but it does not mint personal GUI credits by default. Human
+DTI belongs to a signed-in TradeOS user's GUI/review loop. App reputation DTI
+belongs to the builder app key.
 
 ## What Unlocks Where Today
 
@@ -92,6 +105,13 @@ Recommended steps:
 4. Use a verified TradeOS account when creating public-intelligence app keys.
 5. Keep direct human labels separate from human-assisted labels, agent labels,
    automation labels, and hybrid workflows.
+
+For API and app-key feedback, TradeOS writes a `pifb_...` source row in the
+public-intel feedback ledger. Feedback Ops can accept, reject, suppress, or
+route it for review. Accepted and unsuppressed eligible rows can increase
+`app_reputation_dti.earned`; pending rows appear in
+`app_reputation_dti.pending`; rejected or suppressed rows do not improve quota
+confidence.
 
 ## Feedback Labels
 
@@ -150,19 +170,49 @@ hybrid
 
 Recommended treatment:
 
-| Feedback Class | Credit Use | Access Window |
-| --- | --- | --- |
-| linked verified human | eligible for normal DTI credit | 7 days by default |
-| linked unverified human | quality signal; not trusted validation until verified | none or conservative |
-| linked human-assisted | partial to full credit after validation | 7 days by default |
-| anonymous human | quality signal; reconcile later if linked | none until linked |
-| verified agent | app reputation or limited app preview | 7 days after calibration |
-| raw automation | telemetry only | none by default |
+| Feedback path | Current treatment |
+| --- | --- |
+| Signed-in GUI human feedback | Can create pending `human_dti` when eligible; spendable only after Feedback Ops accepts it. |
+| Anonymous or unlinked human feedback | Quality signal only until identity and policy allow reconciliation. |
+| Public-intel API feedback with app key | Creates a `pifb_...` app feedback row; affects app reputation and quota confidence by default, not personal DTI. |
+| Human-assisted API feedback | Kept distinct from direct human GUI judgment; can improve app reputation after validation, but does not create personal DTI by default. |
+| Agent feedback | App reputation, QA, disagreement, and quota-confidence signal after validation; no personal user credit. |
+| Raw automation | Telemetry by default; zero-weight for earned app reputation until policy trusts it. |
+| Spam, copied, abusive, or looped automation | Suppressed, ignored, rate-limited, or rejected. |
 
 Agentic and automated feedback is valuable, but it should be credited
 differently. It can improve QA, detect stale evidence, measure model
-disagreement, and build app reputation. It should not receive the same user
-DTI credit as linked human feedback unless TradeOS validates the source and policy.
+disagreement, and build app reputation. It should not receive personal user DTI
+unless a future explicit policy links it to a verified human account.
+
+## Feedback Lifecycle Endpoints
+
+Builders and agents can inspect feedback lifecycle state without admin access:
+
+```text
+GET /v1/public-intel/feedback-activity
+GET /v1/public-intel/app-feedback-status
+```
+
+Use `feedback-activity` with a signed-in builder account token to inspect app
+keys owned by that account. Optional filters are `key_id`, `status`, `source`,
+and `limit`. Supported status values are `all`, `pending`, `accepted`,
+`rejected`, and `suppressed`; supported source values are `all`, `human`,
+`human_assisted`, `agent`, `automation`, `hybrid`, and `unspecified`.
+
+Use `app-feedback-status` with the public-intel app key as bearer auth when an
+agent, bot, MCP server, or self-hosted app needs to self-check its own feedback
+rows. Responses include `entries`, `app_reputation_dti`, and policy flags:
+
+```json
+{
+  "credit_class": "app_reputation_dti",
+  "personal_balance": false,
+  "api_convertible": false,
+  "paid_capacity_unlocked": false,
+  "human_dti_created": false
+}
+```
 
 ## Builder App Quota
 
@@ -179,8 +229,10 @@ credit.
 | Paid/entitled project | private intelligence products, scale, alerts, automation, exports, or data rights |
 
 Public read responses expose the active profile in
-`access_control.rate_limit_status.quota_profile`. Builders should use that value
-for product messaging instead of guessing which plan they are on.
+`access_control.rate_limit_status.quota_profile`. Feedback lifecycle responses
+also expose `app_reputation_dti.quota_confidence`. Builders should use these
+server-returned values for product messaging instead of guessing which plan they
+are on.
 
 ## Credit Boundary
 
@@ -264,5 +316,6 @@ tradeos-intel feedback \
   --provenance-note "Scheduled outcome check after 24h move window"
 ```
 
-More detail: [Access And Payments](access-and-payments.md) and
+More detail: [Access And Payments](access-and-payments.md),
+[Public Intel API](public-intel-api.md), and
 [API Keys And Feedback Provenance](api-keys-and-feedback-provenance.md).

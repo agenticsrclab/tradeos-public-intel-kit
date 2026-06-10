@@ -44,6 +44,42 @@ class TradeOSPublicIntelClient:
     def get_app_attribution(self) -> dict[str, Any]:
         return self._get("/app-attribution")
 
+    def get_feedback_activity(
+        self,
+        *,
+        key_id: str | None = None,
+        status: str = "all",
+        source: str = "all",
+        limit: int = 25,
+        account_token: str | None = None,
+    ) -> dict[str, Any]:
+        return self._get(
+            "/feedback-activity",
+            {
+                "key_id": key_id,
+                "status": status,
+                "source": source,
+                "limit": limit,
+            },
+            authorization_token=self._require_account_token(account_token),
+        )
+
+    def get_app_feedback_status(
+        self,
+        *,
+        status: str = "all",
+        source: str = "all",
+        limit: int = 25,
+    ) -> dict[str, Any]:
+        return self._get(
+            "/app-feedback-status",
+            {
+                "status": status,
+                "source": source,
+                "limit": limit,
+            },
+        )
+
     def create_app_key(
         self,
         *,

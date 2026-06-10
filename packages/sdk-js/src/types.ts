@@ -44,6 +44,26 @@ export interface PublicIntelQuotaRequest {
   paidIntent?: string;
 }
 
+export type FeedbackActivityStatus = "all" | "pending" | "accepted" | "rejected" | "suppressed" | string;
+export type FeedbackActivitySource =
+  | "all"
+  | "human"
+  | "human_assisted"
+  | "agent"
+  | "automation"
+  | "hybrid"
+  | "unspecified"
+  | string;
+
+export interface FeedbackActivityQuery {
+  keyId?: string;
+  status?: FeedbackActivityStatus;
+  source?: FeedbackActivitySource;
+  limit?: number;
+}
+
+export type AppFeedbackStatusQuery = Omit<FeedbackActivityQuery, "keyId">;
+
 export interface ListQuery {
   limit?: number;
   chainId?: string;

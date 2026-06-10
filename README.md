@@ -70,6 +70,7 @@ access, and enterprise support.
 | Public reads | no TradeOS account required, server-side limits apply |
 | Saved watchlists | require a signed-in TradeOS account token |
 | Builder attribution | optional `TRADEOS_PUBLIC_INTEL_KEY` |
+| DTI/API lifecycle | [Data Intel Credit Loop](docs/feedback-credit-loop.md) explains human DTI, app reputation DTI, and feedback status endpoints |
 | LLM inference | recommended BYOK default: [Venice AI](https://venice.ai/pricing) for privacy-aligned self-hosted inference; other OpenAI-compatible providers are supported |
 | Paid machine access | x402 payment or TradeOS entitlement |
 | Live platform proof | [Platform Pulse](https://tradeos.tech/market) shows feedback signals, x402 challenge demand, source mix, and settlement health |
@@ -533,10 +534,14 @@ Public API quota is earned, not unlimited:
 Feedback writes are bounded too: app-key writes default to 10/minute and 100/day;
 anonymous writes default to 5/minute per IP. App keys provide attribution and
 reputation, not paid entitlement. Data Intel Credits use one common unit with
-scoped spend rules: human DTI unlocks dashboard depth, public Ask packs, and
-read-only Review Lab access; builder feedback affects app reputation and quota
-confidence. Paid/x402 access is required for private intelligence products,
-scale, alerts, exports, replay, automation, or data rights.
+scoped spend rules: human DTI unlocks public dashboard depth, public Ask packs,
+and read-only Review Lab access; builder feedback affects app reputation and
+quota confidence. Builders can inspect lifecycle state through
+`/feedback-activity` and `/app-feedback-status`; see
+[Data Intel Credit Loop](docs/feedback-credit-loop.md) and
+[Public Intel API](docs/public-intel-api.md). Paid/x402 access is required for
+private intelligence products, scale, alerts, exports, replay, automation, or
+data rights.
 
 At launch, each free public read counts as one read unit. Batch, history,
 export, alert, private-intelligence, and machine-scale surfaces are paid/x402
