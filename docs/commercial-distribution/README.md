@@ -82,6 +82,22 @@ Keep public listings focused on source-grounded intelligence products. Do not
 market TradeOS as a broker, custodian, managed account service, copy-trading
 service, or execution router.
 
+## TradeOS SKU Layers Builders Can Package
+
+The starter examples above should map back to the current TradeOS product
+ladder:
+
+| TradeOS Layer | What Builders Can Package | Upgrade Boundary |
+| --- | --- | --- |
+| Public intelligence products | free market context widgets, digest briefings, Token Radar summaries, Fusion Signal Lite explanations, watchlist/dossier workflows, and Ask TradeOS experiences | bounded public reads and feedback writes; no execution, custody, private context, alerts, exports, or bulk scale |
+| DTI credit unlock SKUs | user-facing education around refresh boost, symbol pack, history window, evidence depth, Token Discovery detail, Fusion detail, Review Lab passes, and AskTradeOS question packs | human DTI unlocks temporary public GUI depth only; builder app reputation DTI is quota confidence, not personal credit or paid capacity |
+| Private intelligence passes | routing users to `private_30m`, `private_1h`, or `private_4h` when they need broader private dashboard context | exact x402 pay-per-view read access; no admin actions, execution, custody, exports, API resale, or silent renewal |
+| Agent/API/x402 data SKUs | paid router, token-risk, discovery, risk-gated discovery, signal-quality, evidence-pack, fusion-history, Market Pulse Pro/team, VPIN-stress, and dataset-scope products | paid or reviewed production access through x402, paid API, grant, or entitlement |
+
+If a product depends on alert delivery, automation, private context, validation
+APIs, exports, replay datasets, or machine-scale reads, route it to paid
+TradeOS/x402 or enterprise access instead of stretching public quota or DTI.
+
 ## Platform Fit
 
 | Platform | Best Fit | Settlement Shape | TradeOS Pattern |

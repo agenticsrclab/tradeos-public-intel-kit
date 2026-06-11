@@ -109,6 +109,20 @@ App reputation DTI: app-key feedback quality and quota confidence, not personal 
 Paid TradeOS/x402: automation, exports, alerts, premium data, validation APIs
 ```
 
+Service/SKU map:
+
+```text
+Public intelligence: Market Pulse, Platform Pulse, Token Radar, Fusion Signal Lite, Ask TradeOS, watchlists, dossiers
+DTI credit unlocks: refresh boost, symbol pack, history window, evidence depth, Token Discovery detail, Fusion detail, Review Lab, AskTradeOS question packs
+Private passes: private_30m, private_1h, private_4h x402 pay-per-view dashboard windows
+Agent/API/x402 SKUs: agent router, token risk, discovery, risk-gated discovery, signal quality, evidence packs, fusion history, Market Pulse Pro/team, VPIN stress, dataset scope
+```
+
+Human DTI credits stay scoped to public GUI depth, public Ask packs, and
+read-only Review Lab access. Paid API scale, x402 calls, alerts, exports,
+automation, custody, execution, private context, and data rights remain separate
+access paths.
+
 Learn more:
 
 ```text

@@ -85,6 +85,22 @@ TradeOS can serve:
 | Builder Kit | SDKs, MCP tools, public-intel reads, feedback provenance, x402 resources, and paid-depth paths for products built on TradeOS. |
 | Validation and proof | Outcome memory, replay, and evidence trails that make intelligence products more defensible. |
 
+## Data Intelligence Services And SKUs
+
+TradeOS packages those surfaces as product layers, not only as raw datasets:
+
+| Product layer | What it includes | Access model |
+| --- | --- | --- |
+| Public intelligence products | Market Pulse, Platform Pulse, Token Radar, Fusion Signal Lite, Ask TradeOS, watchlists, and dossiers | Free public baseline with bounded read-only context |
+| DTI credit unlock SKUs | Refresh boost, symbol pack, history window, evidence depth, Token Discovery detail, Fusion Signal detail, Review Lab passes, and AskTradeOS question packs | Earned human DTI for temporary public GUI depth, public Ask packs, or read-only Review Lab access |
+| Private intelligence passes | `private_30m`, `private_1h`, and `private_4h` private dashboard windows | Exact x402 pay-per-view sessions for private intelligence surfaces |
+| Agent/API/x402 data SKUs | Agent router, token risk, token discovery, risk-gated discovery, signal quality, signal evidence packs, fusion snapshots/history, Market Pulse Pro/team, VPIN stress, dataset concierge, and package scoping | Paid or reviewed production access for builders, agents, marketplaces, and API consumers |
+
+This separation is intentional. Human DTI credits do not unlock paid API scale,
+x402 calls, alert delivery, exports, automation, custody, execution, private
+context, or enterprise data rights. Those are paid, reviewed, or
+contract-entitled paths.
+
 ## Business Model
 
 The public value ladder is:
