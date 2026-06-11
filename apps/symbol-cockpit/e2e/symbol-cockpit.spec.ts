@@ -25,6 +25,12 @@ test.beforeAll(async () => {
         return {
           bundle: buildEvidenceBundle(query, {
             watchlist_snapshot: {
+              token: {
+                symbol,
+                current_price_usd: 0.0421,
+                target_price_usd: 0.055,
+                price_as_of: new Date().toISOString(),
+              },
               rows: [
                 {
                   event_id: "watch_vvv_1",
@@ -135,16 +141,81 @@ test("reviews, alerts, preflights, asks, paper executes, and reports ops status"
   await expect(page.locator("#guide-view")).toContainText("It does not start watching");
   await expect(page.locator("#supportedSymbols .symbol-chip")).toHaveCount(21);
   await expect(page.locator("#supportedSymbols")).toContainText("FET");
-  await page.getByRole("button", { name: "Trade Desk" }).click();
 
-  await expect(page.locator(".flow-panel")).toContainText("How The Flow Works");
-  await expect(page.locator(".flow-panel")).toContainText("one-time paper-buy gate check");
-  const flowBox = await page.locator(".top-flow").boundingBox();
+  // Onboarding flow lives in the Guide tab, not in the trade workspace.
+  await expect(page.locator("#guide-view .flow-panel")).toContainText("How The Flow Works");
+  await expect(page.locator("#guide-view .flow-panel")).toContainText("one-time paper-buy gate check");
+  await page.getByRole("button", { name: "Trade Desk" }).click();
+  await expect(page.locator("#trade-view .flow-panel")).toHaveCount(0);
+
+  // Symmetric flow: command bar -> tabs -> pulse heatmap -> verdict workspace.
+  const commandBox = await page.locator(".search-band").boundingBox();
   const tabsBox = await page.locator(".view-tabs").boundingBox();
-  expect(flowBox?.y ?? Number.POSITIVE_INFINITY).toBeLessThan(tabsBox?.y ?? Number.NEGATIVE_INFINITY);
+  const pulseBox = await page.locator("#pulsePanel").boundingBox();
+  const verdictBox = await page.locator(".verdict-panel").boundingBox();
+  expect(commandBox!.y).toBeLessThan(tabsBox!.y);
+  expect(tabsBox!.y).toBeLessThan(pulseBox!.y);
+  expect(pulseBox!.y).toBeLessThan(verdictBox!.y);
   await expect(page.locator("#verdict")).toContainText("VVV");
   await expect(page.locator("#action")).toContainText(/avoid new long|trim or tighten risk|review exit/);
   await expect(page.locator("#cards article").first()).toContainText("VVV");
+
+  await expect(page.locator("#marketStrip .market-stat")).not.toHaveCount(0);
+  await expect(page.locator("#marketStrip")).toContainText("Evidence");
+
+  // Sticky command center: pins on scroll and surfaces the latest verdict inline.
+  await page.evaluate(() => window.scrollTo({ top: 1200, behavior: "instant" }));
+  await expect(page.locator("#commandBar")).toHaveClass(/stuck/);
+  await expect(page.locator("#commandVerdict")).toBeVisible();
+  await expect(page.locator("#commandVerdict")).toContainText("VVV");
+  const stuckBox = await page.locator("#commandBar").boundingBox();
+  expect(stuckBox!.y).toBeLessThanOrEqual(1);
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await expect(page.locator("#commandBar")).not.toHaveClass(/stuck/);
+
+  // Hero collapses to a single line and persists the preference.
+  await page.locator("#hero-collapse").click();
+  await expect(page.locator("#tradeHero")).toHaveClass(/collapsed/);
+  await expect(page.locator("#tradeHero .boundary-grid")).toBeHidden();
+  await page.locator("#hero-collapse").click();
+  await expect(page.locator("#tradeHero")).not.toHaveClass(/collapsed/);
+  await expect(page.locator("#tradeHero .boundary-grid")).toBeVisible();
+
+  await expect(page.locator("html")).toHaveAttribute("data-density", "comfortable");
+  await page.locator("#density-toggle").click();
+  await expect(page.locator("html")).toHaveAttribute("data-density", "compact");
+  await expect(page.locator(".pulse-legend")).toBeHidden();
+  await page.locator("#density-toggle").click();
+  await expect(page.locator("html")).toHaveAttribute("data-density", "comfortable");
+  await expect(page.locator(".pulse-legend")).toBeVisible();
+  const ringOffset = await page.locator("#confidenceRing").evaluate((node) => node.style.strokeDashoffset);
+  expect(Number.parseFloat(ringOffset)).toBeGreaterThan(0);
+
+  await expect(page.locator("#pulseGrid .pulse-tile")).toHaveCount(21);
+  await page.getByRole("button", { name: "Scan Watchlist" }).click();
+  await expect(page.locator("#pulseStatus")).toContainText("Scanned 21 symbols", { timeout: 30_000 });
+  await expect(page.locator("#pulseGrid .pulse-tile.pending")).toHaveCount(0);
+  await expect(page.locator("#toastHost .toast").first()).toContainText("Watchlist scan complete");
+  await expect(page.locator("#tickerTrack .ticker-item").first()).toBeVisible();
+
+  await page.locator('#pulseGrid [data-pulse-symbol="BTC"]').click();
+  await expect(page.locator("#symbol")).toHaveValue("BTC");
+  await expect(page.locator("#verdict")).toContainText("BTC");
+  await page.locator("#symbol").selectOption("VVV");
+  await page.getByRole("button", { name: "Review", exact: true }).click();
+  await expect(page.locator("#verdict")).toContainText("VVV");
+
+  // Sparkline appears once the symbol has at least two locally observed prices.
+  await expect(page.locator("#marketStrip .spark-stat")).toHaveCount(1);
+  await expect(page.locator("#marketStrip .sparkline")).toBeVisible();
+  const sparkPoints = await page.locator("#marketStrip .sparkline .spark-line").getAttribute("points");
+  expect((sparkPoints || "").split(" ").length).toBeGreaterThanOrEqual(2);
+
+  // Ops metric values render as integers after the count-up animation settles.
+  await expect.poll(async () => {
+    const values = await page.locator("#opsSummary [data-count-to]").allTextContents();
+    return values.length > 0 && values.every((value) => /^\d+$/.test(value.trim()));
+  }).toBe(true);
 
   await expect.poll(() => sentEmail.length).toBeGreaterThan(0);
   expect(sentEmail.at(-1)?.to).toBe("operator@example.com");
