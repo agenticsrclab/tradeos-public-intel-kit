@@ -49,7 +49,7 @@ jobs:
         run: npm --workspace @agenticsrclab/tradeos-public-intel-mcp-server pack --dry-run
 
       - name: Publish npm package
-        if: github.event_name == 'push' || inputs.publish_npm == 'true'
+        if: ${{ github.event_name == 'push' || github.event.inputs.publish_npm == 'true' }}
         working-directory: packages/mcp-server
         run: npm publish --access public
         env:
