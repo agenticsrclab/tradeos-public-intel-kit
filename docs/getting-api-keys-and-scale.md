@@ -121,16 +121,16 @@ rotate it in Developer Keys and update the server environment.
 ## Add A Model Provider Key
 
 The CLI, market briefing bot, and Symbol Cockpit action agent can use a
-bring-your-own-key model provider. Venice is the recommended privacy-aligned
+bring-your-own-key model provider. Venice is the recommended privacy-enhanced
 OpenAI-compatible default used in examples. Builders keep the model key in their
-own environment, and Venice's public docs emphasize private inference and no
-prompt/response storage on Venice servers.
+own environment, and the examples default to `e2ee-glm-5-1` for the upstream
+model path.
 
 ```bash
 export LLM_PROVIDER=venice
 export OPENAI_BASE_URL=https://api.venice.ai/api/v1
 export VENICE_API_KEY=<venice-api-key>
-export TRADEOS_AGENT_MODEL=z-ai-glm-5-turbo
+export TRADEOS_AGENT_MODEL=e2ee-glm-5-1
 ```
 
 For another OpenAI-compatible provider:

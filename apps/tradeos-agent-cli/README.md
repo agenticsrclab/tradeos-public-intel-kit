@@ -115,7 +115,7 @@ Service/SKU map:
 Public intelligence: Market Pulse, Platform Pulse, Token Radar, Fusion Signal Lite, Ask TradeOS, watchlists, dossiers
 DTI credit unlocks: refresh boost, symbol pack, history window, evidence depth, Token Discovery detail, Fusion detail, Review Lab, AskTradeOS question packs
 Private passes: private_30m, private_1h, private_4h x402 pay-per-view dashboard windows
-Agent/API/x402 SKUs: agent router, token risk, discovery, risk-gated discovery, signal quality, evidence packs, fusion history, Market Pulse Pro/team, VPIN stress, dataset scope
+Agent/API/x402 SKUs: agent router, Venice raw inference, Venice intel router, token risk, discovery, risk-gated discovery, signal quality, evidence packs, fusion history, Market Pulse Pro/team, VPIN stress, dataset scope
 ```
 
 Human DTI credits stay scoped to public GUI depth, public Ask packs, and

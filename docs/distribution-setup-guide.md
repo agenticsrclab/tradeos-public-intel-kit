@@ -417,7 +417,7 @@ npm run cli -- feedback \
   --automation-level autonomous \
   --agent-id market-review-agent \
   --agent-run-id run_001 \
-  --agent-model z-ai-glm-5-turbo
+  --agent-model e2ee-glm-5-1
 ```
 
 TradeOS decides credit class server-side. Agent and automation feedback can help

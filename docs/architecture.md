@@ -266,7 +266,7 @@ The CLI defaults to:
 ```text
 LLM_PROVIDER=venice
 OPENAI_BASE_URL=https://api.venice.ai/api/v1
-TRADEOS_AGENT_MODEL=z-ai-glm-5-turbo
+TRADEOS_AGENT_MODEL=e2ee-glm-5-1
 TRADEOS_AGENT_TIMEOUT_MS=45000
 TRADEOS_AGENT_DIGEST_LIMIT=5
 ```

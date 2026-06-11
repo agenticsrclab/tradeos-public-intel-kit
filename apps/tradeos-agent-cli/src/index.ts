@@ -12,7 +12,7 @@ import { buildAskPrompt, extractDigestSummary } from "./prompt.js";
 
 const DEFAULT_LLM_PROVIDER = "venice";
 const DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "https://api.venice.ai/api/v1";
-const DEFAULT_VENICE_MODEL = "z-ai-glm-5-turbo";
+const DEFAULT_VENICE_MODEL = "e2ee-glm-5-1";
 const DEFAULT_AGENT_TIMEOUT_MS = 45_000;
 const DEFAULT_AGENT_MAX_RETRIES = 1;
 const DEFAULT_ASK_DIGEST_LIMIT = 5;
@@ -460,7 +460,7 @@ Environment:
   LLM_PROVIDER=venice
   OPENAI_BASE_URL=https://api.venice.ai/api/v1
   VENICE_API_KEY=...
-  TRADEOS_AGENT_MODEL=z-ai-glm-5-turbo
+  TRADEOS_AGENT_MODEL=e2ee-glm-5-1
   TRADEOS_AGENT_TIMEOUT_MS=45000
   TRADEOS_AGENT_DIGEST_LIMIT=5
 `;

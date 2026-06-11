@@ -299,7 +299,7 @@ tradeos-intel feedback \
   --automation-level autonomous \
   --agent-id market-review-agent \
   --agent-run-id run_2026_06_06_001 \
-  --agent-model z-ai-glm-5-turbo
+  --agent-model e2ee-glm-5-1
 ```
 
 Automation feedback:

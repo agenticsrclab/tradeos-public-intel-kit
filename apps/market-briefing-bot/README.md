@@ -138,7 +138,7 @@ LLM_PROVIDER=venice
 OPENAI_BASE_URL=https://api.venice.ai/api/v1
 VENICE_API_KEY=
 OPENAI_API_KEY=
-TRADEOS_AGENT_MODEL=z-ai-glm-5-turbo
+TRADEOS_AGENT_MODEL=e2ee-glm-5-1
 ```
 
 ## Why This Bot

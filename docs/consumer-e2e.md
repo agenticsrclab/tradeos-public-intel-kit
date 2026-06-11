@@ -82,10 +82,10 @@ The supported consumer MCP path today is local stdio MCP:
 npx @tradeos/public-intel-mcp-server
 ```
 
-The default Venice model is optimized for first-run latency:
+The default Venice model is the privacy-enhanced upstream path used by the kit:
 
 ```text
-TRADEOS_AGENT_MODEL=z-ai-glm-5-turbo
+TRADEOS_AGENT_MODEL=e2ee-glm-5-1
 TRADEOS_AGENT_TIMEOUT_MS=45000
 TRADEOS_AGENT_DIGEST_LIMIT=5
 ```

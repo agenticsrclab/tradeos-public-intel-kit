@@ -17,7 +17,7 @@ export interface ActionAgentAnswer {
 }
 
 const DEFAULT_VENICE_BASE_URL = "https://api.venice.ai/api/v1";
-const DEFAULT_VENICE_MODEL = "z-ai-glm-5-turbo";
+const DEFAULT_VENICE_MODEL = "e2ee-glm-5-1";
 
 export class OpenAICompatibleActionAgent {
   readonly apiKey?: string;
@@ -110,4 +110,3 @@ function extractAnswer(payload: JsonObject): string {
   }
   return "";
 }
-

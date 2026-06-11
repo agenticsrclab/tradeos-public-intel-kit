@@ -65,10 +65,9 @@ public reads.
 ## Venice API Key
 
 Venice is the recommended default OpenAI-compatible model provider used by the
-CLI, market briefing bot, and Symbol Cockpit action agent. It aligns with the
-self-hosted privacy story because builders keep their own model key and Venice's
-public docs emphasize private inference and no prompt/response storage on
-Venice servers.
+CLI, market briefing bot, and Symbol Cockpit action agent. The examples default
+to `e2ee-glm-5-1` so builders get a privacy-enhanced E2EE/TEE-backed upstream
+model path while keeping the model key in their own environment.
 
 Typical setup:
 
@@ -76,7 +75,7 @@ Typical setup:
 export LLM_PROVIDER=venice
 export OPENAI_BASE_URL=https://api.venice.ai/api/v1
 export VENICE_API_KEY=<venice-api-key>
-export TRADEOS_AGENT_MODEL=z-ai-glm-5-turbo
+export TRADEOS_AGENT_MODEL=e2ee-glm-5-1
 ```
 
 Where to get the key:
@@ -222,7 +221,7 @@ export TRADEOS_PUBLIC_INTEL_KEY=<tradeos-public-intel-app-key>
 export LLM_PROVIDER=venice
 export OPENAI_BASE_URL=https://api.venice.ai/api/v1
 export VENICE_API_KEY=<venice-api-key>
-export TRADEOS_AGENT_MODEL=z-ai-glm-5-turbo
+export TRADEOS_AGENT_MODEL=e2ee-glm-5-1
 
 export COCKPIT_BIND_HOST=127.0.0.1
 export COCKPIT_API_PORT=18100

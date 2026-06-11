@@ -70,7 +70,7 @@ TradeOS packages intelligence as product layers, not only as raw datasets:
 | Public intelligence products | Market Pulse, Platform Pulse, Token Radar, Fusion Signal Lite, Ask TradeOS, watchlists, and dossiers | Free public baseline with bounded read-only context |
 | DTI credit unlock SKUs | Refresh boost, symbol pack, history window, evidence depth, Token Discovery detail, Fusion Signal detail, Review Lab passes, and AskTradeOS question packs | Human Data Intel Credits for temporary public GUI depth, public Ask packs, or read-only Review Lab access |
 | Private intelligence passes | `private_30m`, `private_1h`, and `private_4h` private dashboard windows | Exact x402 pay-per-view sessions for private intelligence surfaces |
-| Agent/API/x402 data SKUs | Agent router, token risk, token discovery, risk-gated discovery, signal quality, signal evidence packs, fusion snapshots/history, Market Pulse Pro/team, VPIN stress, dataset concierge, and package scoping | Paid or reviewed production access for builders, agents, marketplaces, and API consumers |
+| Agent/API/x402 data SKUs | Agent router, Venice raw inference, Venice intel router, token risk, token discovery, risk-gated discovery, signal quality, signal evidence packs, fusion snapshots/history, Market Pulse Pro/team, VPIN stress, dataset concierge, and package scoping | Paid or reviewed production access for builders, agents, marketplaces, and API consumers |
 
 Keep the boundary explicit in builder products. Human DTI credits do not unlock
 paid API scale, x402 calls, alert delivery, exports, automation, custody,
@@ -87,7 +87,7 @@ or contract-entitled paths.
 | Saved watchlists | require a signed-in TradeOS account token |
 | Builder attribution | optional `TRADEOS_PUBLIC_INTEL_KEY` |
 | DTI/API lifecycle | [Data Intel Credit Loop](docs/feedback-credit-loop.md) explains human DTI, app reputation DTI, and feedback status endpoints |
-| LLM inference | recommended BYOK default: [Venice AI](https://venice.ai/pricing) for privacy-aligned self-hosted inference; other OpenAI-compatible providers are supported |
+| LLM inference | recommended BYOK default: [Venice AI](https://venice.ai/pricing) with `e2ee-glm-5-1` for privacy-enhanced self-hosted inference; TradeOS also publishes paid AntSeed/x402 Venice raw-inference and evidence-backed intel-router SKUs |
 | Paid machine access | x402 payment or TradeOS entitlement |
 | Live platform proof | [Platform Pulse](https://tradeos.tech/market) shows feedback signals, x402 challenge demand, source mix, and settlement health |
 | Public Fusion preview | `https://tradeos.tech/fusion` shows bounded symbol-level Signal Cockpit reads and feedback intake; see [Public Fusion Signal Cockpit Preview](docs/public-fusion-signal-cockpit-preview.md) |
@@ -161,10 +161,13 @@ Local modules -> feasibility, EA/risk, execution adapters, ops dashboard
   market data pipeline first.
 - **Ground agents**: give LLMs current evidence, caveats, stable IDs, and source
   references before they answer.
-- **Use privacy-aligned BYOK inference**: use [Venice AI](https://venice.ai/pricing)
-  as the recommended default because its public docs emphasize private
-  inference and no prompt/response storage on Venice servers; builders can
-  still swap in another OpenAI-compatible provider.
+- **Use privacy-enhanced BYOK inference**: use [Venice AI](https://venice.ai/pricing)
+  as the recommended default with `e2ee-glm-5-1`, an E2EE/TEE-backed upstream
+  model option. Builders can still swap in another OpenAI-compatible provider.
+  Builders that want a marketplace-hosted path can use paid TradeOS
+  AntSeed/x402 SKUs:
+  `tradeos-venice-raw-inference` for ungrounded model output, or
+  `tradeos-venice-intel-router` for TradeOS evidence-backed model summaries.
 - **Earn on top of TradeOS**: package TradeOS intelligence into services,
   workflows, agents, dashboards, vertical apps, or research products customers
   already understand and will pay to use.
@@ -327,8 +330,8 @@ npm run briefing-bot -- brief
 That works without a TradeOS account and without an LLM key. It prints a
 deterministic briefing from live public evidence.
 
-Use Venice AI as the recommended privacy-aligned BYOK path for a stronger
-natural-language brief. Get a key from the
+Use Venice AI as the recommended privacy-enhanced BYOK path for a stronger
+natural-language brief. The kit defaults to `e2ee-glm-5-1`. Get a key from the
 [Venice AI subscription page](https://venice.ai/pricing):
 
 ```bash
@@ -362,8 +365,9 @@ npm run cli -- digest --limit 5
 npm run cli -- watchlist --limit 5
 ```
 
-Ask a Venice-backed question. Venice is the recommended privacy-aligned BYOK
-default for self-hosted workflows. Get a key from the
+Ask a Venice-backed question. Venice is the recommended privacy-enhanced BYOK
+default for self-hosted workflows, and the kit defaults to `e2ee-glm-5-1`. Get
+a key from the
 [Venice AI subscription page](https://venice.ai/pricing):
 
 ```bash
@@ -636,7 +640,20 @@ Optional BYOK LLM path:
 
 Your app / CLI -> recommended Venice AI BYOK path or another OpenAI-compatible provider
               -> answer grounded in TradeOS public evidence
+
+Optional paid marketplace LLM path:
+
+Your agent -> TradeOS AntSeed/x402 `tradeos-venice-raw-inference`
+           -> raw Venice model output, not TradeOS-grounded
+
+Your agent -> TradeOS AntSeed/x402 `tradeos-venice-intel-router`
+           -> TradeOS SKU routing + evidence packet + Venice explanation layer
 ```
+
+The hosted TradeOS Venice SKUs use `e2ee-glm-5-1` by default. Market them as
+privacy-enhanced Venice-backed inference. Do not claim TradeOS is blind to
+prompts or evidence packets in the hosted route; TradeOS still authenticates,
+meters, routes, and assembles evidence before forwarding to Venice.
 
 More detail: [Architecture](docs/architecture.md)
 

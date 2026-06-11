@@ -11,7 +11,7 @@ import type { BriefingConfig } from "./types.js";
 
 const DEFAULT_LLM_PROVIDER = "venice";
 const DEFAULT_VENICE_BASE_URL = "https://api.venice.ai/api/v1";
-const DEFAULT_VENICE_MODEL = "z-ai-glm-5-turbo";
+const DEFAULT_VENICE_MODEL = "e2ee-glm-5-1";
 
 async function main(argv: string[]): Promise<void> {
   const [command] = argv;
@@ -110,7 +110,7 @@ Environment:
   OPENAI_BASE_URL=https://api.venice.ai/api/v1
   VENICE_API_KEY=
   OPENAI_API_KEY=
-  TRADEOS_AGENT_MODEL=z-ai-glm-5-turbo
+  TRADEOS_AGENT_MODEL=e2ee-glm-5-1
 `;
 }
 
