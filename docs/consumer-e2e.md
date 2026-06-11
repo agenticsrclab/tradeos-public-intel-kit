@@ -11,7 +11,7 @@ LLM path, but the key was not printed or stored in the repository.
 
 ```text
 @tradeos/public-intel-sdk
-@tradeos/public-intel-mcp-server
+@agenticsrclab/tradeos-public-intel-mcp-server
 @tradeos/public-intel-agent-cli
 @tradeos/cockpit-core
 @tradeos/policy-core
@@ -79,7 +79,7 @@ https://mcp.tradeos.tech/public-intel
 The supported consumer MCP path today is local stdio MCP:
 
 ```bash
-npx @tradeos/public-intel-mcp-server
+npx @agenticsrclab/tradeos-public-intel-mcp-server
 ```
 
 The default Venice model is the privacy-enhanced upstream path used by the kit:

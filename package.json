@@ -25,7 +25,7 @@
     "build": "npm run build --workspaces",
     "test": "npm run test --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
-    "mcp": "npm --workspace @tradeos/public-intel-mcp-server run dev",
+    "mcp": "npm --workspace @agenticsrclab/tradeos-public-intel-mcp-server run dev",
     "cli": "npm --workspace @tradeos/public-intel-agent-cli run dev --",
     "briefing-bot": "npm --workspace @tradeos/market-briefing-bot run dev --",
     "symbol-cockpit": "npm --workspace @tradeos/symbol-cockpit run dev:api",

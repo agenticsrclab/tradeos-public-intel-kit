@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       publish_npm:
-        description: "Publish @tradeos/public-intel-mcp-server to npm before registry publish"
+        description: "Publish @agenticsrclab/tradeos-public-intel-mcp-server to npm before registry publish"
         required: true
         default: "false"
         type: choice
@@ -37,16 +37,16 @@ jobs:
         run: npm ci
 
       - name: Check registry metadata
-        run: npm --workspace @tradeos/public-intel-mcp-server run registry:check
+        run: npm --workspace @agenticsrclab/tradeos-public-intel-mcp-server run registry:check
 
       - name: Test MCP package
-        run: npm --workspace @tradeos/public-intel-mcp-server run test
+        run: npm --workspace @agenticsrclab/tradeos-public-intel-mcp-server run test
 
       - name: Build MCP package
-        run: npm --workspace @tradeos/public-intel-mcp-server run build
+        run: npm --workspace @agenticsrclab/tradeos-public-intel-mcp-server run build
 
       - name: Pack MCP package preview
-        run: npm --workspace @tradeos/public-intel-mcp-server pack --dry-run
+        run: npm --workspace @agenticsrclab/tradeos-public-intel-mcp-server pack --dry-run
 
       - name: Publish npm package
         if: github.event_name == 'push' || inputs.publish_npm == 'true'
@@ -58,7 +58,7 @@ jobs:
       - name: Verify npm package version is public
         run: |
           VERSION="$(node -p "require('./packages/mcp-server/package.json').version")"
-          npm view "@tradeos/public-intel-mcp-server@${VERSION}" version
+          npm view "@agenticsrclab/tradeos-public-intel-mcp-server@${VERSION}" version
 
       - name: Install mcp-publisher
         run: |

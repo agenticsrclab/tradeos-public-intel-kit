@@ -78,7 +78,7 @@ not create new channels, place trades, or bypass TradeOS channel consent.
 TRADEOS_API_BASE=https://api.tradeos.tech/v1/public-intel \
 TRADEOS_ACCOUNT_TOKEN=<optional account token for watchlist tools> \
 TRADEOS_PUBLIC_INTEL_KEY=<optional app key for attribution> \
-npm --workspace @tradeos/public-intel-mcp-server run dev
+npm --workspace @agenticsrclab/tradeos-public-intel-mcp-server run dev
 ```
 
 ## Hosted Remote MCP

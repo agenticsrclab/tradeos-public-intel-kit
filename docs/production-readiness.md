@@ -24,7 +24,7 @@ https://mcp.tradeos.tech/public-intel
 Until that bridge is deployed, the supported MCP path is local stdio:
 
 ```bash
-npx @tradeos/public-intel-mcp-server
+npx @agenticsrclab/tradeos-public-intel-mcp-server
 ```
 
 ## Service Durability

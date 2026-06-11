@@ -9,7 +9,7 @@ route premium depth through existing TradeOS paid boundaries.
 
 ```text
 Registry name: io.github.agenticsrclab/tradeos-public-intel-mcp
-Package: @tradeos/public-intel-mcp-server
+Package: @agenticsrclab/tradeos-public-intel-mcp-server
 Repository: https://github.com/agenticsrclab/tradeos-public-intel-kit
 Package path: packages/mcp-server
 Transport: stdio
@@ -45,9 +45,9 @@ The listing must not advertise:
 2. Run:
 
    ```bash
-   npm --workspace @tradeos/public-intel-mcp-server run registry:check
-   npm --workspace @tradeos/public-intel-mcp-server run test
-   npm --workspace @tradeos/public-intel-mcp-server run build
+   npm --workspace @agenticsrclab/tradeos-public-intel-mcp-server run registry:check
+   npm --workspace @agenticsrclab/tradeos-public-intel-mcp-server run test
+   npm --workspace @agenticsrclab/tradeos-public-intel-mcp-server run build
    ```
 
 3. Publish the package version to npm:
@@ -57,10 +57,10 @@ The listing must not advertise:
    npm publish --access public
    ```
 
-   The MCP Registry validates npm ownership through the package metadata. If
-   TradeOS does not control the `@tradeos` npm scope, update the package name
-   before the first publish and keep `server.json` `packages[0].identifier`
-   synchronized.
+   The MCP Registry validates npm ownership through the package metadata. The
+   npm artifact uses `@agenticsrclab` because that scope is controlled by the
+   public GitHub distribution org. Keep `server.json`
+   `packages[0].identifier` synchronized with `package.json` `name`.
 
 4. Validate, authenticate, and publish the registry metadata:
 
@@ -83,7 +83,7 @@ The public kit includes `.github/workflows/publish-mcp-registry.yml`.
 For automated release:
 
 1. Add repository secret `NPM_TOKEN` with permission to publish
-   `@tradeos/public-intel-mcp-server`.
+   `@agenticsrclab/tradeos-public-intel-mcp-server`.
 2. Confirm GitHub Actions has `id-token: write` permission available for OIDC.
 3. Push a tag shaped like:
 

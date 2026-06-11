@@ -391,7 +391,7 @@ Run the local stdio MCP server from this repo:
 
 ```bash
 TRADEOS_API_BASE=https://api.tradeos.tech/v1/public-intel \
-npm --workspace @tradeos/public-intel-mcp-server run dev
+npm --workspace @agenticsrclab/tradeos-public-intel-mcp-server run dev
 ```
 
 Claude Desktop package-style configuration:
@@ -401,7 +401,7 @@ Claude Desktop package-style configuration:
   "mcpServers": {
     "tradeos-public-intel": {
       "command": "npx",
-      "args": ["-y", "@tradeos/public-intel-mcp-server"],
+      "args": ["-y", "@agenticsrclab/tradeos-public-intel-mcp-server"],
       "env": {
         "TRADEOS_API_BASE": "https://api.tradeos.tech/v1/public-intel",
         "TRADEOS_PUBLIC_INTEL_KEY": "<optional-app-key>",

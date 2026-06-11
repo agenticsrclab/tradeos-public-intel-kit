@@ -27,7 +27,7 @@ jobs:
         run: npm run build --workspaces
 
       - name: Check MCP Registry metadata
-        run: npm --workspace @tradeos/public-intel-mcp-server run registry:check
+        run: npm --workspace @agenticsrclab/tradeos-public-intel-mcp-server run registry:check
 
       - name: Typecheck
         run: npm run typecheck --workspaces --if-present

@@ -1,5 +1,5 @@
 {
-  "name": "@tradeos/public-intel-mcp-server",
+  "name": "@agenticsrclab/tradeos-public-intel-mcp-server",
   "version": "0.1.0",
   "mcpName": "io.github.agenticsrclab/tradeos-public-intel-mcp",
   "description": "MCP server for TradeOS public intelligence.",

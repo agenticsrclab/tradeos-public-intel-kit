@@ -380,7 +380,7 @@ Claude Desktop example:
   "mcpServers": {
     "tradeos-public-intel": {
       "command": "npx",
-      "args": ["-y", "@tradeos/public-intel-mcp-server"],
+      "args": ["-y", "@agenticsrclab/tradeos-public-intel-mcp-server"],
       "env": {
         "TRADEOS_API_BASE": "https://api.tradeos.tech/v1/public-intel",
         "TRADEOS_PUBLIC_INTEL_KEY": "<tradeos-public-intel-key>",
