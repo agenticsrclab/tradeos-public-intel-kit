@@ -1,0 +1,47 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.agenticsrclab/tradeos-public-intel-mcp",
+  "title": "TradeOS Public Intelligence",
+  "description": "Source-backed crypto market intelligence, evidence, watchlists, and feedback tools.",
+  "repository": {
+    "url": "https://github.com/agenticsrclab/tradeos-public-intel-kit",
+    "source": "github",
+    "subfolder": "packages/mcp-server"
+  },
+  "version": "0.1.0",
+  "websiteUrl": "https://tradeos.tech",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@tradeos/public-intel-mcp-server",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "TRADEOS_API_BASE",
+          "description": "Optional TradeOS public intelligence API base URL.",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false,
+          "placeholder": "https://api.tradeos.tech/v1/public-intel"
+        },
+        {
+          "name": "TRADEOS_PUBLIC_INTEL_KEY",
+          "description": "Optional public-intel app key for attribution and quota confidence.",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": true
+        },
+        {
+          "name": "TRADEOS_ACCOUNT_TOKEN",
+          "description": "Optional account token for user-owned watchlist tools.",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

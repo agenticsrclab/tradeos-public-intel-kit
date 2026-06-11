@@ -423,6 +423,16 @@ is deployed.
 
 More detail: [MCP Tools](docs/mcp-tools.md)
 
+Official MCP Registry metadata is prepared for the existing public distribution
+namespace:
+
+```text
+io.github.agenticsrclab/tradeos-public-intel-mcp
+```
+
+The registry entry publishes the local stdio package first. Hosted remote MCP
+should be added only after `https://mcp.tradeos.tech/public-intel` is live.
+
 ### Use The TypeScript SDK
 
 Package install path after NPM publication, or when consuming a local tarball:

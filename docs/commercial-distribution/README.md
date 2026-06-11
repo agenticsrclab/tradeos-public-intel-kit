@@ -105,6 +105,7 @@ TradeOS/x402 or enterprise access instead of stretching public quota or DTI.
 | [Virtuals ACP](virtuals-acp-field-guide.md) | Agent-to-agent jobs, funded tasks, deliverables | ACP escrow/job lifecycle | Provider bridge receives funded jobs and returns TradeOS JSON deliverables. |
 | [AntSeed](antseed-field-guide.md) | AI Agent or OpenAI-compatible provider service | Provider pricing and USDC settlement | AntSeed calls a TradeOS read-only agent runtime. |
 | [x402 / Agentic.Market](x402-agentic-market-field-guide.md) | HTTP pay-per-call APIs and discoverable paid resources | HTTP 402, exact payment, facilitator verification | x402 gateway protects fixed-price intelligence endpoints. |
+| [Official MCP Registry](mcp-registry-field-guide.md) | Agent-host discovery for local MCP tools | Metadata registry; paid access remains x402/API entitlement | Public MCP package exposes bounded reads and feedback, then points premium workflows to paid TradeOS boundaries. |
 
 ## Shared Architecture
 
@@ -155,8 +156,10 @@ Public docs must not include:
 2. [x402 / Agentic.Market Field Guide](x402-agentic-market-field-guide.md)
 3. [Virtuals ACP Field Guide](virtuals-acp-field-guide.md)
 4. [AntSeed Field Guide](antseed-field-guide.md)
+5. [Official MCP Registry Field Guide](mcp-registry-field-guide.md)
 
 Start with x402 when the product is a simple paid HTTP endpoint. Use Virtuals
 ACP when a buyer agent needs to hire the service as a job with escrow and a
 deliverable. Use AntSeed when the product should appear as an AI Agent or
-OpenAI-compatible provider.
+OpenAI-compatible provider. Use the Official MCP Registry when the goal is
+agent-host discovery of a local MCP adapter, not marketplace payment.

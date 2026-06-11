@@ -1,9 +1,24 @@
 {
   "name": "@tradeos/public-intel-mcp-server",
   "version": "0.1.0",
+  "mcpName": "io.github.agenticsrclab/tradeos-public-intel-mcp",
   "description": "MCP server for TradeOS public intelligence.",
   "license": "Apache-2.0",
   "type": "module",
+  "homepage": "https://tradeos.tech",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agenticsrclab/tradeos-public-intel-kit.git",
+    "directory": "packages/mcp-server"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "tradeos",
+    "crypto",
+    "market-intelligence",
+    "public-intelligence"
+  ],
   "bin": {
     "tradeos-public-intel-mcp": "dist/index.js"
   },
@@ -16,6 +31,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsx src/index.ts",
+    "registry:check": "node scripts/check-registry-metadata.mjs",
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },

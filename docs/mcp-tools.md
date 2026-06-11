@@ -3,6 +3,26 @@
 The MCP server is read-mostly. Write tools are limited to feedback and
 account-authorized watchlist operations.
 
+## Official Registry Identity
+
+TradeOS publishes the public-intel MCP package under the existing public kit
+GitHub namespace:
+
+```text
+io.github.agenticsrclab/tradeos-public-intel-mcp
+```
+
+The package-level registry metadata lives in:
+
+```text
+packages/mcp-server/package.json
+packages/mcp-server/server.json
+```
+
+The registry entry should publish the local stdio package first. Do not add the
+hosted remote MCP URL to `server.json` until `https://mcp.tradeos.tech/public-intel`
+is live and smoke-tested.
+
 ## Read Tools
 
 ```text

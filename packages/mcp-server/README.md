@@ -2,6 +2,12 @@
 
 Read-mostly MCP server for the TradeOS public Data Intelligence layer.
 
+Official MCP Registry name:
+
+```text
+io.github.agenticsrclab/tradeos-public-intel-mcp
+```
+
 ```bash
 TRADEOS_API_BASE=https://api.tradeos.tech/v1/public-intel \
 TRADEOS_ACCOUNT_TOKEN=<optional-account-token-for-watchlist-tools> \
@@ -78,3 +84,36 @@ Public docs: https://tradeos.tech/llms.txt
 Key setup: https://github.com/agenticsrclab/tradeos-public-intel-kit/blob/main/docs/getting-api-keys-and-scale.md
 x402 discovery: https://tradeos.tech/.well-known/x402.json
 ```
+
+## Official MCP Registry Publishing
+
+The registry metadata is in `server.json`. The package `mcpName` in
+`package.json` must stay equal to `server.json.name`.
+
+Local metadata check:
+
+```bash
+npm --workspace @tradeos/public-intel-mcp-server run registry:check
+```
+
+Publish prerequisites:
+
+```text
+GitHub namespace: io.github.agenticsrclab/*
+NPM package: @tradeos/public-intel-mcp-server
+MCP registry name: io.github.agenticsrclab/tradeos-public-intel-mcp
+```
+
+Manual publish from this directory after the npm package version is public:
+
+```bash
+mcp-publisher validate
+mcp-publisher login github
+mcp-publisher publish
+```
+
+CI publish uses `.github/workflows/publish-mcp-registry.yml` and GitHub OIDC for
+the MCP Registry. The workflow still needs an `NPM_TOKEN` repository secret when
+it is also publishing the npm package version. If the `@tradeos` npm scope is
+not controlled by TradeOS, choose and update the npm package scope before the
+first public registry publish.

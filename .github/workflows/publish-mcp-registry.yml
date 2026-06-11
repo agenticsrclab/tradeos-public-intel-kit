@@ -1,0 +1,78 @@
+name: Publish MCP Registry
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish_npm:
+        description: "Publish @tradeos/public-intel-mcp-server to npm before registry publish"
+        required: true
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+  push:
+    tags:
+      - "mcp-public-intel-v*"
+
+jobs:
+  publish:
+    name: Publish public-intel MCP
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install
+        run: npm ci
+
+      - name: Check registry metadata
+        run: npm --workspace @tradeos/public-intel-mcp-server run registry:check
+
+      - name: Test MCP package
+        run: npm --workspace @tradeos/public-intel-mcp-server run test
+
+      - name: Build MCP package
+        run: npm --workspace @tradeos/public-intel-mcp-server run build
+
+      - name: Pack MCP package preview
+        run: npm --workspace @tradeos/public-intel-mcp-server pack --dry-run
+
+      - name: Publish npm package
+        if: github.event_name == 'push' || inputs.publish_npm == 'true'
+        working-directory: packages/mcp-server
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Verify npm package version is public
+        run: |
+          VERSION="$(node -p "require('./packages/mcp-server/package.json').version")"
+          npm view "@tradeos/public-intel-mcp-server@${VERSION}" version
+
+      - name: Install mcp-publisher
+        run: |
+          curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz -C "$RUNNER_TEMP" mcp-publisher
+          "$RUNNER_TEMP/mcp-publisher" --help
+
+      - name: Validate server metadata
+        working-directory: packages/mcp-server
+        run: "$RUNNER_TEMP/mcp-publisher" validate
+
+      - name: Authenticate to MCP Registry
+        working-directory: packages/mcp-server
+        run: "$RUNNER_TEMP/mcp-publisher" login github-oidc
+
+      - name: Publish server metadata
+        working-directory: packages/mcp-server
+        run: "$RUNNER_TEMP/mcp-publisher" publish
