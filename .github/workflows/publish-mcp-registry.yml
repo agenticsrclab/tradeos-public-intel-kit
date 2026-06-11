@@ -67,12 +67,15 @@ jobs:
 
       - name: Validate server metadata
         working-directory: packages/mcp-server
-        run: "$RUNNER_TEMP/mcp-publisher" validate
+        run: |
+          "$RUNNER_TEMP/mcp-publisher" validate
 
       - name: Authenticate to MCP Registry
         working-directory: packages/mcp-server
-        run: "$RUNNER_TEMP/mcp-publisher" login github-oidc
+        run: |
+          "$RUNNER_TEMP/mcp-publisher" login github-oidc
 
       - name: Publish server metadata
         working-directory: packages/mcp-server
-        run: "$RUNNER_TEMP/mcp-publisher" publish
+        run: |
+          "$RUNNER_TEMP/mcp-publisher" publish
