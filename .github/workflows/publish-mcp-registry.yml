@@ -39,6 +39,9 @@ jobs:
       - name: Check registry metadata
         run: npm --workspace @agenticsrclab/tradeos-public-intel-mcp-server run registry:check
 
+      - name: Build MCP workspace dependencies
+        run: npm --workspace @agenticsrclab/tradeos-public-intel-mcp-server run build:deps
+
       - name: Test MCP package
         run: npm --workspace @agenticsrclab/tradeos-public-intel-mcp-server run test
 
