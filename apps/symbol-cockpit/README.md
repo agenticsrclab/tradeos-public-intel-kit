@@ -70,6 +70,23 @@ Headless UI/API integration tests:
 npm --workspace @tradeos/symbol-cockpit run e2e:headless
 ```
 
+Source Intelligence Network UX conformance:
+
+```bash
+npm --workspace @tradeos/symbol-cockpit run check:source-ui
+```
+
+The GUI is a React/Vite sdk-native Source UI uptake. It loads shared Source UI
+CSS from `/source-ui/source-ui.css`, bundles Fontsource assets, and uses the
+Source UI React adapter/contracts from the sibling `source-int-network-standard`
+package. The headless E2E suite also refreshes provider-review screenshots and
+runs axe accessibility checks for cockpit, admin, and feedback surfaces. See
+[`docs/source-ui-uptake.md`](docs/source-ui-uptake.md).
+
+If `source-int-network-standard` is not checked out next to this repository,
+set `SOURCE_UI_STANDARD_PATH=/path/to/source-int-network-standard` before
+running Source UI conformance, build, dev, or E2E commands.
+
 Operator review email alerts are opt-in and reuse the shared TradeOS SMTP
 settings:
 

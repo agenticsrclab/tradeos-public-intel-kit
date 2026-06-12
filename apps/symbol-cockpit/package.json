@@ -12,16 +12,21 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "npm run build:api && npm run build:web",
+    "build:api": "tsc -p tsconfig.json",
+    "build:web": "vite build",
+    "check:source-ui": "node scripts/check-source-ui.mjs",
     "dev:api": "tsx src/api/server.ts",
-    "dev:web": "tsx src/api/static-server.ts",
-    "e2e:headless": "playwright test -c playwright.config.ts",
+    "dev:web": "npm run build:web && tsx src/api/static-server.ts",
+    "e2e:headless": "npm run build:web && playwright test -c playwright.config.ts",
     "e2e:live": "node scripts/live-e2e.mjs",
     "worker": "tsx src/worker/index.ts",
-    "test": "vitest run test",
+    "test": "vitest run --root . test",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@fontsource/ibm-plex-sans": "^5.2.8",
+    "@fontsource/jetbrains-mono": "^5.2.8",
     "@tradeos/action-intent": "0.1.0",
     "@tradeos/cockpit-core": "0.1.0",
     "@tradeos/module-ea-risk": "0.1.0",
@@ -31,10 +36,18 @@
     "@tradeos/module-ops-dashboard": "0.1.0",
     "@tradeos/policy-core": "0.1.0",
     "@tradeos/public-intel-sdk": "0.1.0",
-    "@tradeos/tradeos-connectors": "0.1.0"
+    "@tradeos/tradeos-connectors": "0.1.0",
+    "lucide-react": "^0.263.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.3",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^4.7.0",
     "tsx": "^4.22.4",
+    "vite": "^6.4.3",
     "vitest": "^4.1.8"
   }
 }

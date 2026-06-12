@@ -29,7 +29,8 @@
     "cli": "npm --workspace @tradeos/public-intel-agent-cli run dev --",
     "briefing-bot": "npm --workspace @tradeos/market-briefing-bot run dev --",
     "symbol-cockpit": "npm --workspace @tradeos/symbol-cockpit run dev:api",
-    "symbol-cockpit:e2e": "npm --workspace @tradeos/symbol-cockpit run e2e:headless"
+    "symbol-cockpit:e2e": "npm --workspace @tradeos/symbol-cockpit run e2e:headless",
+    "symbol-cockpit:source-ui": "npm --workspace @tradeos/symbol-cockpit run check:source-ui"
   },
   "devDependencies": {
     "@playwright/test": "^1.60.0",

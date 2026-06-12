@@ -1,0 +1,127 @@
+{
+  "schema_version": "source.ui.conformance.v1",
+  "app_id": "tradeos-symbol-cockpit",
+  "sdk_name": "@agenticsrclab/source-ui",
+  "sdk_version": "0.1.0",
+  "conformance_level": "sdk_native",
+  "token_schema_version": "source-ui.tokens.v1",
+  "token_namespace": "tradeos.css-vars.v1",
+  "theme_storage_key": "tradeos.theme",
+  "theme_default": "dark",
+  "theme_preferences": ["dark", "light", "system"],
+  "font_delivery": "package_managed_fontsource",
+  "visual_conformance_status": "pass",
+  "checked_at": "2026-06-12T05:30:00.000Z",
+  "routes": ["/", "/feedback", "/#admin"],
+  "screenshots": [
+    {
+      "route": "/",
+      "theme": "dark",
+      "viewport": "desktop",
+      "path": "conformance/screenshots/desktop-dark-cockpit.png"
+    },
+    {
+      "route": "/#admin",
+      "theme": "light",
+      "viewport": "desktop",
+      "path": "conformance/screenshots/desktop-light-admin.png"
+    },
+    {
+      "route": "/feedback",
+      "theme": "dark",
+      "viewport": "desktop",
+      "path": "conformance/screenshots/desktop-dark-feedback.png"
+    },
+    {
+      "route": "/",
+      "theme": "dark",
+      "viewport": "mobile",
+      "path": "conformance/screenshots/mobile-dark-cockpit.png"
+    },
+    {
+      "route": "/#admin",
+      "theme": "light",
+      "viewport": "mobile",
+      "path": "conformance/screenshots/mobile-light-admin.png"
+    },
+    {
+      "route": "/feedback",
+      "theme": "dark",
+      "viewport": "mobile",
+      "path": "conformance/screenshots/mobile-dark-feedback.png"
+    }
+  ],
+  "checks": [
+    {
+      "id": "source-ui-stylesheet",
+      "status": "pass",
+      "detail": "The cockpit and feedback page load /source-ui/source-ui.css before local application CSS."
+    },
+    {
+      "id": "tradeos-token-namespace",
+      "status": "pass",
+      "detail": "The GUI uses tradeos.css-vars.v1 via the Source UI stylesheet and local compatibility aliases."
+    },
+    {
+      "id": "theme-contract",
+      "status": "pass",
+      "detail": "The GUI uses tradeos.theme, dark default, and Source UI React theme runtime."
+    },
+    {
+      "id": "font-delivery",
+      "status": "pass",
+      "detail": "Uses package-managed Fontsource assets bundled by Vite."
+    },
+    {
+      "id": "platform-pulse",
+      "status": "pass",
+      "detail": "The header renders a Source Intelligence UX pulse strip and exposes platform pulse metadata on window.__SOURCE_PLATFORM_PULSE__."
+    },
+    {
+      "id": "evidence-feedback-boundary",
+      "status": "pass",
+      "detail": "Recommendation cards and /feedback keep feedback attached to packet targets while local keys, approvals, and execution state remain operator-controlled."
+    },
+    {
+      "id": "operator-boundary",
+      "status": "pass",
+      "detail": "The hero, footer, manifest, and admin view state the self-hosted operator execution boundary."
+    },
+    {
+      "id": "visual-screenshots",
+      "status": "pass",
+      "detail": "Canonical provider-review screenshots are generated and committed for cockpit, admin, and feedback surfaces on desktop and mobile."
+    },
+    {
+      "id": "accessibility-smoke",
+      "status": "pass",
+      "detail": "The Playwright suite runs axe WCAG 2 A/AA, WCAG 2.1 A/AA, and best-practice checks on cockpit, admin, and feedback surfaces."
+    },
+    {
+      "id": "no-horizontal-overflow",
+      "status": "pass",
+      "detail": "The Symbol Cockpit Playwright suite checks document horizontal overflow on desktop and mobile."
+    },
+    {
+      "id": "no-text-overlap",
+      "status": "warning",
+      "detail": "The GUI uses bounded grids and wrapping standard badges; manual screenshot review is still required before marking this pass."
+    },
+    {
+      "id": "tradeos-reference-uptake",
+      "status": "pass",
+      "detail": "Admin & Ops renders a trial matrix that maps Source UI standards to TradeOS dashboard anchors and cockpit surfaces."
+    },
+    {
+      "id": "framework-neutral-sdk",
+      "status": "pass",
+      "detail": "The React/Vite cockpit still consumes the same Source UI CSS, contracts, theme, and conformance artifacts."
+    },
+    {
+      "id": "react-adapter-coverage",
+      "status": "pass",
+      "detail": "The cockpit uses the Source UI React adapter for theme, proof, conformance, status-list, service-list, event-list, and trial-matrix primitives."
+    }
+  ],
+  "exception_adr_url": null
+}

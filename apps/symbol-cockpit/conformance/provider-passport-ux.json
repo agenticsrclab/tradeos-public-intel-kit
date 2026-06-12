@@ -1,0 +1,18 @@
+{
+  "schema_version": "source.provider_passport.ux.v1",
+  "provider_id": "tradeos-symbol-cockpit",
+  "surface_url": "/",
+  "ux_sdk_name": "@agenticsrclab/source-ui",
+  "ux_sdk_version": "0.1.0",
+  "ux_conformance_level": "sdk_native",
+  "token_schema_version": "source-ui.tokens.v1",
+  "token_namespace": "tradeos.css-vars.v1",
+  "theme_storage_key": "tradeos.theme",
+  "theme_default": "dark",
+  "theme_preferences": ["dark", "light", "system"],
+  "font_delivery": "package_managed_fontsource",
+  "visual_conformance_status": "pass",
+  "visual_conformance_checked_at": "2026-06-12T05:30:00.000Z",
+  "ux_conformance_report_url": "/conformance/ux-conformance.json",
+  "exception_adr_url": null
+}

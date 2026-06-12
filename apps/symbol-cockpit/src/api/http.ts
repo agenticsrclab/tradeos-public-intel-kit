@@ -11,7 +11,15 @@ export interface ApiServerOptions {
   serveWeb?: boolean;
 }
 
-const WEB_ROOT = process.env.COCKPIT_WEB_ROOT ?? join(process.cwd(), "src", "web");
+const WEB_ROOT = process.env.COCKPIT_WEB_ROOT ?? join(process.cwd(), "dist", "web");
+const CONFORMANCE_ROOT = process.env.COCKPIT_CONFORMANCE_ROOT ?? join(WEB_ROOT, "..", "..", "conformance");
+const SOURCE_UI_ROOTS = [
+  process.env.SOURCE_UI_ROOT,
+  process.env.SOURCE_UI_STANDARD_PATH ? join(process.env.SOURCE_UI_STANDARD_PATH, "packages", "source-ui", "src") : undefined,
+  join(process.cwd(), "..", "source-int-network-standard", "packages", "source-ui", "src"),
+  join(process.cwd(), "..", "..", "source-int-network-standard", "packages", "source-ui", "src"),
+  join(process.cwd(), "..", "..", "..", "source-int-network-standard", "packages", "source-ui", "src"),
+].filter((value): value is string => Boolean(value));
 
 export function createApiServer(options: ApiServerOptions = {}) {
   const runtime = options.runtime ?? createRuntime();
@@ -33,6 +41,14 @@ export function createApiServer(options: ApiServerOptions = {}) {
         return;
       }
       if (options.serveWeb ?? true) {
+        if (url.pathname.startsWith("/source-ui/")) {
+          await serveSourceUiStatic(res, url.pathname);
+          return;
+        }
+        if (url.pathname.startsWith("/conformance/")) {
+          await serveConformanceStatic(res, url.pathname);
+          return;
+        }
         await serveStatic(res, url.pathname);
         return;
       }
@@ -102,9 +118,49 @@ async function readJson(req: IncomingMessage): Promise<unknown> {
   return raw ? JSON.parse(raw) : {};
 }
 
+async function serveSourceUiStatic(res: ServerResponse, pathname: string): Promise<void> {
+  const requested = pathname.slice("/source-ui/".length) || "source-ui.css";
+  const safePath = normalize(requested).replace(/^(\.\.[/\\])+/, "");
+  if (safePath.startsWith("..") || safePath.includes("/..") || safePath.includes("\\..")) {
+    sendText(res, 400, "bad source-ui path");
+    return;
+  }
+
+  for (const root of SOURCE_UI_ROOTS) {
+    const filePath = join(root, safePath);
+    try {
+      const body = await readFile(filePath);
+      res.writeHead(200, { "content-type": contentType(filePath) });
+      res.end(body);
+      return;
+    } catch {
+      // Try the next candidate root. This keeps tests portable across workspace cwd choices.
+    }
+  }
+
+  sendText(res, 404, "source-ui asset not found");
+}
+
+async function serveConformanceStatic(res: ServerResponse, pathname: string): Promise<void> {
+  const requested = pathname.slice("/conformance/".length);
+  const safePath = normalize(requested).replace(/^(\.\.[/\\])+/, "");
+  if (!safePath || safePath.startsWith("..") || safePath.includes("/..") || safePath.includes("\\..")) {
+    sendText(res, 400, "bad conformance path");
+    return;
+  }
+
+  const filePath = join(CONFORMANCE_ROOT, safePath);
+  try {
+    const body = await readFile(filePath);
+    res.writeHead(200, { "content-type": contentType(filePath) });
+    res.end(body);
+  } catch {
+    sendText(res, 404, "conformance asset not found");
+  }
+}
+
 async function serveStatic(res: ServerResponse, pathname: string): Promise<void> {
-  const resolvedPath = pathname === "/feedback" ? "/feedback.html" : pathname;
-  const safePath = normalize(resolvedPath === "/" ? "/index.html" : resolvedPath).replace(/^(\.\.[/\\])+/, "");
+  const safePath = normalize(pathname === "/" ? "/index.html" : pathname).replace(/^(\.\.[/\\])+/, "");
   const filePath = join(WEB_ROOT, safePath);
   try {
     const body = await readFile(filePath);
@@ -126,9 +182,24 @@ function contentType(pathname: string): string {
       return "text/javascript; charset=utf-8";
     case ".json":
       return "application/json; charset=utf-8";
+    case ".woff2":
+      return "font/woff2";
+    case ".woff":
+      return "font/woff";
+    case ".ttf":
+      return "font/ttf";
+    case ".svg":
+      return "image/svg+xml";
+    case ".map":
+      return "application/json; charset=utf-8";
     default:
       return "text/html; charset=utf-8";
   }
+}
+
+function sendText(res: ServerResponse, status: number, payload: string): void {
+  res.writeHead(status, { "content-type": "text/plain; charset=utf-8" });
+  res.end(payload);
 }
 
 function sendJson(res: ServerResponse, status: number, payload: unknown): void {

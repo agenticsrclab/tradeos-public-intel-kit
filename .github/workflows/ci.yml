@@ -10,6 +10,8 @@ jobs:
   node:
     name: Node workspaces
     runs-on: ubuntu-latest
+    env:
+      SOURCE_UI_STANDARD_PATH: ../source-int-network-standard
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,6 +25,20 @@ jobs:
       - name: Install
         run: npm ci
 
+      - name: Verify Source UI Standard
+        run: |
+          test -d "$SOURCE_UI_STANDARD_PATH/packages/source-ui/src" || {
+            echo "Source UI standard checkout is required at SOURCE_UI_STANDARD_PATH for Symbol Cockpit sdk-native gates."
+            echo "Set SOURCE_UI_STANDARD_PATH or checkout source-int-network-standard next to this repository."
+            exit 1
+          }
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Symbol Cockpit Source UI Conformance
+        run: npm run symbol-cockpit:source-ui
+
       - name: Build
         run: npm run build --workspaces
 
@@ -34,6 +50,9 @@ jobs:
 
       - name: Test
         run: npm run test --workspaces --if-present
+
+      - name: Symbol Cockpit E2E
+        run: npm run symbol-cockpit:e2e
 
   python:
     name: Python SDK
