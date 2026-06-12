@@ -6,18 +6,29 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
   node:
     name: Node workspaces
     runs-on: ubuntu-latest
     env:
-      SOURCE_UI_STANDARD_PATH: ../source-int-network-standard
+      SOURCE_UI_STANDARD_PATH: ${{ github.workspace }}/source-int-network-standard
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+
+      - name: Checkout Source UI Standard
+        uses: actions/checkout@v6
+        with:
+          repository: agenticsrclab/source-int-network-standard
+          path: source-int-network-standard
+          # Private standard repos require this secret to have read access.
+          token: ${{ secrets.SOURCE_UI_STANDARD_TOKEN || github.token }}
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: "20"
           cache: npm
@@ -29,7 +40,7 @@ jobs:
         run: |
           test -d "$SOURCE_UI_STANDARD_PATH/packages/source-ui/src" || {
             echo "Source UI standard checkout is required at SOURCE_UI_STANDARD_PATH for Symbol Cockpit sdk-native gates."
-            echo "Set SOURCE_UI_STANDARD_PATH or checkout source-int-network-standard next to this repository."
+            echo "If agenticsrclab/source-int-network-standard is private, set SOURCE_UI_STANDARD_TOKEN with read access."
             exit 1
           }
 
@@ -59,10 +70,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
@@ -77,7 +88,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Check for local paths and secrets
         run: |
